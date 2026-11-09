@@ -1,0 +1,193 @@
+[mindreia@kuma2 ~]$ salloc --account=cs471 --partition=h100 --nodes=1 --ntasks=1 --cpus-per-task=16 --gres=gpu:1 --time=01:00:00
+salloc: [ESTIMATION] The estimated cost of this job is CHF 0.00
+salloc: ╭──────────────────────────────┬─────────────┬─────────────┬─────────────╮
+salloc: │ [in CHF]                     │ Capping     │ Consumed    │ Queued ¹⁾ ²⁾│
+salloc: ├──────────────────────────────┼─────────────┼─────────────┼─────────────┤
+salloc: │ account : cs471              │ 0           │ 0.0         │ 0.0         │
+salloc: ├──────────────────────────────┼─────────────┼─────────────┼─────────────┤
+salloc: │ username : mindreia          │ 0           │ 0.0         │ 0.0         │
+salloc: ╰──────────────────────────────┴─────────────┴─────────────┴─────────────╯
+salloc: ¹⁾ Estimated cost of the queued jobs and this job
+salloc: ²⁾ Queued jobs costs are based on its walltime (option --time)
+salloc: Pending job allocation 4871098
+salloc: job 4871098 queued and waiting for resources
+salloc: job 4871098 has been allocated resources
+salloc: Granted job allocation 4871098
+salloc: Waiting for resource configuration
+salloc: Nodes kh060 are ready for job
+[mindreia@kuma2 ~]$ srun --pty bash
+module load gcc cmake cuda
+cd /scratch/mindreia/qwen-bench/llama.cpp
+./build/bin/llama-bench --list-devices
+[mindreia@kh060 ~]$ ls -lh /scratch/mindreia/qwen-bench/models/
+ls: cannot access '/scratch/mindreia/qwen-bench/models/': No such file or directory
+[mindreia@kh060 ~]$ module load gcc cmake cuda
+cd /scratch/mindreia/qwen-bench
+
+./llama.cpp/build/bin/llama-bench --list-devices
+
+mkdir -p models results
+
+curl -L --fail --retry 3 \
+  -o models/Qwen3.8-27B-Q4_0.gguf \
+  'https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/Qwen3.8-27B-Q4_0.gguf'
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 95350 MiB):
+  Device 0: NVIDIA H100, compute capability 9.0, VMM: yes, VRAM: 95350 MiB
+Available devices:
+  CUDA0: NVIDIA H100 (95350 MiB, 94823 MiB free)
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1060  100  1060    0     0   6928      0 --:--:-- --:--:-- --:--:--  6928
+100 14.9G  100 14.9G    0     0  94.4M      0  0:02:42  0:02:42 --:--:-- 70.3M
+[mindreia@kh060 qwen-bench]$ ./llama.cpp/build/bin/llama-bench \
+  -m models/Qwen3.8-27B-Q4_0.gguf \
+  -ngl 999 \
+  -t 16 \
+  -p 512 \
+  -n 128 \
+  -b 512 \
+  -ub 512 \
+  -fa on \
+  -r 5 \
+  2> results/baseline.log | tee results/baseline.txt
+| model                          |       size |     params | backend    | ngl | threads | n_batch |  fa |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | ------: | ------: | --: | --------------: | -------------------: |
+| qwen35 27B Q4_0                |  14.94 GiB |    27.32 B | CUDA       | 999 |      16 |     512 |   1 |           pp512 |      3113.24 ± 47.11 |
+| qwen35 27B Q4_0                |  14.94 GiB |    27.32 B | CUDA       | 999 |      16 |     512 |   1 |           tg128 |         84.43 ± 0.05 |
+
+build: a4d4f2fd4 (12230)
+[mindreia@kh060 qwen-bench]$ command -v nsys
+/ssoft/spack/pinot-noir/kuma-h100/v2/spack/opt/spack/linux-rhel9-zen4/gcc-13.2.0/cuda-12.4.1-4h4wdshlayz4fomm4m5z2euvtjuhyoyy/bin/nsys
+[mindreia@kh060 qwen-bench]$ nsys profile \
+  --trace=cuda,nvtx \
+  --sample=none \
+  --cpuctxsw=none \
+  --cuda-graph-trace=node \
+  -o results/prefill \
+  ./llama.cpp/build/bin/llama-bench \
+    -m models/Qwen3.8-27B-Q4_0.gguf \
+    -ngl 999 -t 16 \
+    -p 512 -n 0 \
+    -b 512 -ub 512 \
+    -fa on -r 3
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 95350 MiB):
+  Device 0: NVIDIA H100, compute capability 9.0, VMM: yes, VRAM: 95350 MiB
+| model                          |       size |     params | backend    | ngl | threads | n_batch |  fa |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | ------: | ------: | --: | --------------: | -------------------: |
+| qwen35 27B Q4_0                |  14.94 GiB |    27.32 B | CUDA       | 999 |      16 |     512 |   1 |           pp512 |      3068.41 ± 75.19 |
+
+build: a4d4f2fd4 (12230)
+Generating '/tmp/4871098/nsys-report-7344.qdstrm'
+[1/1] [========================100%] prefill.nsys-rep
+Generated:
+    /scratch/mindreia/qwen-bench/results/prefill.nsys-rep
+[mindreia@kh060 qwen-bench]$ nsys stats \
+  --report cuda_gpu_kern_sum \
+  results/prefill.nsys-rep \
+  | tee results/prefill-kernels.txt
+Generating SQLite file results/prefill.sqlite from results/prefill.nsys-rep
+Processing [results/prefill.sqlite] with [/ssoft/spack/pinot-noir/kuma-h100/v2/spack/opt/spack/linux-rhel9-zen4/gcc-13.2.0/cuda-12.4.1-4h4wdshlayz4fomm4m5z2euvtjuhyoyy/nsight-systems-2023.4.4/host-linux-x64/reports/cuda_gpu_kern_sum.py]... 
+
+ ** CUDA GPU Kernel Summary (cuda_gpu_kern_sum):
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)                                                  Name                                                
+ --------  ---------------  ---------  ---------  ---------  --------  --------  -----------  ----------------------------------------------------------------------------------------------------
+     64.1      418,978,815      1,364  307,169.2  417,646.0    31,200   442,335    137,913.9  void mul_mat_q<(ggml_type)2, (int)128, (bool)0, (ggml_prec)30, (bool)0>(const char *, const char *,…
+     10.4       67,869,216        192  353,485.5  352,158.0   348,544   365,374      3,819.9  void gated_delta_net_cuda<(int)128, (bool)0, (bool)0, (int)4>(const float *, const float *, const f…
+      6.0       39,412,671        192  205,274.3  204,399.0   193,984   222,624      5,210.1  void mul_mat_q<(ggml_type)13, (int)128, (bool)0, (ggml_prec)30, (bool)0>(const char *, const char *…
+      3.3       21,799,694      1,300   16,769.0   18,175.0     9,695    19,967      2,784.1  void mul_mat_q_stream_k_fixup<(ggml_type)2, (int)128, (bool)0, (ggml_prec)30>(const int *, const gg…
+      2.7       17,549,645        444   39,526.2   56,735.0    16,384    57,663     19,977.5  void unary_gated_op_kernel<&op_silu, float>(const T2 *, const T2 *, T2 *, long, long, long, long)   
+      2.4       15,962,553         32  498,829.8  494,654.5   485,887   522,207     10,567.8  void mul_mat_q<(ggml_type)3, (int)128, (bool)0, (ggml_prec)30, (bool)0>(const char *, const char *,…
+      2.2       14,092,443      1,588    8,874.3    6,799.5     5,312    20,576      4,798.2  void quantize_mmq_q8_1<(mmq_q8_1_ds_layout)1, (bool)0>(const float *, const int *, void *, long, lo…
+      1.1        7,175,405        192   37,371.9   37,279.0    36,639    38,527        365.7  void concat_non_cont<unsigned int, (int)0>(const char *, const char *, char *, long, long, long, lo…
+      1.0        6,853,646        700    9,790.9   13,215.0       703    13,728      5,515.3  void k_bin_bcast<&op_add, float, float, float, const float *>(const T2 *, const T3 *, T4 *, unsigne…
+      0.9        5,889,012        192   30,671.9   30,624.0    30,528    31,040        108.2  void rms_norm_f32<(int)32, (int)1, (bool)1, (bool)1, (bool)0, (bool)0>(const float *, float *, int,…
+      0.7        4,583,478        192   23,872.3   23,711.0    23,007    25,215        507.3  void ssm_conv_long_token_f32<(bool)1, (unsigned long)128, (unsigned long)4, (long)32>(const float *…
+      0.6        4,189,756        384   10,910.8   10,911.0    10,527    11,328        107.7  void rms_norm_f32<(int)32, (int)1, (bool)1, (bool)0, (bool)0, (bool)1>(const float *, float *, int,…
+      0.6        4,069,364        256   15,896.0    1,055.0       896    60,511     25,593.3  void cpy_scalar<&cpy_1_scalar<float, float>>(const char *, char *, long, long, long, long, long, lo…
+      0.6        4,031,693        516    7,813.4    8,288.0       607    15,008      1,195.3  void rms_norm_f32<(int)1024, (int)4, (bool)1, (bool)1, (bool)0, (bool)0>(const float *, float *, in…
+      0.5        3,386,496         64   52,914.0   53,470.5    48,767    58,943      2,330.3  void flash_attn_ext_f16<(int)256, (int)256, (int)8, (int)8, (bool)0, (bool)0, (bool)0>(const char *…
+      0.5        3,311,191        384    8,622.9    8,688.0     6,272    11,552      2,108.7  void cutlass::Kernel2<cutlass_80_tensorop_s1688gemm_64x64_32x6_tn_align4>(T1::Params)               
+      0.4        2,935,837        192   15,290.8   15,263.0    13,727    16,864        567.7  void mul_mat_q_stream_k_fixup<(ggml_type)13, (int)128, (bool)0, (ggml_prec)30>(const int *, const g…
+      0.3        2,000,924          4  500,231.0  499,663.0   499,167   502,431      1,488.0  void mul_mat_vec_q<(ggml_type)14, (int)1, (bool)0, (bool)0, (bool)0>(const void *, const void *, co…
+      0.2        1,493,324        384    3,888.9    4,160.0       799     7,263      2,614.7  void scale_f32<float>(const T1 *, T1 *, float, float, unsigned int, uint3, uint3, uint3, unsigned i…
+      0.2        1,189,795        128    9,295.3    9,727.5     1,887    16,768      6,792.2  void rms_norm_f32<(int)128, (int)1, (bool)1, (bool)1, (bool)0, (bool)0>(const float *, float *, int…
+      0.2        1,026,976         64   16,046.5   15,872.0    15,743    16,768        322.0  void unary_gated_op_kernel<&op_sigmoid, float>(const T2 *, const T2 *, T2 *, long, long, long, long)
+      0.1          877,237        200    4,386.2    4,448.0       639     5,440        811.2  void k_get_rows_float<float, float>(const T1 *, const int *, T2 *, long, long, uint3, unsigned long…
+      0.1          764,509         64   11,945.5   11,760.0    11,360    13,024        464.9  void rope_multi<(bool)1, (bool)0, float, float>(const T3 *, T4 *, int, int, int, int, int, int, int…
+      0.1          703,714        384    1,832.6    1,695.0     1,631     2,463        244.3  void cublasLt::splitKreduce_kernel<(int)32, (int)16, int, float, float, float, float, (bool)1, (boo…
+      0.1          630,779        192    3,285.3    3,200.0     3,008     3,776        209.8  void k_get_rows_float_vec<float>(const T1 *, const int *, T1 *, long, long, uint3, unsigned long, u…
+      0.1          554,591         32   17,331.0   17,183.0    16,895    18,719        405.8  void mul_mat_q_stream_k_fixup<(ggml_type)3, (int)128, (bool)0, (ggml_prec)30>(const int *, const gg…
+      0.1          518,848        192    2,702.3    2,688.0     2,176     3,552        134.8  void k_bin_bcast<&op_mul, float, float, float, const float *>(const T2 *, const T3 *, T4 *, unsigne…
+      0.1          423,672          8   52,959.0   51,967.0    29,759    76,927     24,492.6  void mul_mat_vec_q<(ggml_type)2, (int)1, (bool)1, (bool)0, (bool)0>(const void *, const void *, con…
+      0.0          276,701         64    4,323.5    4,175.0     3,775     5,215        390.2  void rope_multi<(bool)1, (bool)0, float, __half>(const T3 *, T4 *, int, int, int, int, int, int, in…
+      0.0          232,195         64    3,628.0    3,519.0     3,358     4,480        241.1  void k_set_rows<float, long, __half>(const T1 *, const T2 *, T3 *, long, long, long, long, long, lo…
+      0.0          212,834        192    1,108.5    1,151.0       735     1,856        144.7  void unary_op_kernel<&op_softplus, float>(const T2 *, T2 *, int)                                    
+      0.0          152,935        192      796.5      767.0       638     1,824        128.6  void unary_op_kernel<&op_sigmoid, float>(const T2 *, T2 *, int)                                     
+      0.0           13,301         12    1,108.4      735.0       543     3,904        983.1  quantize_q8_1(const float *, void *, long, long, long, long, long, unsigned int, uint3)             
+
+[mindreia@kh060 qwen-bench]$ nsys profile \
+  --trace=cuda,nvtx \
+  --sample=none \
+  --cpuctxsw=none \
+  --cuda-graph-trace=node \
+  -o results/decode \
+  ./llama.cpp/build/bin/llama-bench \
+    -m models/Qwen3.8-27B-Q4_0.gguf \
+    -ngl 999 -t 16 \
+    -p 0 -n 128 \
+    -b 512 -ub 512 \
+    -fa on -r 3
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 95350 MiB):
+  Device 0: NVIDIA H100, compute capability 9.0, VMM: yes, VRAM: 95350 MiB
+| model                          |       size |     params | backend    | ngl | threads | n_batch |  fa |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | ------: | ------: | --: | --------------: | -------------------: |
+| qwen35 27B Q4_0                |  14.94 GiB |    27.32 B | CUDA       | 999 |      16 |     512 |   1 |           tg128 |         81.49 ± 0.15 |
+
+build: a4d4f2fd4 (12230)
+Generating '/tmp/4871098/nsys-report-db5e.qdstrm'
+[1/1] [========================100%] decode.nsys-rep
+Generated:
+    /scratch/mindreia/qwen-bench/results/decode.nsys-rep
+[mindreia@kh060 qwen-bench]$ nsys stats \
+  --report cuda_gpu_kern_sum \
+  results/decode.nsys-rep \
+  | tee results/decode-kernels.txt
+Generating SQLite file results/decode.sqlite from results/decode.nsys-rep
+Processing [results/decode.sqlite] with [/ssoft/spack/pinot-noir/kuma-h100/v2/spack/opt/spack/linux-rhel9-zen4/gcc-13.2.0/cuda-12.4.1-4h4wdshlayz4fomm4m5z2euvtjuhyoyy/nsight-systems-2023.4.4/host-linux-x64/reports/cuda_gpu_kern_sum.py]... 
+
+ ** CUDA GPU Kernel Summary (cuda_gpu_kern_sum):
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)                                                  Name                                                
+ --------  ---------------  ---------  ---------  ---------  --------  --------  -----------  ----------------------------------------------------------------------------------------------------
+     50.7    2,313,504,879     51,975   44,511.9   30,495.0    13,151    66,815     19,013.0  void mul_mat_vec_q<(ggml_type)2, (int)1, (bool)1, (bool)0, (bool)0>(const void *, const void *, con…
+     17.8      813,094,708     55,825   14,565.1   12,895.0     3,615    25,119      6,716.7  void mul_mat_vec_q<(ggml_type)2, (int)1, (bool)0, (bool)0, (bool)0>(const void *, const void *, con…
+      8.0      366,588,060     18,480   19,837.0   19,807.0    18,911    22,144        251.7  void mul_mat_vec_q<(ggml_type)13, (int)1, (bool)1, (bool)0, (bool)0>(const void *, const void *, co…
+      4.7      212,266,111     36,960    5,743.1    5,183.0     2,783     8,511      1,094.5  void mul_mat_vec_f<float, float, (int)1, (int)256, (bool)0, (bool)0>(const T1 *, const float *, con…
+      4.3      194,710,561        385  505,741.7  505,726.0   504,767   506,750        259.8  void mul_mat_vec_q<(ggml_type)14, (int)1, (bool)0, (bool)0, (bool)0>(const void *, const void *, co…
+      2.1       96,601,578      3,080   31,364.1   31,359.0    30,815    32,447        192.2  void mul_mat_vec_q<(ggml_type)3, (int)1, (bool)1, (bool)0, (bool)0>(const void *, const void *, con…
+      2.0       90,073,770    129,745      694.2      639.0       542     4,513        132.8  quantize_q8_1(const float *, void *, long, long, long, long, long, unsigned int, uint3)             
+      1.8       82,099,404      6,160   13,327.8   13,311.0     9,728    14,079        173.8  void flash_attn_ext_f16<(int)256, (int)256, (int)1, (int)8, (bool)0, (bool)0, (bool)0>(const char *…
+      1.4       63,706,595     18,480    3,447.3    3,423.0     3,007     4,607        155.3  void gated_delta_net_cuda<(int)128, (bool)0, (bool)0, (int)4>(const float *, const float *, const f…
+      0.9       42,983,890     49,665      865.5      862.0       543     4,287        299.4  void rms_norm_f32<(int)1024, (int)4, (bool)1, (bool)1, (bool)0, (bool)0>(const float *, float *, in…
+      0.8       38,624,335     36,960    1,045.0      959.0       542     5,471        523.9  void rms_norm_f32<(int)32, (int)1, (bool)1, (bool)0, (bool)0, (bool)1>(const float *, float *, int,…
+      0.7       34,147,608     18,480    1,847.8    1,823.0     1,663     3,359        137.7  void concat_cont<unsigned int, (int)0>(const T1 *, const T1 *, T1 *, long, long, long, long, long, …
+      0.6       28,873,111     18,480    1,562.4    1,535.0     1,119     3,680        235.3  void k_get_rows_float_vec<float>(const T1 *, const int *, T1 *, long, long, uint3, unsigned long, u…
+      0.6       25,893,063     18,480    1,401.1    1,439.0       639     2,688        211.5  void ssm_conv_f32<(bool)1, (unsigned long)128, (unsigned long)4>(const float *, const float *, cons…
+      0.5       22,648,923     24,640      919.2      927.0       638     2,752        231.0  void cpy_scalar<&cpy_1_scalar<float, float>>(const char *, char *, long, long, long, long, long, lo…
+      0.3       15,877,234      6,160    2,577.5    2,559.0     2,143     3,263        118.7  void rope_multi<(bool)1, (bool)0, float, __half>(const T3 *, T4 *, int, int, int, int, int, int, in…
+      0.3       15,564,459     19,250      808.5      735.0       606     4,671        500.7  void k_get_rows_float<float, float>(const T1 *, const int *, T2 *, long, long, uint3, unsigned long…
+      0.3       15,112,149      6,160    2,453.3    2,431.0     2,079     3,488        109.2  void rope_multi<(bool)1, (bool)0, float, float>(const T3 *, T4 *, int, int, int, int, int, int, int…
+      0.3       15,048,636     18,480      814.3      799.0       575     2,112        154.7  void rms_norm_f32<(int)32, (int)1, (bool)1, (bool)1, (bool)0, (bool)0>(const float *, float *, int,…
+      0.3       13,999,952     18,480      757.6      735.0       670     1,920         60.5  void unary_gated_op_kernel<&op_silu, float>(const T2 *, const T2 *, T2 *, long, long, long, long)   
+      0.3       13,603,760     18,865      721.1      671.0       606     2,304        214.6  void k_bin_bcast<&op_add, float, float, float, const float *>(const T2 *, const T3 *, T4 *, unsigne…
+      0.3       11,870,322     18,480      642.3      639.0       542     1,984         80.5  void unary_gated_op_kernel<&op_softplus, float>(const T2 *, const T2 *, T2 *, long, long, long, lon…
+      0.2       10,461,568     18,480      566.1      544.0       510     1,792         59.4  void unary_op_kernel<&op_sigmoid, float>(const T2 *, T2 *, int)                                     
+      0.2        8,820,761     12,320      716.0      703.0       478     2,688         89.5  void rms_norm_f32<(int)128, (int)1, (bool)1, (bool)1, (bool)0, (bool)0>(const float *, float *, int…
+      0.1        6,643,677      6,160    1,078.5    1,055.0     1,022     2,432         66.4  void flash_attn_stream_k_fixup_uniform<(int)256, (int)1, (int)8>(float *, const float2 *, int, int,…
+      0.1        5,594,003      6,160      908.1      895.0       798     1,888         75.5  void k_set_rows<float, long, __half>(const T1 *, const T2 *, T3 *, long, long, long, long, long, lo…
+      0.1        4,165,807      6,160      676.3      640.0       575     1,920         90.6  void unary_gated_op_kernel<&op_sigmoid, float>(const T2 *, const T2 *, T2 *, long, long, long, long)
+      0.0        1,425,923        384    3,713.3    3,903.5       639     6,591      2,498.7  void scale_f32<float>(const T1 *, T1 *, float, float, unsigned int, uint3, uint3, uint3, unsigned i…
+
+[mindreia@kh060 qwen-bench]$ 
+
