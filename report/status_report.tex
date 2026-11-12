@@ -160,7 +160,7 @@ need different amounts of decompression work. To find out where the extra energy
 the GPU executes for each format, and we run a simplified version of the multiplication in which individual steps
 of the decompression can be switched off. We then measure the energy of generating text with the full model.
 Second, we design the hardware. We describe a small arithmetic unit in a hardware description language, starting
-from a basic version without decompression and adding support for each group of formats in turn. We then use chip
+from a basic version without decompression and adding support for each group of formats in turn. We then use open-source chip
 design tools to estimate its area and power. Third, we combine the two. Because our design and the H100 use
 different manufacturing technologies, we cannot compare their energy directly. Instead, we compare the extra energy
 each one spends on decompression, relative to its own baseline.
@@ -191,10 +191,10 @@ Q4\_K & Two-level & 3.56$\times$ & 2.21$\times$\\
 \end{table}
 
 \subsection{Where the time goes}
-Our model generates about 77 tokens per second on the H100. For each token it reads 15.5\,GB of weights, so the GPU
-reads about 1.2\,TB of weights per second, close to the limit of its memory. Most of this time is spent
-multiplying the compressed weights with the model's input, and the compressed formats are read at only 60--80\% of
-the speed of uncompressed weights.
+Our model generates about 77 tokens per second on the H100, and most of this time is spent multiplying the
+compressed weights with the model's input. Since every token reads all 15.5\,GB of weights, the GPU reads about
+1.2\,TB of weights per second on average. Uncompressed weights can be read at about 2.2\,TB/s, but the compressed
+formats of our model reach only 60--80\% of this speed, because the GPU spends time decompressing them.
 
 \subsection{Energy per format}
 \begin{figure}[t]
