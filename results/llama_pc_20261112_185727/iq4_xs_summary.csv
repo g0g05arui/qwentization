@@ -1,0 +1,2 @@
+pass,index,type,device,layout,m,k,nmat,bytes_per_weight,weights_per_pass,bytes_per_pass,reps_per_graph,passes,seconds,us_per_pass,gb_per_s,energy_j,p_avg_w,p_med_w,p_idle_w,pj_per_weight_total,pj_per_weight_active,pj_per_byte_total,pj_per_byte_active,sm_mhz_min,sm_mhz_max,mem_mhz_min,mem_mhz_max,temp_max_c,clock_reasons,nmse
+0,0,iq4_xs,CUDA0,separate,17408,5120,4,0.531250,356515840,189399040,1,1,0.1083,108315.9240,1.75,63.759,588.64,136.93,nan,178839.1786,nan,336638.4539,nan,1980,1980,1593,1593,37,0x0,nan

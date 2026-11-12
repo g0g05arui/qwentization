@@ -1,0 +1,12 @@
+iq4_xs: 356515840 weights, 189399040 packed bytes, 1056 decode CTAs, 69632 matvec CTAs
+PASS: iq4_xs sampled weight decoding and matvec vs ggml CPU
+iq4_xs full                        write_fp16         1211.355 us, 21 regs, 0 local bytes/thread
+iq4_xs full                        read_bytes_control 293.474 us, 16 regs, 0 local bytes/thread
+iq4_xs full                        checksum           1319.363 us, 23 regs, 0 local bytes/thread
+iq4_xs no_metadata_DIAGNOSTIC      checksum           1351.760 us, 18 regs, 0 local bytes/thread
+iq4_xs no_mapping_DIAGNOSTIC       checksum           881.767 us, 24 regs, 0 local bytes/thread
+iq4_xs codes_only_DIAGNOSTIC       checksum           547.452 us, 20 regs, 0 local bytes/thread
+iq4_xs full                        matvec             1243.039 us, 28 regs, 0 local bytes/thread
+iq4_xs no_metadata_DIAGNOSTIC      matvec             1229.912 us, 22 regs, 0 local bytes/thread
+iq4_xs no_mapping_DIAGNOSTIC       matvec             694.097 us, 28 regs, 0 local bytes/thread
+iq4_xs codes_only_DIAGNOSTIC       matvec             521.081 us, 22 regs, 0 local bytes/thread

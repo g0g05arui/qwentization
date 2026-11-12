@@ -1,0 +1,17 @@
+------------- NVBit (NVidia Binary Instrumentation Tool v1.8.1) Loaded --------------
+NVBit core environment variables (mostly for nvbit-devs):
+ACK_CTX_INIT_LIMITATION = 0 - if set, no warning will be printed for nvbit_at_ctx_init()
+            NVDISASM = nvdisasm - override default nvdisasm found in PATH
+            NOBANNER = 0 - if set, does not print this banner
+       NO_EAGER_LOAD = 1 - lazy module loading is now turned on by default. If you see deadlocks in your tool, set NO_EAGER_LOAD to 0
+---------------------------------------------------------------------------------
+         INSTR_BEGIN = 0 - Beginning of the instruction interval where to apply instrumentation
+           INSTR_END = 4294967295 - End of the instruction interval where to apply instrumentation
+        KERNEL_BEGIN = 0 - Beginning of the kernel launch interval where to apply instrumentation
+          KERNEL_END = 4294967295 - End of the kernel launch interval where to apply instrumentation
+        TOOL_VERBOSE = 1 - Enable verbosity inside the tool
+    COUNT_WARP_LEVEL = 0 - Count warp level or thread level instructions
+    EXCLUDE_PRED_OFF = 1 - Exclude predicated off instruction from count
+ggml_cuda_init: failed to initialize CUDA: no CUDA-capable device is detected
+device CUDA0 not found
+----------------------------------------------------------------------------------------------------

@@ -1,0 +1,12 @@
+q4_0: 262144 weights, 147456 packed bytes, 1024 decode CTAs, 256 matvec CTAs
+PASS: q4_0 sampled weight decoding and matvec vs ggml CPU
+q4_0 full                        write_fp16         1.943 us, 16 regs, 0 local bytes/thread
+q4_0 full                        read_bytes_control 2.150 us, 16 regs, 0 local bytes/thread
+q4_0 full                        checksum           2.215 us, 18 regs, 0 local bytes/thread
+q4_0 no_metadata_DIAGNOSTIC      checksum           2.202 us, 18 regs, 0 local bytes/thread
+q4_0 no_mapping_DIAGNOSTIC       checksum           2.210 us, 18 regs, 0 local bytes/thread
+q4_0 codes_only_DIAGNOSTIC       checksum           2.188 us, 18 regs, 0 local bytes/thread
+q4_0 full                        matvec             2.237 us, 23 regs, 0 local bytes/thread
+q4_0 no_metadata_DIAGNOSTIC      matvec             2.203 us, 22 regs, 0 local bytes/thread
+q4_0 no_mapping_DIAGNOSTIC       matvec             2.223 us, 23 regs, 0 local bytes/thread
+q4_0 codes_only_DIAGNOSTIC       matvec             2.196 us, 22 regs, 0 local bytes/thread

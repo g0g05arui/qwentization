@@ -1,0 +1,2 @@
+iq4_xs: 16384 weights, 8704 packed bytes, 64 decode CTAs, 16 matvec CTAs
+PASS: iq4_xs sampled weight decoding and matvec vs ggml CPU

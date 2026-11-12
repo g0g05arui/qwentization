@@ -1,0 +1,1 @@
+format,variant,mode,m,k,nmat,weights,input_bytes,threads,blocks,registers,local_bytes,repeat,launches,us_per_launch,ns_per_weight,sink

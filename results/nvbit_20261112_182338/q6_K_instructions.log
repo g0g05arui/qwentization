@@ -1,0 +1,1225 @@
+------------- NVBit (NVidia Binary Instrumentation Tool v1.8.1) Loaded --------------
+NVBit core environment variables (mostly for nvbit-devs):
+ACK_CTX_INIT_LIMITATION = 0 - if set, no warning will be printed for nvbit_at_ctx_init()
+            NVDISASM = nvdisasm - override default nvdisasm found in PATH
+            NOBANNER = 0 - if set, does not print this banner
+       NO_EAGER_LOAD = 1 - lazy module loading is now turned on by default. If you see deadlocks in your tool, set NO_EAGER_LOAD to 0
+---------------------------------------------------------------------------------
+         INSTR_BEGIN = 0 - Beginning of the instruction interval where to apply instrumentation
+           INSTR_END = 4294967295 - End of the instruction interval where to apply instrumentation
+        KERNEL_BEGIN = 0 - Beginning of the kernel launch interval where to apply instrumentation
+          KERNEL_END = 4294967295 - End of the kernel launch interval where to apply instrumentation
+        TOOL_VERBOSE = 1 - Enable verbosity inside the tool
+    COUNT_WARP_LEVEL = 0 - Count warp level or thread level instructions
+    EXCLUDE_PRED_OFF = 1 - Exclude predicated off instruction from count
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 95350 MiB):
+  Device 0: NVIDIA H100, compute capability 9.0, VMM: yes, VRAM: 95350 MiB
+WARNING: Do not call CUDA memory allocation in nvbit_at_ctx_init(). It will cause deadlocks. Do them in nvbit_tool_init(). If you encounter deadlocks, remove CUDA API calls to debug.
+----------------------------------------------------------------------------------------------------
+device : CUDA0 (NVIDIA H100), pci 0000:04:00.0
+nvml   : NVIDIA H100 via pci 0000:04:00.0, power limit 700 W
+shape  : 4 x (17408 x 5120), separate tensors, n = 1
+
+== pass 1/1: q6_K
+[q6_K] quantizing 4 x 17408 x 5120 ... done
+inspecting quantize_q8_1(float const*, void*, long, long, long, long, long, unsigned int, uint3) - num instrs 112
+Instr 0 @ 0x0 (0) - LDC R1, c[0x0][0x28] ;
+Instr 1 @ 0x10 (16) - S2R R7, SR_CTAID.X ;
+Instr 2 @ 0x20 (32) - IMAD.MOV.U32 R3, RZ, RZ, RZ ;
+Instr 3 @ 0x30 (48) - ULDC UR4, c[0x0][0x0] ;
+Instr 4 @ 0x40 (64) - PREEXIT ;
+Instr 5 @ 0x50 (80) - S2R R2, SR_TID.X ;
+Instr 6 @ 0x60 (96) - IMAD.WIDE.U32 R6, R7, UR4, R2 ;
+Instr 7 @ 0x70 (112) - ULDC.64 UR4, c[0x0][0x240] ;
+Instr 8 @ 0x80 (128) - ISETP.GE.U32.AND P0, PT, R6, UR4, PT ;
+Instr 9 @ 0x90 (144) - ISETP.GE.AND.EX P0, PT, R7, UR5, PT, P0 ;
+Instr 10 @ 0xa0 (160) - @P0 EXIT ;
+Instr 11 @ 0xb0 (176) - S2UR UR10, SR_CTAID.Y ;
+Instr 12 @ 0xc0 (192) - ULDC.64 UR8, c[0x0][0x220] ;
+Instr 13 @ 0xd0 (208) - IMAD.MOV.U32 R3, RZ, RZ, RZ ;
+Instr 14 @ 0xe0 (224) - ISETP.GE.U32.AND P0, PT, R6, UR8, PT ;
+Instr 15 @ 0xf0 (240) - ACQBULK ;
+Instr 16 @ 0x100 (256) - ULDC.64 UR12, c[0x0][0x208] ;
+Instr 17 @ 0x110 (272) - HFMA2.MMA R8, -RZ, RZ, 0, 0 ;
+Instr 18 @ 0x120 (288) - ISETP.GE.AND.EX P0, PT, R7, UR9, PT, P0 ;
+Instr 19 @ 0x130 (304) - S2UR UR7, SR_CTAID.Z ;
+Instr 20 @ 0x140 (320) - LDC R5, c[0x0][0x248] ;
+Instr 21 @ 0x150 (336) - IMAD.U32 R2, RZ, RZ, UR10 ;
+Instr 22 @ 0x160 (352) - IMAD.WIDE.U32 R4, R5, UR7, R2 ;
+Instr 23 @ 0x170 (368) - IMAD R5, R5, UR4, RZ ;
+Instr 24 @ 0x180 (384) - IMAD.WIDE.U32 R2, R4, UR4, R6 ;
+Instr 25 @ 0x190 (400) - IMAD R5, R4, UR5, R5 ;
+Instr 26 @ 0x1a0 (416) - @P0 BRA 0x330 ;
+Instr 27 @ 0x1b0 (432) - LDC.64 R8, c[0x0][0x228] ;
+Instr 28 @ 0x1c0 (448) - ULDC UR6, c[0x0][0x24c] ;
+Instr 29 @ 0x1d0 (464) - UMOV UR4, URZ ;
+Instr 30 @ 0x1e0 (480) - UMOV UR5, UR7 ;
+Instr 31 @ 0x1f0 (496) - ULDC.64 UR8, c[0x0][0x250] ;
+Instr 32 @ 0x200 (512) - UIMAD.WIDE.U32 UR4, UR7, UR6, UR4 ;
+Instr 33 @ 0x210 (528) - LDC.64 R10, c[0x0][0x238] ;
+Instr 34 @ 0x220 (544) - USHF.R.U32.HI UR6, URZ, UR8, UR5 ;
+Instr 35 @ 0x230 (560) - UIMAD.WIDE.U32 UR4, UR6, UR9, URZ ;
+Instr 36 @ 0x240 (576) - LDC.64 R12, c[0x0][0x230] ;
+Instr 37 @ 0x250 (592) - UIADD3 UR8, UP0, -UR4, UR7, URZ ;
+Instr 38 @ 0x260 (608) - UIADD3.X UR4, URZ, ~UR5, URZ, UP0, !UPT ;
+Instr 39 @ 0x270 (624) - IMAD.WIDE.U32 R6, R8, UR10, R6 ;
+Instr 40 @ 0x280 (640) - IMAD R7, R9, UR10, R7 ;
+Instr 41 @ 0x290 (656) - IMAD.WIDE.U32 R6, R10, UR6, R6 ;
+Instr 42 @ 0x2a0 (672) - IMAD R7, R11, UR6, R7 ;
+Instr 43 @ 0x2b0 (688) - IMAD R0, R12.reuse, UR4, RZ ;
+Instr 44 @ 0x2c0 (704) - ULDC.64 UR4, c[0x0][0x210] ;
+Instr 45 @ 0x2d0 (720) - IMAD.WIDE.U32 R6, R12, UR8, R6 ;
+Instr 46 @ 0x2e0 (736) - IMAD R9, R13, UR8, R0 ;
+Instr 47 @ 0x2f0 (752) - LEA R8, P0, R6, UR4, 0x2 ;
+Instr 48 @ 0x300 (768) - IMAD.IADD R7, R7, 0x1, R9 ;
+Instr 49 @ 0x310 (784) - LEA.HI.X R9, R6, UR5, R7, 0x2, P0 ;
+Instr 50 @ 0x320 (800) - LDG.E R8, desc[UR12][R8.64] ;
+Instr 51 @ 0x330 (816) - FADD.FTZ R0, |R8|, -RZ ;
+Instr 52 @ 0x340 (832) - WARPSYNC.ALL ;
+Instr 53 @ 0x350 (848) - SHFL.BFLY PT, R7, R0, 0x10, 0x1f ;
+Instr 54 @ 0x360 (864) - FMNMX.FTZ R7, R7, |R8|, !PT ;
+Instr 55 @ 0x370 (880) - SHFL.BFLY PT, R4, R7, 0x8, 0x1f ;
+Instr 56 @ 0x380 (896) - FMNMX.FTZ R4, R7, R4, !PT ;
+Instr 57 @ 0x390 (912) - SHFL.BFLY PT, R9, R4, 0x4, 0x1f ;
+Instr 58 @ 0x3a0 (928) - FMNMX.FTZ R9, R4, R9, !PT ;
+Instr 59 @ 0x3b0 (944) - IMAD.MOV.U32 R4, RZ, RZ, RZ ;
+Instr 60 @ 0x3c0 (960) - SHFL.BFLY PT, R6, R9, 0x2, 0x1f ;
+Instr 61 @ 0x3d0 (976) - FMNMX.FTZ R6, R9, R6, !PT ;
+Instr 62 @ 0x3e0 (992) - SHFL.BFLY PT, R11, R6, 0x1, 0x1f ;
+Instr 63 @ 0x3f0 (1008) - FMNMX.FTZ R11, R6, R11, !PT ;
+Instr 64 @ 0x400 (1024) - FSETP.NEU.FTZ.AND P0, PT, R11.reuse, RZ, PT ;
+Instr 65 @ 0x410 (1040) - FMUL.FTZ R0, R11, 0.0078740157186985015869 ;
+Instr 66 @ 0x420 (1056) - @P0 MUFU.RCP R11, R0 ;
+Instr 67 @ 0x430 (1072) - @P0 FMUL.FTZ R8, R11, R8 ;
+Instr 68 @ 0x440 (1088) - IADD3 R11, R3, R5, RZ ;
+Instr 69 @ 0x450 (1104) - @P0 LOP3.LUT R7, R8, 0x80000000, RZ, 0xc0, !PT ;
+Instr 70 @ 0x460 (1120) - SHF.R.S32.HI R5, RZ, 0x1f, R11 ;
+Instr 71 @ 0x470 (1136) - @P0 LOP3.LUT R7, R7, 0x3f000000, RZ, 0xfc, !PT ;
+Instr 72 @ 0x480 (1152) - @P0 FADD.FTZ.RZ R8, R8, R7 ;
+Instr 73 @ 0x490 (1168) - LDC.64 R6, c[0x0][0x218] ;
+Instr 74 @ 0x4a0 (1184) - @P0 FRND.TRUNC R4, R8 ;
+Instr 75 @ 0x4b0 (1200) - LEA.HI R5, P0, R5, R2, RZ, 0x5 ;
+Instr 76 @ 0x4c0 (1216) - LOP3.LUT R3, R5, 0xffffffe0, RZ, 0xc0, !PT ;
+Instr 77 @ 0x4d0 (1232) - IMAD.X R12, RZ, RZ, R11, P0 ;
+Instr 78 @ 0x4e0 (1248) - IADD3 R3, P0, -R3, R2, RZ ;
+Instr 79 @ 0x4f0 (1264) - SHF.R.S64 R5, R5, 0x5, R12.reuse ;
+Instr 80 @ 0x500 (1280) - SHF.R.S32.HI R10, RZ, 0x5, R12 ;
+Instr 81 @ 0x510 (1296) - F2I.FTZ.TRUNC.NTZ R9, R4 ;
+Instr 82 @ 0x520 (1312) - IMAD.WIDE.U32 R6, R5, 0x24, R6 ;
+Instr 83 @ 0x530 (1328) - IADD3.X R4, ~R12, R11, RZ, P0, !PT ;
+Instr 84 @ 0x540 (1344) - ISETP.GT.U32.AND P0, PT, R3, RZ, PT ;
+Instr 85 @ 0x550 (1360) - IMAD R5, R10, 0x24, RZ ;
+Instr 86 @ 0x560 (1376) - IADD3 R2, P1, R3, R6, RZ ;
+Instr 87 @ 0x570 (1392) - PRMT R8, R9, 0x8880, RZ ;
+Instr 88 @ 0x580 (1408) - IMAD.IADD R5, R7, 0x1, R5 ;
+Instr 89 @ 0x590 (1424) - ISETP.GT.AND.EX P0, PT, R4, RZ, PT, P0 ;
+Instr 90 @ 0x5a0 (1440) - REDUX.SUM.S32 UR4, R8 ;
+Instr 91 @ 0x5b0 (1456) - IMAD.X R3, R5, 0x1, R4, P1 ;
+Instr 92 @ 0x5c0 (1472) - STG.E.U8 desc[UR12][R2.64+0x4], R9 ;
+Instr 93 @ 0x5d0 (1488) - IMAD.U32 R10, RZ, RZ, UR4 ;
+Instr 94 @ 0x5e0 (1504) - @P0 EXIT ;
+Instr 95 @ 0x5f0 (1520) - I2FP.F32.S32 R3, R10 ;
+Instr 96 @ 0x600 (1536) - MOV R4, R6 ;
+Instr 97 @ 0x610 (1552) - FMUL.FTZ R3, R0, R3 ;
+Instr 98 @ 0x620 (1568) - F2FP.F16.F32.PACK_AB R3, R3, R0 ;
+Instr 99 @ 0x630 (1584) - STG.E desc[UR12][R4.64], R3 ;
+Instr 100 @ 0x640 (1600) - EXIT ;
+Instr 101 @ 0x650 (1616) - BRA 0x650;
+Instr 102 @ 0x660 (1632) - NOP;
+Instr 103 @ 0x670 (1648) - NOP;
+Instr 104 @ 0x680 (1664) - NOP;
+Instr 105 @ 0x690 (1680) - NOP;
+Instr 106 @ 0x6a0 (1696) - NOP;
+Instr 107 @ 0x6b0 (1712) - NOP;
+Instr 108 @ 0x6c0 (1728) - NOP;
+Instr 109 @ 0x6d0 (1744) - NOP;
+Instr 110 @ 0x6e0 (1760) - NOP;
+Instr 111 @ 0x6f0 (1776) - NOP;
+kernel 0 - quantize_q8_1(float const*, void*, long, long, long, long, long, unsigned int, uint3) - #thread-blocks 20,  kernel instructions 476960, total instructions 476960
+  ACQBULK = 5120
+  EXIT = 5120
+  F2FP.F16.F32.PACK_AB = 160
+  F2I.FTZ.TRUNC.NTZ = 5120
+  FADD.FTZ = 5120
+  FADD.FTZ.RZ = 5120
+  FMNMX.FTZ = 25600
+  FMUL.FTZ = 10400
+  FRND.TRUNC = 5120
+  FSETP.NEU.FTZ.AND = 5120
+  HFMA2.MMA = 5120
+  I2FP.F32.S32 = 160
+  IADD3 = 15360
+  IADD3.X = 5120
+  IMAD = 35840
+  IMAD.IADD = 10240
+  IMAD.MOV.U32 = 15360
+  IMAD.U32 = 10240
+  IMAD.WIDE.U32 = 35840
+  IMAD.X = 10240
+  ISETP.GE.AND.EX = 10240
+  ISETP.GE.U32.AND = 10240
+  ISETP.GT.AND.EX = 5120
+  ISETP.GT.U32.AND = 5120
+  LDC = 10240
+  LDC.64 = 20480
+  LDG.E = 5120
+  LEA = 5120
+  LEA.HI = 5120
+  LEA.HI.X = 5120
+  LOP3.LUT = 15360
+  MOV = 160
+  MUFU.RCP = 5120
+  PREEXIT = 5120
+  PRMT = 5120
+  REDUX.SUM.S32 = 5120
+  S2R = 10240
+  S2UR = 10240
+  SHF.R.S32.HI = 10240
+  SHF.R.S64 = 5120
+  SHFL.BFLY = 25600
+  STG.E = 160
+  STG.E.U8 = 5120
+  UIADD3 = 5120
+  UIADD3.X = 5120
+  UIMAD.WIDE.U32 = 10240
+  ULDC = 10240
+  ULDC.64 = 25600
+  UMOV = 10240
+  USHF.R.U32.HI = 5120
+  WARPSYNC.ALL = 5120
+inspecting void mul_mat_vec_q<(ggml_type)14, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, unsigned int) - num instrs 232
+Instr 0 @ 0x0 (0) - LDC R1, c[0x0][0x28] ;
+Instr 1 @ 0x10 (16) - LDC.64 R2, c[0x0][0x220] ;
+Instr 2 @ 0x20 (32) - S2R R9, SR_CTAID.Y ;
+Instr 3 @ 0x30 (48) - ULDC.64 UR10, c[0x0][0x208] ;
+Instr 4 @ 0x40 (64) - ACQBULK ;
+Instr 5 @ 0x50 (80) - ULDC UR6, c[0x0][0x280] ;
+Instr 6 @ 0x60 (96) - ISETP.NE.U32.AND P0, PT, R2, RZ, PT ;
+Instr 7 @ 0x70 (112) - ISETP.NE.AND.EX P0, PT, R3, RZ, PT, P0 ;
+Instr 8 @ 0x80 (128) - @P0 LDC.64 R6, c[0x0][0x220] ;
+Instr 9 @ 0x90 (144) - S2R R11, SR_TID.Y ;
+Instr 10 @ 0xa0 (160) - S2R R20, SR_TID.X ;
+Instr 11 @ 0xb0 (176) - @P0 LDC R3, c[0x0][0x284] ;
+Instr 12 @ 0xc0 (192) - @P0 LDC.64 R14, c[0x0][0x288] ;
+Instr 13 @ 0xd0 (208) - @P0 IMAD.WIDE.U32 R6, R9, 0x4, R6 ;
+Instr 14 @ 0xe0 (224) - @!P0 LDC R17, c[0x0][0x29c] ;
+Instr 15 @ 0xf0 (240) - @P0 LDG.E R6, desc[UR10][R6.64] ;
+Instr 16 @ 0x100 (256) - USHF.R.U32.HI UR6, URZ, 0x8, UR6 ;
+Instr 17 @ 0x110 (272) - IMAD.MOV.U32 R8, RZ, RZ, RZ ;
+Instr 18 @ 0x120 (288) - ISETP.NE.AND P1, PT, R11, RZ, PT ;
+Instr 19 @ 0x130 (304) - @!P0 LDC R19, c[0x0][0x2a0] ;
+Instr 20 @ 0x140 (320) - BSSY B0, 0xb70 ;
+Instr 21 @ 0x150 (336) - @P0 IMAD.HI.U32 R3, R9, R3, R8 ;
+Instr 22 @ 0x160 (352) - ISETP.NE.AND P2, PT, R11, RZ, PT ;
+Instr 23 @ 0x170 (368) - IMAD R10, R11, 0x20, R20 ;
+Instr 24 @ 0x180 (384) - @P0 SHF.R.U32.HI R3, RZ, R14, R3 ;
+Instr 25 @ 0x190 (400) - S2UR UR7, SR_CTAID.Z ;
+Instr 26 @ 0x1a0 (416) - IMAD.MOV.U32 R23, RZ, RZ, RZ ;
+Instr 27 @ 0x1b0 (432) - SHF.R.S32.HI R5, RZ, 0x1f, R10 ;
+Instr 28 @ 0x1c0 (448) - @P1 S2R R13, SR_CgaCtaId ;
+Instr 29 @ 0x1d0 (464) - @P1 MOV R0, 0x400 ;
+Instr 30 @ 0x1e0 (480) - @P0 IMAD.MOV R7, RZ, RZ, -R3 ;
+Instr 31 @ 0x1f0 (496) - LEA.HI R5, R5, R10, RZ, 0x4 ;
+Instr 32 @ 0x200 (512) - @P0 IMAD R7, R7, R15, R9 ;
+Instr 33 @ 0x210 (528) - SHF.R.S32.HI R21, RZ, 0x4, R5 ;
+Instr 34 @ 0x220 (544) - @!P0 IMAD.MOV.U32 R7, RZ, RZ, R9 ;
+Instr 35 @ 0x230 (560) - ISETP.GE.AND P3, PT, R21, UR6, PT ;
+Instr 36 @ 0x240 (576) - @P1 PRMT R2, R13, 0x654, R0 ;
+Instr 37 @ 0x250 (592) - @!P0 IMAD.HI.U32 R0, R9, R17, R8 ;
+Instr 38 @ 0x260 (608) - @P1 IMAD R3, R11, 0x80, R2 ;
+Instr 39 @ 0x270 (624) - @P1 LEA R18, R20, R3, 0x2 ;
+Instr 40 @ 0x280 (640) - @!P0 SHF.R.U32.HI R6, RZ, R19, R0 ;
+Instr 41 @ 0x290 (656) - @P3 BRA 0xb60 ;
+Instr 42 @ 0x2a0 (672) - LOP3.LUT R5, R5, 0xfffffff0, RZ, 0xc0, !PT ;
+Instr 43 @ 0x2b0 (688) - LDC.64 R2, c[0x0][0x2c0] ;
+Instr 44 @ 0x2c0 (704) - ULDC UR8, c[0x0][0x2b4] ;
+Instr 45 @ 0x2d0 (720) - UMOV UR4, URZ ;
+Instr 46 @ 0x2e0 (736) - UMOV UR5, UR7 ;
+Instr 47 @ 0x2f0 (752) - IMAD.IADD R10, R10, 0x1, -R5 ;
+Instr 48 @ 0x300 (768) - UIMAD.WIDE.U32 UR4, UR7, UR8, UR4 ;
+Instr 49 @ 0x310 (784) - IMAD.MOV.U32 R23, RZ, RZ, RZ ;
+Instr 50 @ 0x320 (800) - ULDC.64 UR12, c[0x0][0x2a8] ;
+Instr 51 @ 0x330 (816) - IMAD.SHL.U32 R19, R10, 0x2, RZ ;
+Instr 52 @ 0x340 (832) - SHF.R.S32.HI R5, RZ, 0x1f, R10 ;
+Instr 53 @ 0x350 (848) - S2UR UR9, SR_CTAID.X ;
+Instr 54 @ 0x360 (864) - ULDC UR8, c[0x0][0x2b8] ;
+Instr 55 @ 0x370 (880) - IMAD R22, R7, UR13, RZ ;
+Instr 56 @ 0x380 (896) - SHF.R.S32.HI R12, RZ, 0x1f, R19 ;
+Instr 57 @ 0x390 (912) - USHF.R.U32.HI UR5, URZ, UR8, UR5 ;
+Instr 58 @ 0x3a0 (928) - IMAD.SHL.U32 R27, R21, 0x8, RZ ;
+Instr 59 @ 0x3b0 (944) - LEA.HI R0, R12.reuse, R19.reuse, RZ, 0x4 ;
+Instr 60 @ 0x3c0 (960) - LDC R25, c[0x0][0x290] ;
+Instr 61 @ 0x3d0 (976) - LEA.HI R12, R12, R19, RZ, 0x3 ;
+Instr 62 @ 0x3e0 (992) - LOP3.LUT R0, R0, 0xfffffff0, RZ, 0xc0, !PT ;
+Instr 63 @ 0x3f0 (1008) - IMAD R15, R2, UR5, R21 ;
+Instr 64 @ 0x400 (1024) - LOP3.LUT R2, R12, 0xfffffff8, RZ, 0xc0, !PT ;
+Instr 65 @ 0x410 (1040) - IMAD.IADD R11, R19, 0x1, -R0 ;
+Instr 66 @ 0x420 (1056) - LEA.HI R0, R5, R10, RZ, 0x3 ;
+Instr 67 @ 0x430 (1072) - IMAD R6, R6, UR12, R15 ;
+Instr 68 @ 0x440 (1088) - LDC.64 R4, c[0x0][0x210] ;
+Instr 69 @ 0x450 (1104) - IADD3 R19, R19, -R2, RZ ;
+Instr 70 @ 0x460 (1120) - IMAD R3, R3, UR7, RZ ;
+Instr 71 @ 0x470 (1136) - SHF.R.S32.HI R14, RZ, 0x1f, R11 ;
+Instr 72 @ 0x480 (1152) - ULDC.64 UR4, c[0x0][0x210] ;
+Instr 73 @ 0x490 (1168) - LOP3.LUT R16, R0, 0xfffffff8, RZ, 0xc0, !PT ;
+Instr 74 @ 0x4a0 (1184) - IMAD.MOV.U32 R15, RZ, RZ, 0x0 ;
+Instr 75 @ 0x4b0 (1200) - LEA.HI R13, R14, R11, RZ, 0x2 ;
+Instr 76 @ 0x4c0 (1216) - LEA.HI R11, R14, R11, RZ, 0x3 ;
+Instr 77 @ 0x4d0 (1232) - IMAD.MOV.U32 R14, RZ, RZ, 0x80 ;
+Instr 78 @ 0x4e0 (1248) - LEA.HI.SX32 R12, R13, R16, 0x1e ;
+Instr 79 @ 0x4f0 (1264) - IMAD.IADD R16, R16, 0x1, R19 ;
+Instr 80 @ 0x500 (1280) - SHF.L.U32 R2, R10, 0x2, RZ ;
+Instr 81 @ 0x510 (1296) - IMAD R25, R25, UR9, R6 ;
+Instr 82 @ 0x520 (1312) - SHF.R.S32.HI R13, RZ, 0x1f, R12 ;
+Instr 83 @ 0x530 (1328) - IMAD.SHL.U32 R17, R16, 0x2, RZ ;
+Instr 84 @ 0x540 (1344) - SHF.R.S32.HI R28, RZ, 0x3, R0 ;
+Instr 85 @ 0x550 (1360) - SHF.R.S32.HI R11, RZ, 0x3, R11 ;
+Instr 86 @ 0x560 (1376) - IMAD.WIDE R12, R25, 0xd2, R12 ;
+Instr 87 @ 0x570 (1392) - IADD3 R22, P4, R22, R3, RZ ;
+Instr 88 @ 0x580 (1408) - SHF.R.S32.HI R0, RZ, 0x1f, R19 ;
+Instr 89 @ 0x590 (1424) - IMAD.WIDE R24, R25, 0xd2, R4 ;
+Instr 90 @ 0x5a0 (1440) - IADD3 R38, P0, R12, UR4, RZ ;
+Instr 91 @ 0x5b0 (1456) - LDC.64 R4, c[0x0][0x218] ;
+Instr 92 @ 0x5c0 (1472) - SHF.L.U64.HI R31, R19, 0x2, R0 ;
+Instr 93 @ 0x5d0 (1488) - IMAD.WIDE R2, R2, 0x2, RZ ;
+Instr 94 @ 0x5e0 (1504) - IADD3 R38, P3, R38, 0xc4, RZ ;
+Instr 95 @ 0x5f0 (1520) - SHF.L.U32 R30, R11, 0x1, RZ ;
+Instr 96 @ 0x600 (1536) - IMAD R28, R28, 0x4, R11 ;
+Instr 97 @ 0x610 (1552) - IADD3.X R43, RZ, UR5, R13, P3, P0 ;
+Instr 98 @ 0x620 (1568) - IMAD.WIDE R6, R17, 0x2, R14 ;
+Instr 99 @ 0x630 (1584) - LOP3.LUT R29, R2, 0x6, RZ, 0xfc, !PT ;
+Instr 100 @ 0x640 (1600) - SHF.R.S32.HI R33, RZ, 0x1f, R28 ;
+Instr 101 @ 0x650 (1616) - IMAD.X R26, RZ, RZ, RZ, P4 ;
+Instr 102 @ 0x660 (1632) - IADD3 R16, P3, R6, R24, RZ ;
+Instr 103 @ 0x670 (1648) - IADD3 R13, P4, P5, R28, R22, R27 ;
+Instr 104 @ 0x680 (1664) - IADD3 R10, P0, R24, R29, RZ ;
+Instr 105 @ 0x690 (1680) - IMAD.X R17, R7, 0x1, R25, P3 ;
+Instr 106 @ 0x6a0 (1696) - IADD3.X R14, R33, R26, RZ, P4, P5 ;
+Instr 107 @ 0x6b0 (1712) - IMAD.WIDE.U32 R12, R13, 0x24, R4 ;
+Instr 108 @ 0x6c0 (1728) - LDG.E.U16.CONSTANT R35, desc[UR10][R16.64] ;
+Instr 109 @ 0x6d0 (1744) - IMAD.X R11, R3, 0x1, R25, P0 ;
+Instr 110 @ 0x6e0 (1760) - LDG.E.U16.CONSTANT R0, desc[UR10][R16.64+0x2] ;
+Instr 111 @ 0x6f0 (1776) - IMAD R15, R14, 0x24, RZ ;
+Instr 112 @ 0x700 (1792) - LDG.E.U16.CONSTANT R36, desc[UR10][R16.64+0x4] ;
+Instr 113 @ 0x710 (1808) - LDG.E.U16.CONSTANT R41, desc[UR10][R16.64+0x6] ;
+Instr 114 @ 0x720 (1824) - LEA R14, P0, R19, R12, 0x2 ;
+Instr 115 @ 0x730 (1840) - IMAD.IADD R13, R13, 0x1, R15 ;
+Instr 116 @ 0x740 (1856) - LDG.E.U16.CONSTANT R37, desc[UR10][R10.64+-0x6] ;
+Instr 117 @ 0x750 (1872) - LDG.E.U16.CONSTANT R32, desc[UR10][R10.64+-0x4] ;
+Instr 118 @ 0x760 (1888) - IMAD.X R15, R13, 0x1, R31, P0 ;
+Instr 119 @ 0x770 (1904) - LDG.E.U16.CONSTANT R34, desc[UR10][R10.64+-0x2] ;
+Instr 120 @ 0x780 (1920) - LDG.E.U16.CONSTANT R39, desc[UR10][R10.64] ;
+Instr 121 @ 0x790 (1936) - LDG.E.CONSTANT R42, desc[UR10][R14.64+0x4] ;
+Instr 122 @ 0x7a0 (1952) - LDG.E.CONSTANT R40, desc[UR10][R14.64+0x4c] ;
+Instr 123 @ 0x7b0 (1968) - MOV R10, R38 ;
+Instr 124 @ 0x7c0 (1984) - IMAD.MOV.U32 R11, RZ, RZ, R43 ;
+Instr 125 @ 0x7d0 (2000) - LDG.E.CONSTANT R45, desc[UR10][R14.64+0x50] ;
+Instr 126 @ 0x7e0 (2016) - LDG.E.U8.CONSTANT R38, desc[UR10][R10.64+-0x4] ;
+Instr 127 @ 0x7f0 (2032) - LDG.E.CONSTANT R43, desc[UR10][R14.64+0x8] ;
+Instr 128 @ 0x800 (2048) - LDG.E.U8.CONSTANT R44, desc[UR10][R10.64] ;
+Instr 129 @ 0x810 (2064) - LDG.E.U16.CONSTANT R16, desc[UR10][R12.64] ;
+Instr 130 @ 0x820 (2080) - LDG.E.U16.CONSTANT R17, desc[UR10][R12.64+0x48] ;
+Instr 131 @ 0x830 (2096) - IMAD.MOV.U32 R12, RZ, RZ, R24 ;
+Instr 132 @ 0x840 (2112) - IMAD.MOV.U32 R13, RZ, RZ, R25 ;
+Instr 133 @ 0x850 (2128) - LDG.E.U16.CONSTANT R12, desc[UR10][R12.64+0xd0] ;
+Instr 134 @ 0x860 (2144) - UMOV UR4, 0xe0e0e0e0 ;
+Instr 135 @ 0x870 (2160) - VIADD R21, R21, 0x8 ;
+Instr 136 @ 0x880 (2176) - ISETP.GE.AND P0, PT, R21, UR6, PT ;
+Instr 137 @ 0x890 (2192) - IADD3 R24, P4, R24, 0x690, RZ ;
+Instr 138 @ 0x8a0 (2208) - VIADD R27, R27, 0x40 ;
+Instr 139 @ 0x8b0 (2224) - IMAD.X R25, RZ, RZ, R25, P4 ;
+Instr 140 @ 0x8c0 (2240) - PRMT R35, R35, 0x5410, R0 ;
+Instr 141 @ 0x8d0 (2256) - SHF.R.S32.HI R0, RZ, R30, R35 ;
+Instr 142 @ 0x8e0 (2272) - SHF.L.U32 R35, R0, 0x4, RZ ;
+Instr 143 @ 0x8f0 (2288) - PRMT R41, R36, 0x5410, R41 ;
+Instr 144 @ 0x900 (2304) - LOP3.LUT R15, R35, 0x30303030, RZ, 0xc0, !PT ;
+Instr 145 @ 0x910 (2320) - SHF.R.S32.HI R41, RZ, R30, R41 ;
+Instr 146 @ 0x920 (2336) - PRMT R32, R37, 0x5410, R32 ;
+Instr 147 @ 0x930 (2352) - LOP3.LUT R35, R41.reuse, 0x30303030, RZ, 0xc0, !PT ;
+Instr 148 @ 0x940 (2368) - IMAD.SHL.U32 R41, R41, 0x10, RZ ;
+Instr 149 @ 0x950 (2384) - LOP3.LUT R15, R15, 0xf0f0f0f, R32, 0xf8, !PT ;
+Instr 150 @ 0x960 (2400) - SHF.R.U32.HI R32, RZ, 0x4, R32 ;
+Instr 151 @ 0x970 (2416) - LOP3.LUT R13, R0, 0x30303030, RZ, 0xc0, !PT ;
+Instr 152 @ 0x980 (2432) - PRMT R34, R34, 0x5410, R39 ;
+Instr 153 @ 0x990 (2448) - LOP3.LUT R13, R13, 0xf0f0f0f, R32, 0xf8, !PT ;
+Instr 154 @ 0x9a0 (2464) - IDP.4A.S8.S8 R15, R15, R42, RZ ;
+Instr 155 @ 0x9b0 (2480) - LOP3.LUT R41, R41, 0x30303030, RZ, 0xc0, !PT ;
+Instr 156 @ 0x9c0 (2496) - SHF.R.U32.HI R0, RZ, 0x4, R34 ;
+Instr 157 @ 0x9d0 (2512) - IDP.4A.S8.S8 R13, R13, R40, RZ ;
+Instr 158 @ 0x9e0 (2528) - LOP3.LUT R41, R41, 0xf0f0f0f, R34, 0xf8, !PT ;
+Instr 159 @ 0x9f0 (2544) - IDP.4A.S8.S8 R42, R42, UR4, R15 ;
+Instr 160 @ 0xa00 (2560) - LOP3.LUT R0, R35, 0xf0f0f0f, R0, 0xf8, !PT ;
+Instr 161 @ 0xa10 (2576) - IDP.4A.S8.S8 R13, R40, UR4, R13 ;
+Instr 162 @ 0xa20 (2592) - PRMT R38, R38, 0x8880, RZ ;
+Instr 163 @ 0xa30 (2608) - IDP.4A.S8.S8 R14, R0, R45, R13 ;
+Instr 164 @ 0xa40 (2624) - IDP.4A.S8.S8 R42, R41, R43, R42 ;
+Instr 165 @ 0xa50 (2640) - IMAD.MOV.U32 R0, RZ, RZ, R38 ;
+Instr 166 @ 0xa60 (2656) - IDP.4A.S8.S8 R43, R43, UR4, R42 ;
+Instr 167 @ 0xa70 (2672) - PRMT R13, R44, 0x8880, RZ ;
+Instr 168 @ 0xa80 (2688) - IDP.4A.S8.S8 R14, R45, UR4, R14 ;
+Instr 169 @ 0xa90 (2704) - IMAD R43, R0, R43, RZ ;
+Instr 170 @ 0xaa0 (2720) - IMAD R13, R13, R14, RZ ;
+Instr 171 @ 0xab0 (2736) - HADD2.F32 R0, -RZ, R16.H0_H0 ;
+Instr 172 @ 0xac0 (2752) - I2FP.F32.S32 R43, R43 ;
+Instr 173 @ 0xad0 (2768) - HADD2.F32 R17, -RZ, R17.H0_H0 ;
+Instr 174 @ 0xae0 (2784) - I2FP.F32.S32 R13, R13 ;
+Instr 175 @ 0xaf0 (2800) - FFMA.FTZ R0, R0, R43, RZ ;
+Instr 176 @ 0xb00 (2816) - IADD3 R38, P3, R10, 0x690, RZ ;
+Instr 177 @ 0xb10 (2832) - FFMA.FTZ R0, R17, R13, R0 ;
+Instr 178 @ 0xb20 (2848) - IADD3.X R43, RZ, R11, RZ, P3, !PT ;
+Instr 179 @ 0xb30 (2864) - HADD2.F32 R12, -RZ, R12.H0_H0 ;
+Instr 180 @ 0xb40 (2880) - FFMA.FTZ R23, R12, R0, R23 ;
+Instr 181 @ 0xb50 (2896) - @!P0 BRA 0x660 ;
+Instr 182 @ 0xb60 (2912) - BSYNC B0 ;
+Instr 183 @ 0xb70 (2928) - @P1 STS [R18+-0x80], R23 ;
+Instr 184 @ 0xb80 (2944) - BAR.SYNC.DEFER_BLOCKING 0x0 ;
+Instr 185 @ 0xb90 (2960) - @P2 EXIT ;
+Instr 186 @ 0xba0 (2976) - S2UR UR5, SR_CgaCtaId ;
+Instr 187 @ 0xbb0 (2992) - UMOV UR4, 0x400 ;
+Instr 188 @ 0xbc0 (3008) - ISETP.NE.AND P0, PT, R20, RZ, PT ;
+Instr 189 @ 0xbd0 (3024) - LDC R8, c[0x0][0x2b0] ;
+Instr 190 @ 0xbe0 (3040) - LDC R7, c[0x0][0x2c8] ;
+Instr 191 @ 0xbf0 (3056) - UPRMT UR4, UR5, 0x654, UR4 ;
+Instr 192 @ 0xc00 (3072) - LEA R0, R20, UR4, 0x2 ;
+Instr 193 @ 0xc10 (3088) - LDS R2, [R0] ;
+Instr 194 @ 0xc20 (3104) - S2UR UR4, SR_CTAID.X ;
+Instr 195 @ 0xc30 (3120) - LDS R3, [R0+0x80] ;
+Instr 196 @ 0xc40 (3136) - LDS R5, [R0+0x100] ;
+Instr 197 @ 0xc50 (3152) - IMAD R8, R9, R8, UR4 ;
+Instr 198 @ 0xc60 (3168) - FADD.FTZ R2, R2, R23 ;
+Instr 199 @ 0xc70 (3184) - FADD.FTZ R2, R2, R3 ;
+Instr 200 @ 0xc80 (3200) - FADD.FTZ R2, R2, R5 ;
+Instr 201 @ 0xc90 (3216) - SHFL.BFLY PT, R3, R2, 0x10, 0x1f ;
+Instr 202 @ 0xca0 (3232) - FADD.FTZ R3, R2, R3 ;
+Instr 203 @ 0xcb0 (3248) - SHFL.BFLY PT, R4, R3, 0x8, 0x1f ;
+Instr 204 @ 0xcc0 (3264) - FADD.FTZ R4, R3, R4 ;
+Instr 205 @ 0xcd0 (3280) - SHFL.BFLY PT, R5, R4, 0x4, 0x1f ;
+Instr 206 @ 0xce0 (3296) - FADD.FTZ R6, R4, R5 ;
+Instr 207 @ 0xcf0 (3312) - SHFL.BFLY PT, R5, R6, 0x2, 0x1f ;
+Instr 208 @ 0xd00 (3328) - FADD.FTZ R0, R6, R5 ;
+Instr 209 @ 0xd10 (3344) - IMAD R5, R7, UR7, R8 ;
+Instr 210 @ 0xd20 (3360) - SHFL.BFLY PT, R7, R0, 0x1, 0x1f ;
+Instr 211 @ 0xd30 (3376) - @P0 EXIT ;
+Instr 212 @ 0xd40 (3392) - LDC.64 R2, c[0x0][0x278] ;
+Instr 213 @ 0xd50 (3408) - FADD.FTZ R7, R0, R7 ;
+Instr 214 @ 0xd60 (3424) - IMAD.WIDE.U32 R2, R5, 0x4, R2 ;
+Instr 215 @ 0xd70 (3440) - STG.E desc[UR10][R2.64], R7 ;
+Instr 216 @ 0xd80 (3456) - EXIT ;
+Instr 217 @ 0xd90 (3472) - BRA 0xd90;
+Instr 218 @ 0xda0 (3488) - NOP;
+Instr 219 @ 0xdb0 (3504) - NOP;
+Instr 220 @ 0xdc0 (3520) - NOP;
+Instr 221 @ 0xdd0 (3536) - NOP;
+Instr 222 @ 0xde0 (3552) - NOP;
+Instr 223 @ 0xdf0 (3568) - NOP;
+Instr 224 @ 0xe00 (3584) - NOP;
+Instr 225 @ 0xe10 (3600) - NOP;
+Instr 226 @ 0xe20 (3616) - NOP;
+Instr 227 @ 0xe30 (3632) - NOP;
+Instr 228 @ 0xe40 (3648) - NOP;
+Instr 229 @ 0xe50 (3664) - NOP;
+Instr 230 @ 0xe60 (3680) - NOP;
+Instr 231 @ 0xe70 (3696) - NOP;
+kernel 1 - void mul_mat_vec_q<(ggml_type)14, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, unsigned int) - #thread-blocks 17408,  kernel instructions 667979776, total instructions 668456736
+  ACQBULK = 2228224
+  BAR.SYNC.DEFER_BLOCKING = 2228224
+  BRA = 3342336
+  BSSY = 2228224
+  BSYNC = 2228224
+  EXIT = 2228224
+  FADD.FTZ = 3916800
+  FFMA.FTZ = 16711680
+  HADD2.F32 = 16711680
+  I2FP.F32.S32 = 11141120
+  IADD3 = 36765696
+  IADD3.X = 13369344
+  IDP.4A.S8.S8 = 44564480
+  IMAD = 35094528
+  IMAD.HI.U32 = 2228224
+  IMAD.IADD = 12255232
+  IMAD.MOV.U32 = 35651584
+  IMAD.SHL.U32 = 12255232
+  IMAD.WIDE = 8912896
+  IMAD.WIDE.U32 = 5587968
+  IMAD.X = 24510464
+  ISETP.GE.AND = 7798784
+  ISETP.NE.AND = 5013504
+  ISETP.NE.AND.EX = 2228224
+  ISETP.NE.U32.AND = 2228224
+  LDC = 10027008
+  LDC.64 = 8930304
+  LDG.E.CONSTANT = 22282240
+  LDG.E.U16.CONSTANT = 61276160
+  LDG.E.U8.CONSTANT = 11141120
+  LDS = 1671168
+  LEA = 7798784
+  LEA.HI = 13369344
+  LEA.HI.SX32 = 2228224
+  LOP3.LUT = 55705600
+  MOV = 7241728
+  PRMT = 35094528
+  S2R = 8355840
+  S2UR = 5570560
+  SHF.L.U32 = 10027008
+  SHF.L.U64.HI = 2228224
+  SHF.R.S32.HI = 33423360
+  SHF.R.U32.HI = 13369344
+  SHFL.BFLY = 2785280
+  STG.E = 17408
+  STS = 1671168
+  UIMAD.WIDE.U32 = 2228224
+  ULDC = 6684672
+  ULDC.64 = 6684672
+  UMOV = 10584064
+  UPRMT = 557056
+  USHF.R.U32.HI = 4456448
+  VIADD = 11141120
+kernel 2 - quantize_q8_1(float const*, void*, long, long, long, long, long, unsigned int, uint3) - #thread-blocks 20,  kernel instructions 476960, total instructions 668933696
+  ACQBULK = 5120
+  EXIT = 5120
+  F2FP.F16.F32.PACK_AB = 160
+  F2I.FTZ.TRUNC.NTZ = 5120
+  FADD.FTZ = 5120
+  FADD.FTZ.RZ = 5120
+  FMNMX.FTZ = 25600
+  FMUL.FTZ = 10400
+  FRND.TRUNC = 5120
+  FSETP.NEU.FTZ.AND = 5120
+  HFMA2.MMA = 5120
+  I2FP.F32.S32 = 160
+  IADD3 = 15360
+  IADD3.X = 5120
+  IMAD = 35840
+  IMAD.IADD = 10240
+  IMAD.MOV.U32 = 15360
+  IMAD.U32 = 10240
+  IMAD.WIDE.U32 = 35840
+  IMAD.X = 10240
+  ISETP.GE.AND.EX = 10240
+  ISETP.GE.U32.AND = 10240
+  ISETP.GT.AND.EX = 5120
+  ISETP.GT.U32.AND = 5120
+  LDC = 10240
+  LDC.64 = 20480
+  LDG.E = 5120
+  LEA = 5120
+  LEA.HI = 5120
+  LEA.HI.X = 5120
+  LOP3.LUT = 15360
+  MOV = 160
+  MUFU.RCP = 5120
+  PREEXIT = 5120
+  PRMT = 5120
+  REDUX.SUM.S32 = 5120
+  S2R = 10240
+  S2UR = 10240
+  SHF.R.S32.HI = 10240
+  SHF.R.S64 = 5120
+  SHFL.BFLY = 25600
+  STG.E = 160
+  STG.E.U8 = 5120
+  UIADD3 = 5120
+  UIADD3.X = 5120
+  UIMAD.WIDE.U32 = 10240
+  ULDC = 10240
+  ULDC.64 = 25600
+  UMOV = 10240
+  USHF.R.U32.HI = 5120
+  WARPSYNC.ALL = 5120
+kernel 3 - void mul_mat_vec_q<(ggml_type)14, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, unsigned int) - #thread-blocks 17408,  kernel instructions 667979776, total instructions 1336913472
+  ACQBULK = 2228224
+  BAR.SYNC.DEFER_BLOCKING = 2228224
+  BRA = 3342336
+  BSSY = 2228224
+  BSYNC = 2228224
+  EXIT = 2228224
+  FADD.FTZ = 3916800
+  FFMA.FTZ = 16711680
+  HADD2.F32 = 16711680
+  I2FP.F32.S32 = 11141120
+  IADD3 = 36765696
+  IADD3.X = 13369344
+  IDP.4A.S8.S8 = 44564480
+  IMAD = 35094528
+  IMAD.HI.U32 = 2228224
+  IMAD.IADD = 12255232
+  IMAD.MOV.U32 = 35651584
+  IMAD.SHL.U32 = 12255232
+  IMAD.WIDE = 8912896
+  IMAD.WIDE.U32 = 5587968
+  IMAD.X = 24510464
+  ISETP.GE.AND = 7798784
+  ISETP.NE.AND = 5013504
+  ISETP.NE.AND.EX = 2228224
+  ISETP.NE.U32.AND = 2228224
+  LDC = 10027008
+  LDC.64 = 8930304
+  LDG.E.CONSTANT = 22282240
+  LDG.E.U16.CONSTANT = 61276160
+  LDG.E.U8.CONSTANT = 11141120
+  LDS = 1671168
+  LEA = 7798784
+  LEA.HI = 13369344
+  LEA.HI.SX32 = 2228224
+  LOP3.LUT = 55705600
+  MOV = 7241728
+  PRMT = 35094528
+  S2R = 8355840
+  S2UR = 5570560
+  SHF.L.U32 = 10027008
+  SHF.L.U64.HI = 2228224
+  SHF.R.S32.HI = 33423360
+  SHF.R.U32.HI = 13369344
+  SHFL.BFLY = 2785280
+  STG.E = 17408
+  STS = 1671168
+  UIMAD.WIDE.U32 = 2228224
+  ULDC = 6684672
+  ULDC.64 = 6684672
+  UMOV = 10584064
+  UPRMT = 557056
+  USHF.R.U32.HI = 4456448
+  VIADD = 11141120
+kernel 4 - quantize_q8_1(float const*, void*, long, long, long, long, long, unsigned int, uint3) - #thread-blocks 20,  kernel instructions 476960, total instructions 1337390432
+  ACQBULK = 5120
+  EXIT = 5120
+  F2FP.F16.F32.PACK_AB = 160
+  F2I.FTZ.TRUNC.NTZ = 5120
+  FADD.FTZ = 5120
+  FADD.FTZ.RZ = 5120
+  FMNMX.FTZ = 25600
+  FMUL.FTZ = 10400
+  FRND.TRUNC = 5120
+  FSETP.NEU.FTZ.AND = 5120
+  HFMA2.MMA = 5120
+  I2FP.F32.S32 = 160
+  IADD3 = 15360
+  IADD3.X = 5120
+  IMAD = 35840
+  IMAD.IADD = 10240
+  IMAD.MOV.U32 = 15360
+  IMAD.U32 = 10240
+  IMAD.WIDE.U32 = 35840
+  IMAD.X = 10240
+  ISETP.GE.AND.EX = 10240
+  ISETP.GE.U32.AND = 10240
+  ISETP.GT.AND.EX = 5120
+  ISETP.GT.U32.AND = 5120
+  LDC = 10240
+  LDC.64 = 20480
+  LDG.E = 5120
+  LEA = 5120
+  LEA.HI = 5120
+  LEA.HI.X = 5120
+  LOP3.LUT = 15360
+  MOV = 160
+  MUFU.RCP = 5120
+  PREEXIT = 5120
+  PRMT = 5120
+  REDUX.SUM.S32 = 5120
+  S2R = 10240
+  S2UR = 10240
+  SHF.R.S32.HI = 10240
+  SHF.R.S64 = 5120
+  SHFL.BFLY = 25600
+  STG.E = 160
+  STG.E.U8 = 5120
+  UIADD3 = 5120
+  UIADD3.X = 5120
+  UIMAD.WIDE.U32 = 10240
+  ULDC = 10240
+  ULDC.64 = 25600
+  UMOV = 10240
+  USHF.R.U32.HI = 5120
+  WARPSYNC.ALL = 5120
+kernel 5 - void mul_mat_vec_q<(ggml_type)14, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, unsigned int) - #thread-blocks 17408,  kernel instructions 667979776, total instructions 2005370208
+  ACQBULK = 2228224
+  BAR.SYNC.DEFER_BLOCKING = 2228224
+  BRA = 3342336
+  BSSY = 2228224
+  BSYNC = 2228224
+  EXIT = 2228224
+  FADD.FTZ = 3916800
+  FFMA.FTZ = 16711680
+  HADD2.F32 = 16711680
+  I2FP.F32.S32 = 11141120
+  IADD3 = 36765696
+  IADD3.X = 13369344
+  IDP.4A.S8.S8 = 44564480
+  IMAD = 35094528
+  IMAD.HI.U32 = 2228224
+  IMAD.IADD = 12255232
+  IMAD.MOV.U32 = 35651584
+  IMAD.SHL.U32 = 12255232
+  IMAD.WIDE = 8912896
+  IMAD.WIDE.U32 = 5587968
+  IMAD.X = 24510464
+  ISETP.GE.AND = 7798784
+  ISETP.NE.AND = 5013504
+  ISETP.NE.AND.EX = 2228224
+  ISETP.NE.U32.AND = 2228224
+  LDC = 10027008
+  LDC.64 = 8930304
+  LDG.E.CONSTANT = 22282240
+  LDG.E.U16.CONSTANT = 61276160
+  LDG.E.U8.CONSTANT = 11141120
+  LDS = 1671168
+  LEA = 7798784
+  LEA.HI = 13369344
+  LEA.HI.SX32 = 2228224
+  LOP3.LUT = 55705600
+  MOV = 7241728
+  PRMT = 35094528
+  S2R = 8355840
+  S2UR = 5570560
+  SHF.L.U32 = 10027008
+  SHF.L.U64.HI = 2228224
+  SHF.R.S32.HI = 33423360
+  SHF.R.U32.HI = 13369344
+  SHFL.BFLY = 2785280
+  STG.E = 17408
+  STS = 1671168
+  UIMAD.WIDE.U32 = 2228224
+  ULDC = 6684672
+  ULDC.64 = 6684672
+  UMOV = 10584064
+  UPRMT = 557056
+  USHF.R.U32.HI = 4456448
+  VIADD = 11141120
+kernel 6 - quantize_q8_1(float const*, void*, long, long, long, long, long, unsigned int, uint3) - #thread-blocks 20,  kernel instructions 476960, total instructions 2005847168
+  ACQBULK = 5120
+  EXIT = 5120
+  F2FP.F16.F32.PACK_AB = 160
+  F2I.FTZ.TRUNC.NTZ = 5120
+  FADD.FTZ = 5120
+  FADD.FTZ.RZ = 5120
+  FMNMX.FTZ = 25600
+  FMUL.FTZ = 10400
+  FRND.TRUNC = 5120
+  FSETP.NEU.FTZ.AND = 5120
+  HFMA2.MMA = 5120
+  I2FP.F32.S32 = 160
+  IADD3 = 15360
+  IADD3.X = 5120
+  IMAD = 35840
+  IMAD.IADD = 10240
+  IMAD.MOV.U32 = 15360
+  IMAD.U32 = 10240
+  IMAD.WIDE.U32 = 35840
+  IMAD.X = 10240
+  ISETP.GE.AND.EX = 10240
+  ISETP.GE.U32.AND = 10240
+  ISETP.GT.AND.EX = 5120
+  ISETP.GT.U32.AND = 5120
+  LDC = 10240
+  LDC.64 = 20480
+  LDG.E = 5120
+  LEA = 5120
+  LEA.HI = 5120
+  LEA.HI.X = 5120
+  LOP3.LUT = 15360
+  MOV = 160
+  MUFU.RCP = 5120
+  PREEXIT = 5120
+  PRMT = 5120
+  REDUX.SUM.S32 = 5120
+  S2R = 10240
+  S2UR = 10240
+  SHF.R.S32.HI = 10240
+  SHF.R.S64 = 5120
+  SHFL.BFLY = 25600
+  STG.E = 160
+  STG.E.U8 = 5120
+  UIADD3 = 5120
+  UIADD3.X = 5120
+  UIMAD.WIDE.U32 = 10240
+  ULDC = 10240
+  ULDC.64 = 25600
+  UMOV = 10240
+  USHF.R.U32.HI = 5120
+  WARPSYNC.ALL = 5120
+kernel 7 - void mul_mat_vec_q<(ggml_type)14, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, unsigned int) - #thread-blocks 17408,  kernel instructions 667979776, total instructions 2673826944
+  ACQBULK = 2228224
+  BAR.SYNC.DEFER_BLOCKING = 2228224
+  BRA = 3342336
+  BSSY = 2228224
+  BSYNC = 2228224
+  EXIT = 2228224
+  FADD.FTZ = 3916800
+  FFMA.FTZ = 16711680
+  HADD2.F32 = 16711680
+  I2FP.F32.S32 = 11141120
+  IADD3 = 36765696
+  IADD3.X = 13369344
+  IDP.4A.S8.S8 = 44564480
+  IMAD = 35094528
+  IMAD.HI.U32 = 2228224
+  IMAD.IADD = 12255232
+  IMAD.MOV.U32 = 35651584
+  IMAD.SHL.U32 = 12255232
+  IMAD.WIDE = 8912896
+  IMAD.WIDE.U32 = 5587968
+  IMAD.X = 24510464
+  ISETP.GE.AND = 7798784
+  ISETP.NE.AND = 5013504
+  ISETP.NE.AND.EX = 2228224
+  ISETP.NE.U32.AND = 2228224
+  LDC = 10027008
+  LDC.64 = 8930304
+  LDG.E.CONSTANT = 22282240
+  LDG.E.U16.CONSTANT = 61276160
+  LDG.E.U8.CONSTANT = 11141120
+  LDS = 1671168
+  LEA = 7798784
+  LEA.HI = 13369344
+  LEA.HI.SX32 = 2228224
+  LOP3.LUT = 55705600
+  MOV = 7241728
+  PRMT = 35094528
+  S2R = 8355840
+  S2UR = 5570560
+  SHF.L.U32 = 10027008
+  SHF.L.U64.HI = 2228224
+  SHF.R.S32.HI = 33423360
+  SHF.R.U32.HI = 13369344
+  SHFL.BFLY = 2785280
+  STG.E = 17408
+  STS = 1671168
+  UIMAD.WIDE.U32 = 2228224
+  ULDC = 6684672
+  ULDC.64 = 6684672
+  UMOV = 10584064
+  UPRMT = 557056
+  USHF.R.U32.HI = 4456448
+  VIADD = 11141120
+kernel 8 - quantize_q8_1(float const*, void*, long, long, long, long, long, unsigned int, uint3) - #thread-blocks 20,  kernel instructions 476960, total instructions 2674303904
+  ACQBULK = 5120
+  EXIT = 5120
+  F2FP.F16.F32.PACK_AB = 160
+  F2I.FTZ.TRUNC.NTZ = 5120
+  FADD.FTZ = 5120
+  FADD.FTZ.RZ = 5120
+  FMNMX.FTZ = 25600
+  FMUL.FTZ = 10400
+  FRND.TRUNC = 5120
+  FSETP.NEU.FTZ.AND = 5120
+  HFMA2.MMA = 5120
+  I2FP.F32.S32 = 160
+  IADD3 = 15360
+  IADD3.X = 5120
+  IMAD = 35840
+  IMAD.IADD = 10240
+  IMAD.MOV.U32 = 15360
+  IMAD.U32 = 10240
+  IMAD.WIDE.U32 = 35840
+  IMAD.X = 10240
+  ISETP.GE.AND.EX = 10240
+  ISETP.GE.U32.AND = 10240
+  ISETP.GT.AND.EX = 5120
+  ISETP.GT.U32.AND = 5120
+  LDC = 10240
+  LDC.64 = 20480
+  LDG.E = 5120
+  LEA = 5120
+  LEA.HI = 5120
+  LEA.HI.X = 5120
+  LOP3.LUT = 15360
+  MOV = 160
+  MUFU.RCP = 5120
+  PREEXIT = 5120
+  PRMT = 5120
+  REDUX.SUM.S32 = 5120
+  S2R = 10240
+  S2UR = 10240
+  SHF.R.S32.HI = 10240
+  SHF.R.S64 = 5120
+  SHFL.BFLY = 25600
+  STG.E = 160
+  STG.E.U8 = 5120
+  UIADD3 = 5120
+  UIADD3.X = 5120
+  UIMAD.WIDE.U32 = 10240
+  ULDC = 10240
+  ULDC.64 = 25600
+  UMOV = 10240
+  USHF.R.U32.HI = 5120
+  WARPSYNC.ALL = 5120
+kernel 9 - void mul_mat_vec_q<(ggml_type)14, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, unsigned int) - #thread-blocks 17408,  kernel instructions 667979776, total instructions 3342283680
+  ACQBULK = 2228224
+  BAR.SYNC.DEFER_BLOCKING = 2228224
+  BRA = 3342336
+  BSSY = 2228224
+  BSYNC = 2228224
+  EXIT = 2228224
+  FADD.FTZ = 3916800
+  FFMA.FTZ = 16711680
+  HADD2.F32 = 16711680
+  I2FP.F32.S32 = 11141120
+  IADD3 = 36765696
+  IADD3.X = 13369344
+  IDP.4A.S8.S8 = 44564480
+  IMAD = 35094528
+  IMAD.HI.U32 = 2228224
+  IMAD.IADD = 12255232
+  IMAD.MOV.U32 = 35651584
+  IMAD.SHL.U32 = 12255232
+  IMAD.WIDE = 8912896
+  IMAD.WIDE.U32 = 5587968
+  IMAD.X = 24510464
+  ISETP.GE.AND = 7798784
+  ISETP.NE.AND = 5013504
+  ISETP.NE.AND.EX = 2228224
+  ISETP.NE.U32.AND = 2228224
+  LDC = 10027008
+  LDC.64 = 8930304
+  LDG.E.CONSTANT = 22282240
+  LDG.E.U16.CONSTANT = 61276160
+  LDG.E.U8.CONSTANT = 11141120
+  LDS = 1671168
+  LEA = 7798784
+  LEA.HI = 13369344
+  LEA.HI.SX32 = 2228224
+  LOP3.LUT = 55705600
+  MOV = 7241728
+  PRMT = 35094528
+  S2R = 8355840
+  S2UR = 5570560
+  SHF.L.U32 = 10027008
+  SHF.L.U64.HI = 2228224
+  SHF.R.S32.HI = 33423360
+  SHF.R.U32.HI = 13369344
+  SHFL.BFLY = 2785280
+  STG.E = 17408
+  STS = 1671168
+  UIMAD.WIDE.U32 = 2228224
+  ULDC = 6684672
+  ULDC.64 = 6684672
+  UMOV = 10584064
+  UPRMT = 557056
+  USHF.R.U32.HI = 4456448
+  VIADD = 11141120
+kernel 10 - quantize_q8_1(float const*, void*, long, long, long, long, long, unsigned int, uint3) - #thread-blocks 20,  kernel instructions 476960, total instructions 3342760640
+  ACQBULK = 5120
+  EXIT = 5120
+  F2FP.F16.F32.PACK_AB = 160
+  F2I.FTZ.TRUNC.NTZ = 5120
+  FADD.FTZ = 5120
+  FADD.FTZ.RZ = 5120
+  FMNMX.FTZ = 25600
+  FMUL.FTZ = 10400
+  FRND.TRUNC = 5120
+  FSETP.NEU.FTZ.AND = 5120
+  HFMA2.MMA = 5120
+  I2FP.F32.S32 = 160
+  IADD3 = 15360
+  IADD3.X = 5120
+  IMAD = 35840
+  IMAD.IADD = 10240
+  IMAD.MOV.U32 = 15360
+  IMAD.U32 = 10240
+  IMAD.WIDE.U32 = 35840
+  IMAD.X = 10240
+  ISETP.GE.AND.EX = 10240
+  ISETP.GE.U32.AND = 10240
+  ISETP.GT.AND.EX = 5120
+  ISETP.GT.U32.AND = 5120
+  LDC = 10240
+  LDC.64 = 20480
+  LDG.E = 5120
+  LEA = 5120
+  LEA.HI = 5120
+  LEA.HI.X = 5120
+  LOP3.LUT = 15360
+  MOV = 160
+  MUFU.RCP = 5120
+  PREEXIT = 5120
+  PRMT = 5120
+  REDUX.SUM.S32 = 5120
+  S2R = 10240
+  S2UR = 10240
+  SHF.R.S32.HI = 10240
+  SHF.R.S64 = 5120
+  SHFL.BFLY = 25600
+  STG.E = 160
+  STG.E.U8 = 5120
+  UIADD3 = 5120
+  UIADD3.X = 5120
+  UIMAD.WIDE.U32 = 10240
+  ULDC = 10240
+  ULDC.64 = 25600
+  UMOV = 10240
+  USHF.R.U32.HI = 5120
+  WARPSYNC.ALL = 5120
+kernel 11 - void mul_mat_vec_q<(ggml_type)14, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, unsigned int) - #thread-blocks 17408,  kernel instructions 667979776, total instructions 4010740416
+  ACQBULK = 2228224
+  BAR.SYNC.DEFER_BLOCKING = 2228224
+  BRA = 3342336
+  BSSY = 2228224
+  BSYNC = 2228224
+  EXIT = 2228224
+  FADD.FTZ = 3916800
+  FFMA.FTZ = 16711680
+  HADD2.F32 = 16711680
+  I2FP.F32.S32 = 11141120
+  IADD3 = 36765696
+  IADD3.X = 13369344
+  IDP.4A.S8.S8 = 44564480
+  IMAD = 35094528
+  IMAD.HI.U32 = 2228224
+  IMAD.IADD = 12255232
+  IMAD.MOV.U32 = 35651584
+  IMAD.SHL.U32 = 12255232
+  IMAD.WIDE = 8912896
+  IMAD.WIDE.U32 = 5587968
+  IMAD.X = 24510464
+  ISETP.GE.AND = 7798784
+  ISETP.NE.AND = 5013504
+  ISETP.NE.AND.EX = 2228224
+  ISETP.NE.U32.AND = 2228224
+  LDC = 10027008
+  LDC.64 = 8930304
+  LDG.E.CONSTANT = 22282240
+  LDG.E.U16.CONSTANT = 61276160
+  LDG.E.U8.CONSTANT = 11141120
+  LDS = 1671168
+  LEA = 7798784
+  LEA.HI = 13369344
+  LEA.HI.SX32 = 2228224
+  LOP3.LUT = 55705600
+  MOV = 7241728
+  PRMT = 35094528
+  S2R = 8355840
+  S2UR = 5570560
+  SHF.L.U32 = 10027008
+  SHF.L.U64.HI = 2228224
+  SHF.R.S32.HI = 33423360
+  SHF.R.U32.HI = 13369344
+  SHFL.BFLY = 2785280
+  STG.E = 17408
+  STS = 1671168
+  UIMAD.WIDE.U32 = 2228224
+  ULDC = 6684672
+  ULDC.64 = 6684672
+  UMOV = 10584064
+  UPRMT = 557056
+  USHF.R.U32.HI = 4456448
+  VIADD = 11141120
+kernel 12 - quantize_q8_1(float const*, void*, long, long, long, long, long, unsigned int, uint3) - #thread-blocks 20,  kernel instructions 476960, total instructions 4011217376
+  ACQBULK = 5120
+  EXIT = 5120
+  F2FP.F16.F32.PACK_AB = 160
+  F2I.FTZ.TRUNC.NTZ = 5120
+  FADD.FTZ = 5120
+  FADD.FTZ.RZ = 5120
+  FMNMX.FTZ = 25600
+  FMUL.FTZ = 10400
+  FRND.TRUNC = 5120
+  FSETP.NEU.FTZ.AND = 5120
+  HFMA2.MMA = 5120
+  I2FP.F32.S32 = 160
+  IADD3 = 15360
+  IADD3.X = 5120
+  IMAD = 35840
+  IMAD.IADD = 10240
+  IMAD.MOV.U32 = 15360
+  IMAD.U32 = 10240
+  IMAD.WIDE.U32 = 35840
+  IMAD.X = 10240
+  ISETP.GE.AND.EX = 10240
+  ISETP.GE.U32.AND = 10240
+  ISETP.GT.AND.EX = 5120
+  ISETP.GT.U32.AND = 5120
+  LDC = 10240
+  LDC.64 = 20480
+  LDG.E = 5120
+  LEA = 5120
+  LEA.HI = 5120
+  LEA.HI.X = 5120
+  LOP3.LUT = 15360
+  MOV = 160
+  MUFU.RCP = 5120
+  PREEXIT = 5120
+  PRMT = 5120
+  REDUX.SUM.S32 = 5120
+  S2R = 10240
+  S2UR = 10240
+  SHF.R.S32.HI = 10240
+  SHF.R.S64 = 5120
+  SHFL.BFLY = 25600
+  STG.E = 160
+  STG.E.U8 = 5120
+  UIADD3 = 5120
+  UIADD3.X = 5120
+  UIMAD.WIDE.U32 = 10240
+  ULDC = 10240
+  ULDC.64 = 25600
+  UMOV = 10240
+  USHF.R.U32.HI = 5120
+  WARPSYNC.ALL = 5120
+kernel 13 - void mul_mat_vec_q<(ggml_type)14, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, unsigned int) - #thread-blocks 17408,  kernel instructions 667979776, total instructions 4679197152
+  ACQBULK = 2228224
+  BAR.SYNC.DEFER_BLOCKING = 2228224
+  BRA = 3342336
+  BSSY = 2228224
+  BSYNC = 2228224
+  EXIT = 2228224
+  FADD.FTZ = 3916800
+  FFMA.FTZ = 16711680
+  HADD2.F32 = 16711680
+  I2FP.F32.S32 = 11141120
+  IADD3 = 36765696
+  IADD3.X = 13369344
+  IDP.4A.S8.S8 = 44564480
+  IMAD = 35094528
+  IMAD.HI.U32 = 2228224
+  IMAD.IADD = 12255232
+  IMAD.MOV.U32 = 35651584
+  IMAD.SHL.U32 = 12255232
+  IMAD.WIDE = 8912896
+  IMAD.WIDE.U32 = 5587968
+  IMAD.X = 24510464
+  ISETP.GE.AND = 7798784
+  ISETP.NE.AND = 5013504
+  ISETP.NE.AND.EX = 2228224
+  ISETP.NE.U32.AND = 2228224
+  LDC = 10027008
+  LDC.64 = 8930304
+  LDG.E.CONSTANT = 22282240
+  LDG.E.U16.CONSTANT = 61276160
+  LDG.E.U8.CONSTANT = 11141120
+  LDS = 1671168
+  LEA = 7798784
+  LEA.HI = 13369344
+  LEA.HI.SX32 = 2228224
+  LOP3.LUT = 55705600
+  MOV = 7241728
+  PRMT = 35094528
+  S2R = 8355840
+  S2UR = 5570560
+  SHF.L.U32 = 10027008
+  SHF.L.U64.HI = 2228224
+  SHF.R.S32.HI = 33423360
+  SHF.R.U32.HI = 13369344
+  SHFL.BFLY = 2785280
+  STG.E = 17408
+  STS = 1671168
+  UIMAD.WIDE.U32 = 2228224
+  ULDC = 6684672
+  ULDC.64 = 6684672
+  UMOV = 10584064
+  UPRMT = 557056
+  USHF.R.U32.HI = 4456448
+  VIADD = 11141120
+kernel 14 - quantize_q8_1(float const*, void*, long, long, long, long, long, unsigned int, uint3) - #thread-blocks 20,  kernel instructions 476960, total instructions 4679674112
+  ACQBULK = 5120
+  EXIT = 5120
+  F2FP.F16.F32.PACK_AB = 160
+  F2I.FTZ.TRUNC.NTZ = 5120
+  FADD.FTZ = 5120
+  FADD.FTZ.RZ = 5120
+  FMNMX.FTZ = 25600
+  FMUL.FTZ = 10400
+  FRND.TRUNC = 5120
+  FSETP.NEU.FTZ.AND = 5120
+  HFMA2.MMA = 5120
+  I2FP.F32.S32 = 160
+  IADD3 = 15360
+  IADD3.X = 5120
+  IMAD = 35840
+  IMAD.IADD = 10240
+  IMAD.MOV.U32 = 15360
+  IMAD.U32 = 10240
+  IMAD.WIDE.U32 = 35840
+  IMAD.X = 10240
+  ISETP.GE.AND.EX = 10240
+  ISETP.GE.U32.AND = 10240
+  ISETP.GT.AND.EX = 5120
+  ISETP.GT.U32.AND = 5120
+  LDC = 10240
+  LDC.64 = 20480
+  LDG.E = 5120
+  LEA = 5120
+  LEA.HI = 5120
+  LEA.HI.X = 5120
+  LOP3.LUT = 15360
+  MOV = 160
+  MUFU.RCP = 5120
+  PREEXIT = 5120
+  PRMT = 5120
+  REDUX.SUM.S32 = 5120
+  S2R = 10240
+  S2UR = 10240
+  SHF.R.S32.HI = 10240
+  SHF.R.S64 = 5120
+  SHFL.BFLY = 25600
+  STG.E = 160
+  STG.E.U8 = 5120
+  UIADD3 = 5120
+  UIADD3.X = 5120
+  UIMAD.WIDE.U32 = 10240
+  ULDC = 10240
+  ULDC.64 = 25600
+  UMOV = 10240
+  USHF.R.U32.HI = 5120
+  WARPSYNC.ALL = 5120
+kernel 15 - void mul_mat_vec_q<(ggml_type)14, 1, false, false, false>(void const*, void const*, int const*, ggml_cuda_mm_fusion_args_device, float*, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, uint3, unsigned int, unsigned int, unsigned int, unsigned int) - #thread-blocks 17408,  kernel instructions 667979776, total instructions 5347653888
+  ACQBULK = 2228224
+  BAR.SYNC.DEFER_BLOCKING = 2228224
+  BRA = 3342336
+  BSSY = 2228224
+  BSYNC = 2228224
+  EXIT = 2228224
+  FADD.FTZ = 3916800
+  FFMA.FTZ = 16711680
+  HADD2.F32 = 16711680
+  I2FP.F32.S32 = 11141120
+  IADD3 = 36765696
+  IADD3.X = 13369344
+  IDP.4A.S8.S8 = 44564480
+  IMAD = 35094528
+  IMAD.HI.U32 = 2228224
+  IMAD.IADD = 12255232
+  IMAD.MOV.U32 = 35651584
+  IMAD.SHL.U32 = 12255232
+  IMAD.WIDE = 8912896
+  IMAD.WIDE.U32 = 5587968
+  IMAD.X = 24510464
+  ISETP.GE.AND = 7798784
+  ISETP.NE.AND = 5013504
+  ISETP.NE.AND.EX = 2228224
+  ISETP.NE.U32.AND = 2228224
+  LDC = 10027008
+  LDC.64 = 8930304
+  LDG.E.CONSTANT = 22282240
+  LDG.E.U16.CONSTANT = 61276160
+  LDG.E.U8.CONSTANT = 11141120
+  LDS = 1671168
+  LEA = 7798784
+  LEA.HI = 13369344
+  LEA.HI.SX32 = 2228224
+  LOP3.LUT = 55705600
+  MOV = 7241728
+  PRMT = 35094528
+  S2R = 8355840
+  S2UR = 5570560
+  SHF.L.U32 = 10027008
+  SHF.L.U64.HI = 2228224
+  SHF.R.S32.HI = 33423360
+  SHF.R.U32.HI = 13369344
+  SHFL.BFLY = 2785280
+  STG.E = 17408
+  STS = 1671168
+  UIMAD.WIDE.U32 = 2228224
+  ULDC = 6684672
+  ULDC.64 = 6684672
+  UMOV = 10584064
+  UPRMT = 557056
+  USHF.R.U32.HI = 4456448
+  VIADD = 11141120
+[q6_K] 1 passes in 0.12 s: 123428.88 us/pass, 2.4 GB/s, 259.8 W avg, 89928.68 pJ/weight
+
+idle power: start nan W, end nan W
+pass type          B/w    us/pass      GB/s    P_avg    P_med   pJ/w tot   pJ/w act   pJ/B act
+0    q6_K       0.8203  123428.88       2.4    259.8    146.2  89928.683        nan        nan
+
+wrote /scratch/mindreia/qwentization/results/nvbit_20261112_182338/q6_K_summary.csv, /scratch/mindreia/qwentization/results/nvbit_20261112_182338/q6_K_samples.csv

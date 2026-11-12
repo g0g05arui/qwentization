@@ -1,0 +1,1935 @@
+------------- NVBit (NVidia Binary Instrumentation Tool v1.8.1) Loaded --------------
+NVBit core environment variables (mostly for nvbit-devs):
+ACK_CTX_INIT_LIMITATION = 0 - if set, no warning will be printed for nvbit_at_ctx_init()
+            NVDISASM = nvdisasm - override default nvdisasm found in PATH
+            NOBANNER = 0 - if set, does not print this banner
+       NO_EAGER_LOAD = 1 - lazy module loading is now turned on by default. If you see deadlocks in your tool, set NO_EAGER_LOAD to 0
+---------------------------------------------------------------------------------
+         INSTR_BEGIN = 0 - Beginning of the instruction interval where to apply instrumentation
+           INSTR_END = 4294967295 - End of the instruction interval where to apply instrumentation
+        KERNEL_BEGIN = 0 - Beginning of the kernel launch interval where to apply instrumentation
+          KERNEL_END = 4294967295 - End of the kernel launch interval where to apply instrumentation
+        TOOL_VERBOSE = 1 - Enable verbosity inside the tool
+    COUNT_WARP_LEVEL = 0 - Count warp level or thread level instructions
+    EXCLUDE_PRED_OFF = 1 - Exclude predicated off instruction from count
+WARNING: Do not call CUDA memory allocation in nvbit_at_ctx_init(). It will cause deadlocks. Do them in nvbit_tool_init(). If you encounter deadlocks, remove CUDA API calls to debug.
+q4_K: 262144 weights, 147456 packed bytes, 1024 decode CTAs, 256 matvec CTAs
+----------------------------------------------------------------------------------------------------
+inspecting void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - num instrs 80
+Instr 0 @ 0x0 (0) - LDC R1, c[0x0][0x28] ;
+Instr 1 @ 0x10 (16) - S2R R2, SR_TID.X ;
+Instr 2 @ 0x20 (32) - S2UR UR4, SR_CTAID.X ;
+Instr 3 @ 0x30 (48) - IMAD.MOV.U32 R3, RZ, RZ, RZ ;
+Instr 4 @ 0x40 (64) - LDC R5, c[0x0][RZ] ;
+Instr 5 @ 0x50 (80) - IMAD.WIDE.U32 R8, R5, UR4, R2 ;
+Instr 6 @ 0x60 (96) - ULDC.64 UR4, c[0x0][0x230] ;
+Instr 7 @ 0x70 (112) - ISETP.GE.U32.AND P0, PT, R8, UR4, PT ;
+Instr 8 @ 0x80 (128) - ISETP.GE.U32.AND.EX P0, PT, R9, UR5, PT, P0 ;
+Instr 9 @ 0x90 (144) - @P0 EXIT ;
+Instr 10 @ 0xa0 (160) - LDC.64 R2, c[0x0][0x210] ;
+Instr 11 @ 0xb0 (176) - ULDC UR4, c[0x0][0xc] ;
+Instr 12 @ 0xc0 (192) - IMAD.MOV.U32 R0, RZ, RZ, R8 ;
+Instr 13 @ 0xd0 (208) - ULDC.64 UR6, c[0x0][0x208] ;
+Instr 14 @ 0xe0 (224) - IMAD.WIDE.U32 R4, R5, UR4, RZ ;
+Instr 15 @ 0xf0 (240) - UMOV UR4, URZ ;
+Instr 16 @ 0x100 (256) - ULDC.64 UR8, c[0x0][0x230] ;
+Instr 17 @ 0x110 (272) - VIADD R8, R5, UR4 ;
+Instr 18 @ 0x120 (288) - ULDC.64 UR4, c[0x0][0x220] ;
+Instr 19 @ 0x130 (304) - SHF.R.U32.HI R6, RZ, 0x8, R9.reuse ;
+Instr 20 @ 0x140 (320) - SHF.R.U64 R7, R0.reuse, 0x8, R9 ;
+Instr 21 @ 0x150 (336) - LOP3.LUT R12, R0, 0xff, RZ, 0xc0, !PT ;
+Instr 22 @ 0x160 (352) - IMAD R13, R6, 0x90, RZ ;
+Instr 23 @ 0x170 (368) - IMAD.WIDE.U32 R6, R7, 0x90, R2 ;
+Instr 24 @ 0x180 (384) - LEA.HI R11, R12.reuse, 0xfffffffc, RZ, 0x1b ;
+Instr 25 @ 0x190 (400) - ISETP.GE.U32.AND P0, PT, R12, 0x80, PT ;
+Instr 26 @ 0x1a0 (416) - IMAD.IADD R7, R7, 0x1, R13 ;
+Instr 27 @ 0x1b0 (432) - IADD3 R14, P1, R11, R6, RZ ;
+Instr 28 @ 0x1c0 (448) - SHF.R.U32.HI R12, RZ, 0x6, R12 ;
+Instr 29 @ 0x1d0 (464) - LEA.HI.X.SX32 R15, R11, R7, 0x1, P1 ;
+Instr 30 @ 0x1e0 (480) - LDG.E.U16 R19, desc[UR6][R6.64+0x2] ;
+Instr 31 @ 0x1f0 (496) - IMAD.SHL.U32 R13, R12, 0x20, RZ ;
+Instr 32 @ 0x200 (512) - LDG.E.U8 R11, desc[UR6][R14.64+0xc] ;
+Instr 33 @ 0x210 (528) - @P0 LDG.E.U8 R16, desc[UR6][R14.64+0x4] ;
+Instr 34 @ 0x220 (544) - LDG.E.U8 R10, desc[UR6][R14.64+0x8] ;
+Instr 35 @ 0x230 (560) - LOP3.LUT R13, R13, 0xffffffe0, R0, 0xe2, !PT ;
+Instr 36 @ 0x240 (576) - LDG.E.U16 R18, desc[UR6][R6.64] ;
+Instr 37 @ 0x250 (592) - IADD3 R12, P1, R13, R6, RZ ;
+Instr 38 @ 0x260 (608) - IMAD.X R13, RZ, RZ, R7, P1 ;
+Instr 39 @ 0x270 (624) - LDG.E.U8 R12, desc[UR6][R12.64+0x10] ;
+Instr 40 @ 0x280 (640) - @P0 SHF.R.U32.HI R17, RZ, 0x4, R11 ;
+Instr 41 @ 0x290 (656) - @P0 SHF.R.U32.HI R16, RZ, 0x2, R16 ;
+Instr 42 @ 0x2a0 (672) - @P0 SHF.R.U32.HI R14, RZ, 0x2, R10 ;
+Instr 43 @ 0x2b0 (688) - @P0 LOP3.LUT R16, R16, 0x30, RZ, 0xc0, !PT ;
+Instr 44 @ 0x2c0 (704) - @P0 LOP3.LUT R14, R17, 0x30, R14, 0xf8, !PT ;
+Instr 45 @ 0x2d0 (720) - @!P0 LOP3.LUT R14, R11, 0x3f, RZ, 0xc0, !PT ;
+Instr 46 @ 0x2e0 (736) - @P0 LOP3.LUT R11, R16, 0xf, R11, 0xf8, !PT ;
+Instr 47 @ 0x2f0 (752) - @!P0 LOP3.LUT R11, R10, 0x3f, RZ, 0xc0, !PT ;
+Instr 48 @ 0x300 (768) - SHF.R.U32.HI R10, RZ, 0x3, R0 ;
+Instr 49 @ 0x310 (784) - I2F.U16 R14, R14 ;
+Instr 50 @ 0x320 (800) - LOP3.LUT R7, R10, 0x4, RZ, 0xc0, !PT ;
+Instr 51 @ 0x330 (816) - I2F.U16 R11, R11 ;
+Instr 52 @ 0x340 (832) - SHF.R.U32.HI R6, RZ, R7, R12 ;
+Instr 53 @ 0x350 (848) - HADD2.F32 R19, -RZ, R19.H0_H0 ;
+Instr 54 @ 0x360 (864) - HADD2.F32 R18, -RZ, R18.H0_H0 ;
+Instr 55 @ 0x370 (880) - LOP3.LUT R6, R6, 0xf, RZ, 0xc0, !PT ;
+Instr 56 @ 0x380 (896) - FMUL R19, R19, R14 ;
+Instr 57 @ 0x390 (912) - I2FP.F32.S32 R7, R6 ;
+Instr 58 @ 0x3a0 (928) - FMUL R18, R18, R11 ;
+Instr 59 @ 0x3b0 (944) - LEA R6, P0, R0, UR4, 0x1 ;
+Instr 60 @ 0x3c0 (960) - FFMA R7, R18, R7, -R19 ;
+Instr 61 @ 0x3d0 (976) - F2FP.F16.F32.PACK_AB R10, RZ, R7 ;
+Instr 62 @ 0x3e0 (992) - LEA.HI.X R7, R0, UR5, R9, 0x1, P0 ;
+Instr 63 @ 0x3f0 (1008) - IADD3 R0, P0, R0, R4, RZ ;
+Instr 64 @ 0x400 (1024) - STG.E.U16 desc[UR6][R6.64], R10 ;
+Instr 65 @ 0x410 (1040) - IMAD.X R9, R9, 0x1, R8, P0 ;
+Instr 66 @ 0x420 (1056) - ISETP.GE.U32.AND P0, PT, R0, UR8, PT ;
+Instr 67 @ 0x430 (1072) - ISETP.GE.U32.AND.EX P0, PT, R9, UR9, PT, P0 ;
+Instr 68 @ 0x440 (1088) - @!P0 BRA 0x130 ;
+Instr 69 @ 0x450 (1104) - EXIT ;
+Instr 70 @ 0x460 (1120) - BRA 0x460;
+Instr 71 @ 0x470 (1136) - NOP;
+Instr 72 @ 0x480 (1152) - NOP;
+Instr 73 @ 0x490 (1168) - NOP;
+Instr 74 @ 0x4a0 (1184) - NOP;
+Instr 75 @ 0x4b0 (1200) - NOP;
+Instr 76 @ 0x4c0 (1216) - NOP;
+Instr 77 @ 0x4d0 (1232) - NOP;
+Instr 78 @ 0x4e0 (1248) - NOP;
+Instr 79 @ 0x4f0 (1264) - NOP;
+kernel 0 - void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - #thread-blocks 1024,  kernel instructions 16646144, total instructions 16646144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=0|LDC = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1008|IADD3 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1024|STG.E.U16 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1040|IMAD.X = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1056|ISETP.GE.U32.AND = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1072|ISETP.GE.U32.AND.EX = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1104|EXIT = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=112|ISETP.GE.U32.AND = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=128|ISETP.GE.U32.AND.EX = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=160|LDC.64 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=16|S2R = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=176|ULDC = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=192|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=208|ULDC.64 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=224|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=240|UMOV = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=256|ULDC.64 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=272|VIADD = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=288|ULDC.64 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=304|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=320|SHF.R.U64 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=32|S2UR = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=336|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=352|IMAD = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=368|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=384|LEA.HI = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=400|ISETP.GE.U32.AND = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=416|IMAD.IADD = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=432|IADD3 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=448|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=464|LEA.HI.X.SX32 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=480|LDG.E.U16 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=48|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=496|IMAD.SHL.U32 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=512|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=528|LDG.E.U8 = 131072
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=544|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=560|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=576|LDG.E.U16 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=592|IADD3 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=608|IMAD.X = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=624|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=640|SHF.R.U32.HI = 131072
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=64|LDC = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=656|SHF.R.U32.HI = 131072
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=672|SHF.R.U32.HI = 131072
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=688|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=704|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=720|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=736|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=752|LOP3.LUT = 131072
+  void diagnostic_kernePROFILE format=q4_K variant=full mode=write_fp16 weights=262144 blocks=1024 threads=256
+l<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=768|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=784|I2F.U16 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=800|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=80|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=816|I2F.U16 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=832|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=848|HADD2.F32 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=864|HADD2.F32 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=880|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=896|FMUL = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=912|I2FP.F32.S32 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=928|FMUL = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=944|LEA = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=960|FFMA = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=96|ULDC.64 = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=976|F2FP.F16.F32.PACK_AB = 262144
+  void diagnostic_kernel<1, 0, 0>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=992|LEA.HI.X = 262144
+inspecting void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - num instrs 136
+Instr 0 @ 0x0 (0) - LDC R1, c[0x0][0x28] ;
+Instr 1 @ 0x10 (16) - S2R R2, SR_TID.X ;
+Instr 2 @ 0x20 (32) - S2UR UR8, SR_CTAID.X ;
+Instr 3 @ 0x30 (48) - IMAD.MOV.U32 R3, RZ, RZ, RZ ;
+Instr 4 @ 0x40 (64) - ULDC.64 UR10, c[0x0][0x238] ;
+Instr 5 @ 0x50 (80) - ULDC.64 UR6, c[0x0][0x208] ;
+Instr 6 @ 0x60 (96) - ULDC.64 UR12, c[0x0][0x210] ;
+Instr 7 @ 0x70 (112) - IMAD.MOV.U32 R0, RZ, RZ, RZ ;
+Instr 8 @ 0x80 (128) - LDC R7, c[0x0][RZ] ;
+Instr 9 @ 0x90 (144) - IMAD.WIDE.U32 R4, R7, UR8, R2 ;
+Instr 10 @ 0xa0 (160) - ISETP.GE.U32.AND P0, PT, R4, UR10, PT ;
+Instr 11 @ 0xb0 (176) - ISETP.GE.U32.AND.EX P0, PT, R5, UR11, PT, P0 ;
+Instr 12 @ 0xc0 (192) - @P0 BRA 0x1e0 ;
+Instr 13 @ 0xd0 (208) - ULDC UR4, c[0x0][0xc] ;
+Instr 14 @ 0xe0 (224) - HFMA2.MMA R0, -RZ, RZ, 0, 0 ;
+Instr 15 @ 0xf0 (240) - IMAD.WIDE.U32 R6, R7, UR4, RZ ;
+Instr 16 @ 0x100 (256) - UMOV UR4, URZ ;
+Instr 17 @ 0x110 (272) - MOV R11, R4 ;
+Instr 18 @ 0x120 (288) - IMAD.MOV.U32 R13, RZ, RZ, R5 ;
+Instr 19 @ 0x130 (304) - VIADD R8, R7, UR4 ;
+Instr 20 @ 0x140 (320) - IADD3 R4, P0, R11, UR12, RZ ;
+Instr 21 @ 0x150 (336) - IADD3.X R5, R13, UR13, RZ, P0, !PT ;
+Instr 22 @ 0x160 (352) - LDG.E.U8 R4, desc[UR6][R4.64] ;
+Instr 23 @ 0x170 (368) - IADD3 R11, P1, R11, R6, RZ ;
+Instr 24 @ 0x180 (384) - ISETP.GE.U32.AND P0, PT, R11, UR10, PT ;
+Instr 25 @ 0x190 (400) - IADD3.X R13, R13, R8, RZ, P1, !PT ;
+Instr 26 @ 0x1a0 (416) - ISETP.GE.U32.AND.EX P0, PT, R13, UR11, PT, P0 ;
+Instr 27 @ 0x1b0 (432) - I2F.U16 R9, R4 ;
+Instr 28 @ 0x1c0 (448) - FADD R0, R9, R0 ;
+Instr 29 @ 0x1d0 (464) - @!P0 BRA 0x140 ;
+Instr 30 @ 0x1e0 (480) - WARPSYNC.ALL ;
+Instr 31 @ 0x1f0 (496) - SHFL.DOWN PT, R5, R0, 0x10, 0x1f ;
+Instr 32 @ 0x200 (512) - LOP3.LUT P0, RZ, R2.reuse, 0x1f, RZ, 0xc0, !PT ;
+Instr 33 @ 0x210 (528) - ISETP.GT.U32.AND P1, PT, R2, 0x7, PT ;
+Instr 34 @ 0x220 (544) - @!P0 S2R R8, SR_CgaCtaId ;
+Instr 35 @ 0x230 (560) - @!P1 S2R R11, SR_CgaCtaId ;
+Instr 36 @ 0x240 (576) - FADD R5, R5, R0 ;
+Instr 37 @ 0x250 (592) - @!P0 SHF.R.U32.HI R0, RZ, 0x3, R2 ;
+Instr 38 @ 0x260 (608) - SHFL.DOWN PT, R4, R5, 0x8, 0x1f ;
+Instr 39 @ 0x270 (624) - @!P0 LOP3.LUT R0, R0, 0x1ffffffc, RZ, 0xc0, !PT ;
+Instr 40 @ 0x280 (640) - FADD R4, R5, R4 ;
+Instr 41 @ 0x290 (656) - @!P0 MOV R5, 0x400 ;
+Instr 42 @ 0x2a0 (672) - SHFL.DOWN PT, R7, R4, 0x4, 0x1f ;
+Instr 43 @ 0x2b0 (688) - @!P0 PRMT R5, R8, 0x654, R5 ;
+Instr 44 @ 0x2c0 (704) - @!P0 IMAD.IADD R0, R0, 0x1, R5 ;
+Instr 45 @ 0x2d0 (720) - MOV R5, RZ ;
+Instr 46 @ 0x2e0 (736) - FADD R7, R4, R7 ;
+Instr 47 @ 0x2f0 (752) - @!P1 MOV R4, 0x400 ;
+Instr 48 @ 0x300 (768) - SHFL.DOWN PT, R6, R7, 0x2, 0x1f ;
+Instr 49 @ 0x310 (784) - @!P1 PRMT R11, R11, 0x654, R4 ;
+Instr 50 @ 0x320 (800) - @!P1 IMAD R4, R2, 0x4, R11 ;
+Instr 51 @ 0x330 (816) - FADD R6, R7, R6 ;
+Instr 52 @ 0x340 (832) - SHFL.DOWN PT, R9, R6, 0x1, 0x1f ;
+Instr 53 @ 0x350 (848) - FADD R9, R6, R9 ;
+Instr 54 @ 0x360 (864) - @!P0 STS [R0], R9 ;
+Instr 55 @ 0x370 (880) - BAR.SYNC.DEFER_BLOCKING 0x0 ;
+Instr 56 @ 0x380 (896) - ISETP.GT.U32.AND P0, PT, R2, 0x1f, PT ;
+Instr 57 @ 0x390 (912) - BSSY B0, 0x490 ;
+Instr 58 @ 0x3a0 (928) - @!P1 LDS R5, [R4] ;
+Instr 59 @ 0x3b0 (944) - @P0 BRA 0x480 ;
+Instr 60 @ 0x3c0 (960) - UMOV UR4, 0xffffffff ;
+Instr 61 @ 0x3d0 (976) - BRA.DIV UR4, 0x520 ;
+Instr 62 @ 0x3e0 (992) - SHFL.DOWN PT, R0, R5, 0x10, 0x1f ;
+Instr 63 @ 0x3f0 (1008) - FADD R0, R5, R0 ;
+Instr 64 @ 0x400 (1024) - SHFL.DOWN PT, R7, R0, 0x8, 0x1f ;
+Instr 65 @ 0x410 (1040) - FADD R7, R0, R7 ;
+Instr 66 @ 0x420 (1056) - SHFL.DOWN PT, R4, R7, 0x4, 0x1f ;
+Instr 67 @ 0x430 (1072) - FADD R4, R7, R4 ;
+Instr 68 @ 0x440 (1088) - SHFL.DOWN PT, R9, R4, 0x2, 0x1f ;
+Instr 69 @ 0x450 (1104) - FADD R9, R4, R9 ;
+Instr 70 @ 0x460 (1120) - SHFL.DOWN PT, R6, R9, 0x1, 0x1f ;
+Instr 71 @ 0x470 (1136) - FADD R5, R9, R6 ;
+Instr 72 @ 0x480 (1152) - BSYNC B0 ;
+Instr 73 @ 0x490 (1168) - ISETP.NE.AND P0, PT, R2, RZ, PT ;
+Instr 74 @ 0x4a0 (1184) - @P0 EXIT ;
+Instr 75 @ 0x4b0 (1200) - ULDC.64 UR4, c[0x0][0x228] ;
+Instr 76 @ 0x4c0 (1216) - ULEA UR4, UP0, UR8, UR4, 0x2 ;
+Instr 77 @ 0x4d0 (1232) - ULEA.HI.X UR5, UR8, UR5, URZ, 0x2, UP0 ;
+Instr 78 @ 0x4e0 (1248) - MOV R2, UR4 ;
+Instr 79 @ 0x4f0 (1264) - MOV R3, UR5 ;
+Instr 80 @ 0x500 (1280) - STG.E desc[UR6][R2.64], R5 ;
+Instr 81 @ 0x510 (1296) - EXIT ;
+Instr 82 @ 0x520 (1312) - HFMA2.MMA R8, -RZ, RZ, 0, 9.5367431640625e-07 ;
+Instr 83 @ 0x530 (1328) - BSSY B1, 0x5a0 ;
+Instr 84 @ 0x540 (1344) - IMAD.MOV.U32 R11, RZ, RZ, 0x1f ;
+Instr 85 @ 0x550 (1360) - MOV R6, 0xffffffff ;
+Instr 86 @ 0x560 (1376) - WARPSYNC.COLLECTIVE R6, 0x590 ;
+Instr 87 @ 0x570 (1392) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 88 @ 0x580 (1408) - ENDCOLLECTIVE ;
+Instr 89 @ 0x590 (1424) - BSYNC B1 ;
+Instr 90 @ 0x5a0 (1440) - IMAD.MOV.U32 R0, RZ, RZ, R6 ;
+Instr 91 @ 0x5b0 (1456) - HFMA2.MMA R11, -RZ, RZ, 0, 1.847743988037109375e-06 ;
+Instr 92 @ 0x5c0 (1472) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 93 @ 0x5d0 (1488) - FADD R0, R5, R0 ;
+Instr 94 @ 0x5e0 (1504) - IMAD.MOV.U32 R8, RZ, RZ, 0x8 ;
+Instr 95 @ 0x5f0 (1520) - MOV R5, R0 ;
+Instr 96 @ 0x600 (1536) - WARPSYNC.COLLECTIVE R6, 0x630 ;
+Instr 97 @ 0x610 (1552) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 98 @ 0x620 (1568) - ENDCOLLECTIVE ;
+Instr 99 @ 0x630 (1584) - HFMA2.MMA R8, -RZ, RZ, 0, 2.384185791015625e-07 ;
+Instr 100 @ 0x640 (1600) - MOV R7, R6 ;
+Instr 101 @ 0x650 (1616) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 102 @ 0x660 (1632) - FADD R7, R0, R7 ;
+Instr 103 @ 0x670 (1648) - IMAD.MOV.U32 R5, RZ, RZ, R7 ;
+Instr 104 @ 0x680 (1664) - WARPSYNC.COLLECTIVE R6, 0x6b0 ;
+Instr 105 @ 0x690 (1680) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 106 @ 0x6a0 (1696) - ENDCOLLECTIVE ;
+Instr 107 @ 0x6b0 (1712) - HFMA2.MMA R8, -RZ, RZ, 0, 1.1920928955078125e-07 ;
+Instr 108 @ 0x6c0 (1728) - MOV R4, R6 ;
+Instr 109 @ 0x6d0 (1744) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 110 @ 0x6e0 (1760) - FADD R4, R7, R4 ;
+Instr 111 @ 0x6f0 (1776) - IMAD.MOV.U32 R5, RZ, RZ, R4 ;
+Instr 112 @ 0x700 (1792) - WARPSYNC.COLLECTIVE R6, 0x730 ;
+Instr 113 @ 0x710 (1808) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 114 @ 0x720 (1824) - ENDCOLLECTIVE ;
+Instr 115 @ 0x730 (1840) - HFMA2.MMA R8, -RZ, RZ, 0, 5.9604644775390625e-08 ;
+Instr 116 @ 0x740 (1856) - MOV R9, R6 ;
+Instr 117 @ 0x750 (1872) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 118 @ 0x760 (1888) - FADD R9, R4, R9 ;
+Instr 119 @ 0x770 (1904) - IMAD.MOV.U32 R5, RZ, RZ, R9 ;
+Instr 120 @ 0x780 (1920) - WARPSYNC.COLLECTIVE R6, 0x7b0 ;
+Instr 121 @ 0x790 (1936) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 122 @ 0x7a0 (1952) - ENDCOLLECTIVE ;
+Instr 123 @ 0x7b0 (1968) - BRA 0x470 ;
+Instr 124 @ 0x7c0 (1984) - BRA 0x7c0;
+Instr 125 @ 0x7d0 (2000) - NOP;
+Instr 126 @ 0x7e0 (2016) - NOP;
+Instr 127 @ 0x7f0 (2032) - NOP;
+Instr 128 @ 0x800 (2048) - NOP;
+Instr 129 @ 0x810 (2064) - NOP;
+Instr 130 @ 0x820 (2080) - NOP;
+Instr 131 @ 0x830 (2096) - NOP;
+Instr 132 @ 0x840 (2112) - NOP;
+Instr 133 @ 0x850 (2128) - NOP;
+Instr 134 @ 0x860 (2144) - NOP;
+Instr 135 @ 0x870 (2160) - NOP;
+kernel 1 - void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - #thread-blocks 1024,  kernel instructions 11589632, total instructions 28235776
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=0|LDC = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1008|FADD = 32768
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1024|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1040|FADD = 32768
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1056|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1072|FADD = 32768
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1088|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1104|FADD = 32768
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1120|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=112|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1136|FADD = 32768
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1152|BSYNC = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1168|ISETP.NE.AND = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1184|EXIT = 261120
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1200|ULDC.64 = 1024
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1216|ULEA = 1024
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1232|ULEA.HI.X = 1024
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1248|MOV = 1024
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1264|MOV = 1024
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1280|STG.E = 1024
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=128|LDC = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1296|EXIT = 1024
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=144|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=160|ISETP.GE.U32.AND = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=16|S2R = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=176|ISETP.GE.U32.AND.EX = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=192|BRA = 114688
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=208|ULDC = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=224|HFMA2.MMA = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=240|IMAD.WIDE.U32 = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=256|UMOV = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=272|MOV = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=288|IMAD.MOV.U32 = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=304|VIADD = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=320|IADD3 = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=32|S2UR = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=336|IADD3.X = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=352|LDG.E.U8 = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=368|IADD3 = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=384|ISETP.GE.U32.AND = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=400|IADD3.X = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=416|ISETP.GE.U32.AND.EX = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=432|I2F.U16 = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=448|FADD = 147456
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=480|WARPSYNC.ALL = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=48|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=496|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=512|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=528|ISETP.GT.U32.AND = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=544|S2R = 8192
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=560|S2R = 8192
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=576|FADD = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=592|SHF.R.U32.HI = 8192
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=608|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=624|LOP3.LUT = 8192
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=640|FADD = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=64|ULDC.64 = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=656|MOV = 8192
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=672|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=688|PRMT = 8192
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=704|IMAD.IADD = 8192
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=720|MOV = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=736|FADD = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=752|MOV = 8192
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=768|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=784|PRMT = 8192
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=800|IMAD = 8192
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=80|ULDC.64 = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=816|FADD = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=832|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=848|FADD = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=864|STS = 8192
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=880|BAR.SYNC.DEFER_BLOCKING = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsignePROFILE format=q4_K variant=full mode=read_bytes_control weights=262144 blocks=1024 threads=256
+d long, int)|pc=896|ISETP.GT.U32.AND = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=912|BSSY = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=928|LDS = 8192
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=944|BRA = 229376
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=960|UMOV = 32768
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=96|ULDC.64 = 262144
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=976|BRA.DIV = 32768
+  void diagnostic_kernel<1, 0, 3>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=992|SHFL.DOWN = 32768
+inspecting void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - num instrs 176
+Instr 0 @ 0x0 (0) - LDC R1, c[0x0][0x28] ;
+Instr 1 @ 0x10 (16) - S2R R2, SR_TID.X ;
+Instr 2 @ 0x20 (32) - S2UR UR8, SR_CTAID.X ;
+Instr 3 @ 0x30 (48) - IMAD.MOV.U32 R3, RZ, RZ, RZ ;
+Instr 4 @ 0x40 (64) - ULDC.64 UR4, c[0x0][0x230] ;
+Instr 5 @ 0x50 (80) - ULDC.64 UR6, c[0x0][0x208] ;
+Instr 6 @ 0x60 (96) - ULDC.64 UR10, c[0x0][0x230] ;
+Instr 7 @ 0x70 (112) - IMAD.MOV.U32 R0, RZ, RZ, RZ ;
+Instr 8 @ 0x80 (128) - LDC R7, c[0x0][RZ] ;
+Instr 9 @ 0x90 (144) - IMAD.WIDE.U32 R10, R7, UR8, R2 ;
+Instr 10 @ 0xa0 (160) - ISETP.GE.U32.AND P0, PT, R10, UR4, PT ;
+Instr 11 @ 0xb0 (176) - ISETP.GE.U32.AND.EX P0, PT, R11, UR5, PT, P0 ;
+Instr 12 @ 0xc0 (192) - @P0 BRA 0x430 ;
+Instr 13 @ 0xd0 (208) - LDC.64 R4, c[0x0][0x210] ;
+Instr 14 @ 0xe0 (224) - ULDC UR4, c[0x0][0xc] ;
+Instr 15 @ 0xf0 (240) - HFMA2.MMA R0, -RZ, RZ, 0, 0 ;
+Instr 16 @ 0x100 (256) - IMAD.WIDE.U32 R6, R7, UR4, RZ ;
+Instr 17 @ 0x110 (272) - UMOV UR4, URZ ;
+Instr 18 @ 0x120 (288) - IMAD.MOV.U32 R15, RZ, RZ, R11 ;
+Instr 19 @ 0x130 (304) - VIADD R11, R7, UR4 ;
+Instr 20 @ 0x140 (320) - SHF.R.U32.HI R8, RZ, 0x8, R15.reuse ;
+Instr 21 @ 0x150 (336) - SHF.R.U64 R9, R10.reuse, 0x8, R15 ;
+Instr 22 @ 0x160 (352) - LOP3.LUT R14, R10, 0xff, RZ, 0xc0, !PT ;
+Instr 23 @ 0x170 (368) - IMAD R17, R8, 0x90, RZ ;
+Instr 24 @ 0x180 (384) - IMAD.WIDE.U32 R8, R9, 0x90, R4 ;
+Instr 25 @ 0x190 (400) - LEA.HI R13, R14.reuse, 0xfffffffc, RZ, 0x1b ;
+Instr 26 @ 0x1a0 (416) - ISETP.GE.U32.AND P0, PT, R14, 0x80, PT ;
+Instr 27 @ 0x1b0 (432) - IMAD.IADD R9, R9, 0x1, R17 ;
+Instr 28 @ 0x1c0 (448) - IADD3 R12, P1, R13, R8, RZ ;
+Instr 29 @ 0x1d0 (464) - LEA.HI.X.SX32 R13, R13, R9, 0x1, P1 ;
+Instr 30 @ 0x1e0 (480) - LDG.E.U16 R21, desc[UR6][R8.64] ;
+Instr 31 @ 0x1f0 (496) - SHF.R.U32.HI R16, RZ, 0x6, R14 ;
+Instr 32 @ 0x200 (512) - LDG.E.U8 R14, desc[UR6][R12.64+0xc] ;
+Instr 33 @ 0x210 (528) - @P0 LDG.E.U8 R18, desc[UR6][R12.64+0x4] ;
+Instr 34 @ 0x220 (544) - SHF.L.U32 R17, R16, 0x5, RZ ;
+Instr 35 @ 0x230 (560) - LDG.E.U8 R20, desc[UR6][R12.64+0x8] ;
+Instr 36 @ 0x240 (576) - LOP3.LUT R17, R17, 0xffffffe0, R10, 0xe2, !PT ;
+Instr 37 @ 0x250 (592) - LDG.E.U16 R22, desc[UR6][R8.64+0x2] ;
+Instr 38 @ 0x260 (608) - IADD3 R16, P1, R17, R8, RZ ;
+Instr 39 @ 0x270 (624) - IMAD.X R17, RZ, RZ, R9, P1 ;
+Instr 40 @ 0x280 (640) - LDG.E.U8 R16, desc[UR6][R16.64+0x10] ;
+Instr 41 @ 0x290 (656) - SHF.R.U32.HI R12, RZ, 0x3, R10 ;
+Instr 42 @ 0x2a0 (672) - LOP3.LUT R9, R12, 0x4, RZ, 0xc0, !PT ;
+Instr 43 @ 0x2b0 (688) - @P0 SHF.R.U32.HI R18, RZ, 0x2, R18 ;
+Instr 44 @ 0x2c0 (704) - @P0 LOP3.LUT R19, R18, 0x30, RZ, 0xc0, !PT ;
+Instr 45 @ 0x2d0 (720) - @P0 SHF.R.U32.HI R18, RZ, 0x4, R14 ;
+Instr 46 @ 0x2e0 (736) - @P0 LOP3.LUT R13, R19, 0xf, R14, 0xf8, !PT ;
+Instr 47 @ 0x2f0 (752) - @P0 SHF.R.U32.HI R19, RZ, 0x2, R20 ;
+Instr 48 @ 0x300 (768) - @!P0 LOP3.LUT R13, R20, 0x3f, RZ, 0xc0, !PT ;
+Instr 49 @ 0x310 (784) - @P0 LOP3.LUT R18, R18, 0x30, R19, 0xf8, !PT ;
+Instr 50 @ 0x320 (800) - @!P0 LOP3.LUT R18, R14, 0x3f, RZ, 0xc0, !PT ;
+Instr 51 @ 0x330 (816) - IADD3 R10, P0, R10, R6, RZ ;
+Instr 52 @ 0x340 (832) - I2F.U16 R20, R13 ;
+Instr 53 @ 0x350 (848) - SHF.R.U32.HI R8, RZ, R9, R16 ;
+Instr 54 @ 0x360 (864) - IMAD.X R15, R15, 0x1, R11, P0 ;
+Instr 55 @ 0x370 (880) - I2F.U16 R17, R18 ;
+Instr 56 @ 0x380 (896) - ISETP.GE.U32.AND P0, PT, R10, UR10, PT ;
+Instr 57 @ 0x390 (912) - HADD2.F32 R21, -RZ, R21.H0_H0 ;
+Instr 58 @ 0x3a0 (928) - LOP3.LUT R8, R8, 0xf, RZ, 0xc0, !PT ;
+Instr 59 @ 0x3b0 (944) - ISETP.GE.U32.AND.EX P0, PT, R15, UR11, PT, P0 ;
+Instr 60 @ 0x3c0 (960) - HADD2.F32 R22, -RZ, R22.H0_H0 ;
+Instr 61 @ 0x3d0 (976) - I2FP.F32.S32 R9, R8 ;
+Instr 62 @ 0x3e0 (992) - FMUL R20, R21, R20 ;
+Instr 63 @ 0x3f0 (1008) - FMUL R17, R22, R17 ;
+Instr 64 @ 0x400 (1024) - FFMA R9, R20, R9, -R17 ;
+Instr 65 @ 0x410 (1040) - FADD R0, R9, R0 ;
+Instr 66 @ 0x420 (1056) - @!P0 BRA 0x140 ;
+Instr 67 @ 0x430 (1072) - WARPSYNC.ALL ;
+Instr 68 @ 0x440 (1088) - SHFL.DOWN PT, R5, R0, 0x10, 0x1f ;
+Instr 69 @ 0x450 (1104) - LOP3.LUT P0, RZ, R2.reuse, 0x1f, RZ, 0xc0, !PT ;
+Instr 70 @ 0x460 (1120) - ISETP.GT.U32.AND P1, PT, R2, 0x7, PT ;
+Instr 71 @ 0x470 (1136) - @!P0 S2R R8, SR_CgaCtaId ;
+Instr 72 @ 0x480 (1152) - @!P1 S2R R11, SR_CgaCtaId ;
+Instr 73 @ 0x490 (1168) - FADD R5, R5, R0 ;
+Instr 74 @ 0x4a0 (1184) - @!P0 SHF.R.U32.HI R0, RZ, 0x3, R2 ;
+Instr 75 @ 0x4b0 (1200) - SHFL.DOWN PT, R4, R5, 0x8, 0x1f ;
+Instr 76 @ 0x4c0 (1216) - @!P0 LOP3.LUT R0, R0, 0x1ffffffc, RZ, 0xc0, !PT ;
+Instr 77 @ 0x4d0 (1232) - FADD R4, R5, R4 ;
+Instr 78 @ 0x4e0 (1248) - @!P0 MOV R5, 0x400 ;
+Instr 79 @ 0x4f0 (1264) - SHFL.DOWN PT, R7, R4, 0x4, 0x1f ;
+Instr 80 @ 0x500 (1280) - @!P0 PRMT R5, R8, 0x654, R5 ;
+Instr 81 @ 0x510 (1296) - @!P0 IADD3 R0, R0, R5, RZ ;
+Instr 82 @ 0x520 (1312) - IMAD.MOV.U32 R5, RZ, RZ, RZ ;
+Instr 83 @ 0x530 (1328) - FADD R7, R4, R7 ;
+Instr 84 @ 0x540 (1344) - @!P1 MOV R4, 0x400 ;
+Instr 85 @ 0x550 (1360) - SHFL.DOWN PT, R6, R7, 0x2, 0x1f ;
+Instr 86 @ 0x560 (1376) - @!P1 PRMT R11, R11, 0x654, R4 ;
+Instr 87 @ 0x570 (1392) - @!P1 IMAD R4, R2, 0x4, R11 ;
+Instr 88 @ 0x580 (1408) - FADD R6, R7, R6 ;
+Instr 89 @ 0x590 (1424) - SHFL.DOWN PT, R9, R6, 0x1, 0x1f ;
+Instr 90 @ 0x5a0 (1440) - FADD R9, R6, R9 ;
+Instr 91 @ 0x5b0 (1456) - @!P0 STS [R0], R9 ;
+Instr 92 @ 0x5c0 (1472) - BAR.SYNC.DEFER_BLOCKING 0x0 ;
+Instr 93 @ 0x5d0 (1488) - ISETP.GT.U32.AND P0, PT, R2, 0x1f, PT ;
+Instr 94 @ 0x5e0 (1504) - BSSY B0, 0x6e0 ;
+Instr 95 @ 0x5f0 (1520) - @!P1 LDS R5, [R4] ;
+Instr 96 @ 0x600 (1536) - @P0 BRA 0x6d0 ;
+Instr 97 @ 0x610 (1552) - UMOV UR4, 0xffffffff ;
+Instr 98 @ 0x620 (1568) - BRA.DIV UR4, 0x770 ;
+Instr 99 @ 0x630 (1584) - SHFL.DOWN PT, R0, R5, 0x10, 0x1f ;
+Instr 100 @ 0x640 (1600) - FADD R0, R5, R0 ;
+Instr 101 @ 0x650 (1616) - SHFL.DOWN PT, R7, R0, 0x8, 0x1f ;
+Instr 102 @ 0x660 (1632) - FADD R7, R0, R7 ;
+Instr 103 @ 0x670 (1648) - SHFL.DOWN PT, R4, R7, 0x4, 0x1f ;
+Instr 104 @ 0x680 (1664) - FADD R4, R7, R4 ;
+Instr 105 @ 0x690 (1680) - SHFL.DOWN PT, R9, R4, 0x2, 0x1f ;
+Instr 106 @ 0x6a0 (1696) - FADD R9, R4, R9 ;
+Instr 107 @ 0x6b0 (1712) - SHFL.DOWN PT, R6, R9, 0x1, 0x1f ;
+Instr 108 @ 0x6c0 (1728) - FADD R5, R9, R6 ;
+Instr 109 @ 0x6d0 (1744) - BSYNC B0 ;
+Instr 110 @ 0x6e0 (1760) - ISETP.NE.AND P0, PT, R2, RZ, PT ;
+Instr 111 @ 0x6f0 (1776) - @P0 EXIT ;
+Instr 112 @ 0x700 (1792) - ULDC.64 UR4, c[0x0][0x228] ;
+Instr 113 @ 0x710 (1808) - ULEA UR4, UP0, UR8, UR4, 0x2 ;
+Instr 114 @ 0x720 (1824) - ULEA.HI.X UR5, UR8, UR5, URZ, 0x2, UP0 ;
+Instr 115 @ 0x730 (1840) - IMAD.U32 R2, RZ, RZ, UR4 ;
+Instr 116 @ 0x740 (1856) - MOV R3, UR5 ;
+Instr 117 @ 0x750 (1872) - STG.E desc[UR6][R2.64], R5 ;
+Instr 118 @ 0x760 (1888) - EXIT ;
+Instr 119 @ 0x770 (1904) - HFMA2.MMA R8, -RZ, RZ, 0, 9.5367431640625e-07 ;
+Instr 120 @ 0x780 (1920) - BSSY B1, 0x7f0 ;
+Instr 121 @ 0x790 (1936) - IMAD.MOV.U32 R11, RZ, RZ, 0x1f ;
+Instr 122 @ 0x7a0 (1952) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 123 @ 0x7b0 (1968) - WARPSYNC.COLLECTIVE R6, 0x7e0 ;
+Instr 124 @ 0x7c0 (1984) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 125 @ 0x7d0 (2000) - ENDCOLLECTIVE ;
+Instr 126 @ 0x7e0 (2016) - BSYNC B1 ;
+Instr 127 @ 0x7f0 (2032) - MOV R0, R6 ;
+Instr 128 @ 0x800 (2048) - HFMA2.MMA R11, -RZ, RZ, 0, 1.847743988037109375e-06 ;
+Instr 129 @ 0x810 (2064) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 130 @ 0x820 (2080) - IMAD.MOV.U32 R8, RZ, RZ, 0x8 ;
+Instr 131 @ 0x830 (2096) - FADD R0, R5, R0 ;
+Instr 132 @ 0x840 (2112) - IMAD.MOV.U32 R5, RZ, RZ, R0 ;
+Instr 133 @ 0x850 (2128) - WARPSYNC.COLLECTIVE R6, 0x880 ;
+Instr 134 @ 0x860 (2144) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 135 @ 0x870 (2160) - ENDCOLLECTIVE ;
+Instr 136 @ 0x880 (2176) - IMAD.MOV.U32 R8, RZ, RZ, 0x4 ;
+Instr 137 @ 0x890 (2192) - IMAD.MOV.U32 R7, RZ, RZ, R6 ;
+Instr 138 @ 0x8a0 (2208) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 139 @ 0x8b0 (2224) - FADD R7, R0, R7 ;
+Instr 140 @ 0x8c0 (2240) - MOV R5, R7 ;
+Instr 141 @ 0x8d0 (2256) - WARPSYNC.COLLECTIVE R6, 0x900 ;
+Instr 142 @ 0x8e0 (2272) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 143 @ 0x8f0 (2288) - ENDCOLLECTIVE ;
+Instr 144 @ 0x900 (2304) - IMAD.MOV.U32 R8, RZ, RZ, 0x2 ;
+Instr 145 @ 0x910 (2320) - MOV R4, R6 ;
+Instr 146 @ 0x920 (2336) - MOV R6, 0xffffffff ;
+Instr 147 @ 0x930 (2352) - FADD R4, R7, R4 ;
+Instr 148 @ 0x940 (2368) - IMAD.MOV.U32 R5, RZ, RZ, R4 ;
+Instr 149 @ 0x950 (2384) - WARPSYNC.COLLECTIVE R6, 0x980 ;
+Instr 150 @ 0x960 (2400) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 151 @ 0x970 (2416) - ENDCOLLECTIVE ;
+Instr 152 @ 0x980 (2432) - HFMA2.MMA R8, -RZ, RZ, 0, 5.9604644775390625e-08 ;
+Instr 153 @ 0x990 (2448) - IMAD.MOV.U32 R9, RZ, RZ, R6 ;
+Instr 154 @ 0x9a0 (2464) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 155 @ 0x9b0 (2480) - FADD R9, R4, R9 ;
+Instr 156 @ 0x9c0 (2496) - IMAD.MOV.U32 R5, RZ, RZ, R9 ;
+Instr 157 @ 0x9d0 (2512) - WARPSYNC.COLLECTIVE R6, 0xa00 ;
+Instr 158 @ 0x9e0 (2528) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 159 @ 0x9f0 (2544) - ENDCOLLECTIVE ;
+Instr 160 @ 0xa00 (2560) - BRA 0x6c0 ;
+Instr 161 @ 0xa10 (2576) - BRA 0xa10;
+Instr 162 @ 0xa20 (2592) - NOP;
+Instr 163 @ 0xa30 (2608) - NOP;
+Instr 164 @ 0xa40 (2624) - NOP;
+Instr 165 @ 0xa50 (2640) - NOP;
+Instr 166 @ 0xa60 (2656) - NOP;
+Instr 167 @ 0xa70 (2672) - NOP;
+Instr 168 @ 0xa80 (2688) - NOP;
+Instr 169 @ 0xa90 (2704) - NOP;
+Instr 170 @ 0xaa0 (2720) - NOP;
+Instr 171 @ 0xab0 (2736) - NOP;
+Instr 172 @ 0xac0 (2752) - NOP;
+Instr 173 @ 0xad0 (2768) - NOP;
+Instr 174 @ 0xae0 (2784) - NOP;
+Instr 175 @ 0xaf0 (2800) - NOP;
+kernel 2 - void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - #thread-blocks 1024,  kernel instructions 21829632, total instructions 50065408
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=0|LDC = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1008|FMUL = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1024|FFMA = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1040|FADD = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1072|WARPSYNC.ALL = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1088|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1104|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1120|ISETP.GT.U32.AND = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=112|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1136|S2R = 8192
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1152|S2R = 8192
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1168|FADD = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1184|SHF.R.U32.HI = 8192
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1200|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1216|LOP3.LUT = 8192
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1232|FADD = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1248|MOV = 8192
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1264|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1280|PRMT = 8192
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=128|LDC = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1296|IADD3 = 8192
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1312|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1328|FADD = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1344|MOV = 8192
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1360|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1376|PRMT = 8192
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1392|IMAD = 8192
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1408|FADD = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1424|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1440|FADD = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=144|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1456|STS = 8192
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1472|BAR.SYNC.DEFER_BLOCKING = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1488|ISETP.GT.U32.AND = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1504|BSSY = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1520|LDS = 8192
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1536|BRA = 229376
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1552|UMOV = 32768
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1568|BRA.DIV = 32768
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1584|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1600|FADD = 32768
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=160|ISETP.GE.U32.AND = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1616|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1632|FADD = 32768
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1648|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1664|FADD = 32768
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1680|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1696|FADD = 32768
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=16|S2R = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1712|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1728|FADD = 32768
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1744|BSYNC = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1760|ISETP.NE.AND = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=176|ISETP.GE.U32.AND.EX = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1776|EXIT = 261120
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1792|ULDC.64 = 1024
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1808|ULEA = 1024
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1824|ULEA.HI.X = 1024
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1840|IMAD.U32 = 1024
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1856|MOV = 1024
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1872|STG.E = 1024
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1888|EXIT = 1024
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=208|LDC.64 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=224|ULDC = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=240|HFMA2.MMA = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=256|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=272|UMOV = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=288|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=304|VIADD = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=320|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=32|S2UR = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=336|SHF.R.U64 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=352|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=368|IMAD = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=384|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=400|LEA.HI = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=416|ISETP.GE.U32.AND = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=432|IMAD.IADD = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=448|IADD3 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=464|LEA.HI.X.SX32 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=480|LDG.E.U16 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=48|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=496|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=512|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=528|LDG.E.U8 = 131072
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=544|SHF.L.U32 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=560|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=576|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=592|LDG.E.U16 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=608|IADD3 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=624|IMAD.X = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=640|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=64|ULDC.64 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=656|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsiPROFILE format=q4_K variant=full mode=checksum weights=262144 blocks=1024 threads=256
+gned long, unsigned long, int)|pc=672|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=688|SHF.R.U32.HI = 131072
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=704|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=720|SHF.R.U32.HI = 131072
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=736|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=752|SHF.R.U32.HI = 131072
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=768|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=784|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=800|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=80|ULDC.64 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=816|IADD3 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=832|I2F.U16 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=848|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=864|IMAD.X = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=880|I2F.U16 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=896|ISETP.GE.U32.AND = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=912|HADD2.F32 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=928|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=944|ISETP.GE.U32.AND.EX = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=960|HADD2.F32 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=96|ULDC.64 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=976|I2FP.F32.S32 = 262144
+  void diagnostic_kernel<1, 0, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=992|FMUL = 262144
+inspecting void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - num instrs 144
+Instr 0 @ 0x0 (0) - LDC R1, c[0x0][0x28] ;
+Instr 1 @ 0x10 (16) - S2R R2, SR_TID.X ;
+Instr 2 @ 0x20 (32) - S2UR UR8, SR_CTAID.X ;
+Instr 3 @ 0x30 (48) - IMAD.MOV.U32 R3, RZ, RZ, RZ ;
+Instr 4 @ 0x40 (64) - ULDC.64 UR10, c[0x0][0x230] ;
+Instr 5 @ 0x50 (80) - ULDC.64 UR6, c[0x0][0x208] ;
+Instr 6 @ 0x60 (96) - IMAD.MOV.U32 R0, RZ, RZ, RZ ;
+Instr 7 @ 0x70 (112) - LDC R7, c[0x0][RZ] ;
+Instr 8 @ 0x80 (128) - IMAD.WIDE.U32 R8, R7, UR8, R2 ;
+Instr 9 @ 0x90 (144) - ISETP.GE.U32.AND P0, PT, R8, UR10, PT ;
+Instr 10 @ 0xa0 (160) - ISETP.GE.U32.AND.EX P0, PT, R9, UR11, PT, P0 ;
+Instr 11 @ 0xb0 (176) - @P0 BRA 0x290 ;
+Instr 12 @ 0xc0 (192) - LDC.64 R4, c[0x0][0x210] ;
+Instr 13 @ 0xd0 (208) - ULDC UR4, c[0x0][0xc] ;
+Instr 14 @ 0xe0 (224) - MOV R15, R8 ;
+Instr 15 @ 0xf0 (240) - IMAD.WIDE.U32 R6, R7, UR4, RZ ;
+Instr 16 @ 0x100 (256) - UMOV UR4, URZ ;
+Instr 17 @ 0x110 (272) - IMAD.MOV.U32 R14, RZ, RZ, R9 ;
+Instr 18 @ 0x120 (288) - IADD3 R13, R7, UR4, RZ ;
+Instr 19 @ 0x130 (304) - IMAD.MOV.U32 R0, RZ, RZ, RZ ;
+Instr 20 @ 0x140 (320) - SHF.R.U64 R9, R15.reuse, 0x8, R14 ;
+Instr 21 @ 0x150 (336) - LOP3.LUT R10, R15.reuse, 0xc0, RZ, 0xc0, !PT ;
+Instr 22 @ 0x160 (352) - LOP3.LUT R11, R15, 0x1f, RZ, 0xc0, !PT ;
+Instr 23 @ 0x170 (368) - IMAD.WIDE.U32 R8, R9, 0x90, R4 ;
+Instr 24 @ 0x180 (384) - SHF.R.U32.HI R12, RZ, 0x8, R14 ;
+Instr 25 @ 0x190 (400) - LEA.HI R11, R10, R11, RZ, 0x1f ;
+Instr 26 @ 0x1a0 (416) - IMAD R17, R12, 0x90, RZ ;
+Instr 27 @ 0x1b0 (432) - IADD3 R8, P0, R11, R8, RZ ;
+Instr 28 @ 0x1c0 (448) - IMAD.X R9, R9, 0x1, R17, P0 ;
+Instr 29 @ 0x1d0 (464) - LDG.E.U8 R8, desc[UR6][R8.64+0x10] ;
+Instr 30 @ 0x1e0 (480) - SHF.R.U32.HI R10, RZ, 0x3, R15 ;
+Instr 31 @ 0x1f0 (496) - IADD3 R15, P0, R15, R6, RZ ;
+Instr 32 @ 0x200 (512) - LOP3.LUT R11, R10, 0x4, RZ, 0xc0, !PT ;
+Instr 33 @ 0x210 (528) - IMAD.X R14, R14, 0x1, R13, P0 ;
+Instr 34 @ 0x220 (544) - ISETP.GE.U32.AND P0, PT, R15, UR10, PT ;
+Instr 35 @ 0x230 (560) - ISETP.GE.U32.AND.EX P0, PT, R14, UR11, PT, P0 ;
+Instr 36 @ 0x240 (576) - SHF.R.U32.HI R11, RZ, R11, R8 ;
+Instr 37 @ 0x250 (592) - LOP3.LUT R11, R11, 0xf, RZ, 0xc0, !PT ;
+Instr 38 @ 0x260 (608) - I2FP.F32.S32 R11, R11 ;
+Instr 39 @ 0x270 (624) - FADD R0, R11, R0 ;
+Instr 40 @ 0x280 (640) - @!P0 BRA 0x140 ;
+Instr 41 @ 0x290 (656) - WARPSYNC.ALL ;
+Instr 42 @ 0x2a0 (672) - SHFL.DOWN PT, R5, R0, 0x10, 0x1f ;
+Instr 43 @ 0x2b0 (688) - LOP3.LUT P0, RZ, R2.reuse, 0x1f, RZ, 0xc0, !PT ;
+Instr 44 @ 0x2c0 (704) - ISETP.GT.U32.AND P1, PT, R2, 0x7, PT ;
+Instr 45 @ 0x2d0 (720) - @!P0 S2R R8, SR_CgaCtaId ;
+Instr 46 @ 0x2e0 (736) - @!P1 S2R R11, SR_CgaCtaId ;
+Instr 47 @ 0x2f0 (752) - FADD R5, R5, R0 ;
+Instr 48 @ 0x300 (768) - @!P0 SHF.R.U32.HI R0, RZ, 0x3, R2 ;
+Instr 49 @ 0x310 (784) - SHFL.DOWN PT, R4, R5, 0x8, 0x1f ;
+Instr 50 @ 0x320 (800) - @!P0 LOP3.LUT R0, R0, 0x1ffffffc, RZ, 0xc0, !PT ;
+Instr 51 @ 0x330 (816) - FADD R4, R5, R4 ;
+Instr 52 @ 0x340 (832) - @!P0 MOV R5, 0x400 ;
+Instr 53 @ 0x350 (848) - SHFL.DOWN PT, R7, R4, 0x4, 0x1f ;
+Instr 54 @ 0x360 (864) - @!P0 PRMT R5, R8, 0x654, R5 ;
+Instr 55 @ 0x370 (880) - @!P0 IADD3 R0, R0, R5, RZ ;
+Instr 56 @ 0x380 (896) - IMAD.MOV.U32 R5, RZ, RZ, RZ ;
+Instr 57 @ 0x390 (912) - FADD R7, R4, R7 ;
+Instr 58 @ 0x3a0 (928) - @!P1 MOV R4, 0x400 ;
+Instr 59 @ 0x3b0 (944) - SHFL.DOWN PT, R6, R7, 0x2, 0x1f ;
+Instr 60 @ 0x3c0 (960) - @!P1 PRMT R11, R11, 0x654, R4 ;
+Instr 61 @ 0x3d0 (976) - @!P1 IMAD R4, R2, 0x4, R11 ;
+Instr 62 @ 0x3e0 (992) - FADD R6, R7, R6 ;
+Instr 63 @ 0x3f0 (1008) - SHFL.DOWN PT, R9, R6, 0x1, 0x1f ;
+Instr 64 @ 0x400 (1024) - FADD R9, R6, R9 ;
+Instr 65 @ 0x410 (1040) - @!P0 STS [R0], R9 ;
+Instr 66 @ 0x420 (1056) - BAR.SYNC.DEFER_BLOCKING 0x0 ;
+Instr 67 @ 0x430 (1072) - ISETP.GT.U32.AND P0, PT, R2, 0x1f, PT ;
+Instr 68 @ 0x440 (1088) - BSSY B0, 0x540 ;
+Instr 69 @ 0x450 (1104) - @!P1 LDS R5, [R4] ;
+Instr 70 @ 0x460 (1120) - @P0 BRA 0x530 ;
+Instr 71 @ 0x470 (1136) - UMOV UR4, 0xffffffff ;
+Instr 72 @ 0x480 (1152) - BRA.DIV UR4, 0x5d0 ;
+Instr 73 @ 0x490 (1168) - SHFL.DOWN PT, R0, R5, 0x10, 0x1f ;
+Instr 74 @ 0x4a0 (1184) - FADD R0, R5, R0 ;
+Instr 75 @ 0x4b0 (1200) - SHFL.DOWN PT, R7, R0, 0x8, 0x1f ;
+Instr 76 @ 0x4c0 (1216) - FADD R7, R0, R7 ;
+Instr 77 @ 0x4d0 (1232) - SHFL.DOWN PT, R4, R7, 0x4, 0x1f ;
+Instr 78 @ 0x4e0 (1248) - FADD R4, R7, R4 ;
+Instr 79 @ 0x4f0 (1264) - SHFL.DOWN PT, R9, R4, 0x2, 0x1f ;
+Instr 80 @ 0x500 (1280) - FADD R9, R4, R9 ;
+Instr 81 @ 0x510 (1296) - SHFL.DOWN PT, R6, R9, 0x1, 0x1f ;
+Instr 82 @ 0x520 (1312) - FADD R5, R9, R6 ;
+Instr 83 @ 0x530 (1328) - BSYNC B0 ;
+Instr 84 @ 0x540 (1344) - ISETP.NE.AND P0, PT, R2, RZ, PT ;
+Instr 85 @ 0x550 (1360) - @P0 EXIT ;
+Instr 86 @ 0x560 (1376) - ULDC.64 UR4, c[0x0][0x228] ;
+Instr 87 @ 0x570 (1392) - ULEA UR4, UP0, UR8, UR4, 0x2 ;
+Instr 88 @ 0x580 (1408) - ULEA.HI.X UR5, UR8, UR5, URZ, 0x2, UP0 ;
+Instr 89 @ 0x590 (1424) - IMAD.U32 R2, RZ, RZ, UR4 ;
+Instr 90 @ 0x5a0 (1440) - MOV R3, UR5 ;
+Instr 91 @ 0x5b0 (1456) - STG.E desc[UR6][R2.64], R5 ;
+Instr 92 @ 0x5c0 (1472) - EXIT ;
+Instr 93 @ 0x5d0 (1488) - HFMA2.MMA R8, -RZ, RZ, 0, 9.5367431640625e-07 ;
+Instr 94 @ 0x5e0 (1504) - BSSY B1, 0x650 ;
+Instr 95 @ 0x5f0 (1520) - IMAD.MOV.U32 R11, RZ, RZ, 0x1f ;
+Instr 96 @ 0x600 (1536) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 97 @ 0x610 (1552) - WARPSYNC.COLLECTIVE R6, 0x640 ;
+Instr 98 @ 0x620 (1568) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 99 @ 0x630 (1584) - ENDCOLLECTIVE ;
+Instr 100 @ 0x640 (1600) - BSYNC B1 ;
+Instr 101 @ 0x650 (1616) - MOV R0, R6 ;
+Instr 102 @ 0x660 (1632) - HFMA2.MMA R8, -RZ, RZ, 0, 4.76837158203125e-07 ;
+Instr 103 @ 0x670 (1648) - MOV R6, 0xffffffff ;
+Instr 104 @ 0x680 (1664) - IMAD.MOV.U32 R11, RZ, RZ, 0x1f ;
+Instr 105 @ 0x690 (1680) - FADD R0, R5, R0 ;
+Instr 106 @ 0x6a0 (1696) - IMAD.MOV.U32 R5, RZ, RZ, R0 ;
+Instr 107 @ 0x6b0 (1712) - WARPSYNC.COLLECTIVE R6, 0x6e0 ;
+Instr 108 @ 0x6c0 (1728) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 109 @ 0x6d0 (1744) - ENDCOLLECTIVE ;
+Instr 110 @ 0x6e0 (1760) - IMAD.MOV.U32 R8, RZ, RZ, 0x4 ;
+Instr 111 @ 0x6f0 (1776) - IMAD.MOV.U32 R7, RZ, RZ, R6 ;
+Instr 112 @ 0x700 (1792) - MOV R6, 0xffffffff ;
+Instr 113 @ 0x710 (1808) - FADD R7, R0, R7 ;
+Instr 114 @ 0x720 (1824) - MOV R5, R7 ;
+Instr 115 @ 0x730 (1840) - WARPSYNC.COLLECTIVE R6, 0x760 ;
+Instr 116 @ 0x740 (1856) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 117 @ 0x750 (1872) - ENDCOLLECTIVE ;
+Instr 118 @ 0x760 (1888) - IMAD.MOV.U32 R8, RZ, RZ, 0x2 ;
+Instr 119 @ 0x770 (1904) - IMAD.MOV.U32 R4, RZ, RZ, R6 ;
+Instr 120 @ 0x780 (1920) - MOV R6, 0xffffffff ;
+Instr 121 @ 0x790 (1936) - FADD R4, R7, R4 ;
+Instr 122 @ 0x7a0 (1952) - MOV R5, R4 ;
+Instr 123 @ 0x7b0 (1968) - WARPSYNC.COLLECTIVE R6, 0x7e0 ;
+Instr 124 @ 0x7c0 (1984) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 125 @ 0x7d0 (2000) - ENDCOLLECTIVE ;
+Instr 126 @ 0x7e0 (2016) - IMAD.MOV.U32 R8, RZ, RZ, 0x1 ;
+Instr 127 @ 0x7f0 (2032) - IMAD.MOV.U32 R9, RZ, RZ, R6 ;
+Instr 128 @ 0x800 (2048) - MOV R6, 0xffffffff ;
+Instr 129 @ 0x810 (2064) - FADD R9, R4, R9 ;
+Instr 130 @ 0x820 (2080) - MOV R5, R9 ;
+Instr 131 @ 0x830 (2096) - WARPSYNC.COLLECTIVE R6, 0x860 ;
+Instr 132 @ 0x840 (2112) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 133 @ 0x850 (2128) - ENDCOLLECTIVE ;
+Instr 134 @ 0x860 (2144) - BRA 0x520 ;
+Instr 135 @ 0x870 (2160) - BRA 0x870;
+Instr 136 @ 0x880 (2176) - NOP;
+Instr 137 @ 0x890 (2192) - NOP;
+Instr 138 @ 0x8a0 (2208) - NOP;
+Instr 139 @ 0x8b0 (2224) - NOP;
+Instr 140 @ 0x8c0 (2240) - NOP;
+Instr 141 @ 0x8d0 (2256) - NOP;
+Instr 142 @ 0x8e0 (2272) - NOP;
+Instr 143 @ 0x8f0 (2288) - NOP;
+kernel 3 - void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - #thread-blocks 1024,  kernel instructions 16193536, total instructions 66258944
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=0|LDC = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1008|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1024|FADD = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1040|STS = 8192
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1056|BAR.SYNC.DEFER_BLOCKING = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1072|ISETP.GT.U32.AND = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1088|BSSY = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1104|LDS = 8192
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1120|BRA = 229376
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=112|LDC = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1136|UMOV = 32768
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1152|BRA.DIV = 32768
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1168|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1184|FADD = 32768
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1200|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1216|FADD = 32768
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1232|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1248|FADD = 32768
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1264|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1280|FADD = 32768
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=128|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1296|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1312|FADD = 32768
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1328|BSYNC = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1344|ISETP.NE.AND = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1360|EXIT = 261120
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1376|ULDC.64 = 1024
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1392|ULEA = 1024
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1408|ULEA.HI.X = 1024
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1424|IMAD.U32 = 1024
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1440|MOV = 1024
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=144|ISETP.GE.U32.AND = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1456|STG.E = 1024
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1472|EXIT = 1024
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=160|ISETP.GE.U32.AND.EX = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=16|S2R = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=192|LDC.64 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=208|ULDC = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=224|MOV = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=240|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=256|UMOV = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=272|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=288|IADD3 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=304|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=320|SHF.R.U64 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=32|S2UR = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=336|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=352|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=368|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=384|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=400|LEA.HI = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=416|IMAD = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=432|IADD3 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=448|IMAD.X = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=464|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=480|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=48|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=496|IADD3 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=512|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=528|IMAD.X = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=544|ISETP.GE.U32.AND = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=560|ISETP.GE.U32.AND.EX = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=576|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=592|LOP3.LUT = 262144
+PROFILE format=q4_K variant=no_metadata_DIAGNOSTIC mode=checksum weights=262144 blocks=1024 threads=256
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=608|I2FP.F32.S32 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=624|FADD = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=64|ULDC.64 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=656|WARPSYNC.ALL = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=672|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=688|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=704|ISETP.GT.U32.AND = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=720|S2R = 8192
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=736|S2R = 8192
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=752|FADD = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=768|SHF.R.U32.HI = 8192
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=784|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=800|LOP3.LUT = 8192
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=80|ULDC.64 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=816|FADD = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=832|MOV = 8192
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=848|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=864|PRMT = 8192
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=880|IADD3 = 8192
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=896|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=912|FADD = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=928|MOV = 8192
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=944|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=960|PRMT = 8192
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=96|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=976|IMAD = 8192
+  void diagnostic_kernel<1, 1, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=992|FADD = 262144
+inspecting void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - num instrs 144
+Instr 0 @ 0x0 (0) - LDC R1, c[0x0][0x28] ;
+Instr 1 @ 0x10 (16) - S2R R2, SR_TID.X ;
+Instr 2 @ 0x20 (32) - S2UR UR8, SR_CTAID.X ;
+Instr 3 @ 0x30 (48) - IMAD.MOV.U32 R3, RZ, RZ, RZ ;
+Instr 4 @ 0x40 (64) - ULDC.64 UR10, c[0x0][0x230] ;
+Instr 5 @ 0x50 (80) - ULDC.64 UR6, c[0x0][0x208] ;
+Instr 6 @ 0x60 (96) - IMAD.MOV.U32 R0, RZ, RZ, RZ ;
+Instr 7 @ 0x70 (112) - LDC R7, c[0x0][RZ] ;
+Instr 8 @ 0x80 (128) - IMAD.WIDE.U32 R8, R7, UR8, R2 ;
+Instr 9 @ 0x90 (144) - ISETP.GE.U32.AND P0, PT, R8, UR10, PT ;
+Instr 10 @ 0xa0 (160) - ISETP.GE.U32.AND.EX P0, PT, R9, UR11, PT, P0 ;
+Instr 11 @ 0xb0 (176) - @P0 BRA 0x290 ;
+Instr 12 @ 0xc0 (192) - LDC.64 R4, c[0x0][0x210] ;
+Instr 13 @ 0xd0 (208) - ULDC UR4, c[0x0][0xc] ;
+Instr 14 @ 0xe0 (224) - MOV R15, R8 ;
+Instr 15 @ 0xf0 (240) - IMAD.WIDE.U32 R6, R7, UR4, RZ ;
+Instr 16 @ 0x100 (256) - UMOV UR4, URZ ;
+Instr 17 @ 0x110 (272) - IMAD.MOV.U32 R14, RZ, RZ, R9 ;
+Instr 18 @ 0x120 (288) - IADD3 R13, R7, UR4, RZ ;
+Instr 19 @ 0x130 (304) - IMAD.MOV.U32 R0, RZ, RZ, RZ ;
+Instr 20 @ 0x140 (320) - SHF.R.U64 R9, R15.reuse, 0x8, R14 ;
+Instr 21 @ 0x150 (336) - LOP3.LUT R10, R15.reuse, 0xc0, RZ, 0xc0, !PT ;
+Instr 22 @ 0x160 (352) - LOP3.LUT R11, R15, 0x1f, RZ, 0xc0, !PT ;
+Instr 23 @ 0x170 (368) - IMAD.WIDE.U32 R8, R9, 0x90, R4 ;
+Instr 24 @ 0x180 (384) - SHF.R.U32.HI R12, RZ, 0x8, R14 ;
+Instr 25 @ 0x190 (400) - LEA.HI R11, R10, R11, RZ, 0x1f ;
+Instr 26 @ 0x1a0 (416) - IMAD R17, R12, 0x90, RZ ;
+Instr 27 @ 0x1b0 (432) - IADD3 R8, P0, R11, R8, RZ ;
+Instr 28 @ 0x1c0 (448) - IMAD.X R9, R9, 0x1, R17, P0 ;
+Instr 29 @ 0x1d0 (464) - LDG.E.U8 R8, desc[UR6][R8.64+0x10] ;
+Instr 30 @ 0x1e0 (480) - SHF.R.U32.HI R10, RZ, 0x3, R15 ;
+Instr 31 @ 0x1f0 (496) - IADD3 R15, P0, R15, R6, RZ ;
+Instr 32 @ 0x200 (512) - LOP3.LUT R11, R10, 0x4, RZ, 0xc0, !PT ;
+Instr 33 @ 0x210 (528) - IMAD.X R14, R14, 0x1, R13, P0 ;
+Instr 34 @ 0x220 (544) - ISETP.GE.U32.AND P0, PT, R15, UR10, PT ;
+Instr 35 @ 0x230 (560) - ISETP.GE.U32.AND.EX P0, PT, R14, UR11, PT, P0 ;
+Instr 36 @ 0x240 (576) - SHF.R.U32.HI R11, RZ, R11, R8 ;
+Instr 37 @ 0x250 (592) - LOP3.LUT R11, R11, 0xf, RZ, 0xc0, !PT ;
+Instr 38 @ 0x260 (608) - I2FP.F32.S32 R11, R11 ;
+Instr 39 @ 0x270 (624) - FADD R0, R11, R0 ;
+Instr 40 @ 0x280 (640) - @!P0 BRA 0x140 ;
+Instr 41 @ 0x290 (656) - WARPSYNC.ALL ;
+Instr 42 @ 0x2a0 (672) - SHFL.DOWN PT, R5, R0, 0x10, 0x1f ;
+Instr 43 @ 0x2b0 (688) - LOP3.LUT P0, RZ, R2.reuse, 0x1f, RZ, 0xc0, !PT ;
+Instr 44 @ 0x2c0 (704) - ISETP.GT.U32.AND P1, PT, R2, 0x7, PT ;
+Instr 45 @ 0x2d0 (720) - @!P0 S2R R8, SR_CgaCtaId ;
+Instr 46 @ 0x2e0 (736) - @!P1 S2R R11, SR_CgaCtaId ;
+Instr 47 @ 0x2f0 (752) - FADD R5, R5, R0 ;
+Instr 48 @ 0x300 (768) - @!P0 SHF.R.U32.HI R0, RZ, 0x3, R2 ;
+Instr 49 @ 0x310 (784) - SHFL.DOWN PT, R4, R5, 0x8, 0x1f ;
+Instr 50 @ 0x320 (800) - @!P0 LOP3.LUT R0, R0, 0x1ffffffc, RZ, 0xc0, !PT ;
+Instr 51 @ 0x330 (816) - FADD R4, R5, R4 ;
+Instr 52 @ 0x340 (832) - @!P0 MOV R5, 0x400 ;
+Instr 53 @ 0x350 (848) - SHFL.DOWN PT, R7, R4, 0x4, 0x1f ;
+Instr 54 @ 0x360 (864) - @!P0 PRMT R5, R8, 0x654, R5 ;
+Instr 55 @ 0x370 (880) - @!P0 IADD3 R0, R0, R5, RZ ;
+Instr 56 @ 0x380 (896) - IMAD.MOV.U32 R5, RZ, RZ, RZ ;
+Instr 57 @ 0x390 (912) - FADD R7, R4, R7 ;
+Instr 58 @ 0x3a0 (928) - @!P1 MOV R4, 0x400 ;
+Instr 59 @ 0x3b0 (944) - SHFL.DOWN PT, R6, R7, 0x2, 0x1f ;
+Instr 60 @ 0x3c0 (960) - @!P1 PRMT R11, R11, 0x654, R4 ;
+Instr 61 @ 0x3d0 (976) - @!P1 IMAD R4, R2, 0x4, R11 ;
+Instr 62 @ 0x3e0 (992) - FADD R6, R7, R6 ;
+Instr 63 @ 0x3f0 (1008) - SHFL.DOWN PT, R9, R6, 0x1, 0x1f ;
+Instr 64 @ 0x400 (1024) - FADD R9, R6, R9 ;
+Instr 65 @ 0x410 (1040) - @!P0 STS [R0], R9 ;
+Instr 66 @ 0x420 (1056) - BAR.SYNC.DEFER_BLOCKING 0x0 ;
+Instr 67 @ 0x430 (1072) - ISETP.GT.U32.AND P0, PT, R2, 0x1f, PT ;
+Instr 68 @ 0x440 (1088) - BSSY B0, 0x540 ;
+Instr 69 @ 0x450 (1104) - @!P1 LDS R5, [R4] ;
+Instr 70 @ 0x460 (1120) - @P0 BRA 0x530 ;
+Instr 71 @ 0x470 (1136) - UMOV UR4, 0xffffffff ;
+Instr 72 @ 0x480 (1152) - BRA.DIV UR4, 0x5d0 ;
+Instr 73 @ 0x490 (1168) - SHFL.DOWN PT, R0, R5, 0x10, 0x1f ;
+Instr 74 @ 0x4a0 (1184) - FADD R0, R5, R0 ;
+Instr 75 @ 0x4b0 (1200) - SHFL.DOWN PT, R7, R0, 0x8, 0x1f ;
+Instr 76 @ 0x4c0 (1216) - FADD R7, R0, R7 ;
+Instr 77 @ 0x4d0 (1232) - SHFL.DOWN PT, R4, R7, 0x4, 0x1f ;
+Instr 78 @ 0x4e0 (1248) - FADD R4, R7, R4 ;
+Instr 79 @ 0x4f0 (1264) - SHFL.DOWN PT, R9, R4, 0x2, 0x1f ;
+Instr 80 @ 0x500 (1280) - FADD R9, R4, R9 ;
+Instr 81 @ 0x510 (1296) - SHFL.DOWN PT, R6, R9, 0x1, 0x1f ;
+Instr 82 @ 0x520 (1312) - FADD R5, R9, R6 ;
+Instr 83 @ 0x530 (1328) - BSYNC B0 ;
+Instr 84 @ 0x540 (1344) - ISETP.NE.AND P0, PT, R2, RZ, PT ;
+Instr 85 @ 0x550 (1360) - @P0 EXIT ;
+Instr 86 @ 0x560 (1376) - ULDC.64 UR4, c[0x0][0x228] ;
+Instr 87 @ 0x570 (1392) - ULEA UR4, UP0, UR8, UR4, 0x2 ;
+Instr 88 @ 0x580 (1408) - ULEA.HI.X UR5, UR8, UR5, URZ, 0x2, UP0 ;
+Instr 89 @ 0x590 (1424) - IMAD.U32 R2, RZ, RZ, UR4 ;
+Instr 90 @ 0x5a0 (1440) - MOV R3, UR5 ;
+Instr 91 @ 0x5b0 (1456) - STG.E desc[UR6][R2.64], R5 ;
+Instr 92 @ 0x5c0 (1472) - EXIT ;
+Instr 93 @ 0x5d0 (1488) - HFMA2.MMA R8, -RZ, RZ, 0, 9.5367431640625e-07 ;
+Instr 94 @ 0x5e0 (1504) - BSSY B1, 0x650 ;
+Instr 95 @ 0x5f0 (1520) - IMAD.MOV.U32 R11, RZ, RZ, 0x1f ;
+Instr 96 @ 0x600 (1536) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 97 @ 0x610 (1552) - WARPSYNC.COLLECTIVE R6, 0x640 ;
+Instr 98 @ 0x620 (1568) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 99 @ 0x630 (1584) - ENDCOLLECTIVE ;
+Instr 100 @ 0x640 (1600) - BSYNC B1 ;
+Instr 101 @ 0x650 (1616) - MOV R0, R6 ;
+Instr 102 @ 0x660 (1632) - HFMA2.MMA R8, -RZ, RZ, 0, 4.76837158203125e-07 ;
+Instr 103 @ 0x670 (1648) - MOV R6, 0xffffffff ;
+Instr 104 @ 0x680 (1664) - IMAD.MOV.U32 R11, RZ, RZ, 0x1f ;
+Instr 105 @ 0x690 (1680) - FADD R0, R5, R0 ;
+Instr 106 @ 0x6a0 (1696) - IMAD.MOV.U32 R5, RZ, RZ, R0 ;
+Instr 107 @ 0x6b0 (1712) - WARPSYNC.COLLECTIVE R6, 0x6e0 ;
+Instr 108 @ 0x6c0 (1728) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 109 @ 0x6d0 (1744) - ENDCOLLECTIVE ;
+Instr 110 @ 0x6e0 (1760) - IMAD.MOV.U32 R8, RZ, RZ, 0x4 ;
+Instr 111 @ 0x6f0 (1776) - IMAD.MOV.U32 R7, RZ, RZ, R6 ;
+Instr 112 @ 0x700 (1792) - MOV R6, 0xffffffff ;
+Instr 113 @ 0x710 (1808) - FADD R7, R0, R7 ;
+Instr 114 @ 0x720 (1824) - MOV R5, R7 ;
+Instr 115 @ 0x730 (1840) - WARPSYNC.COLLECTIVE R6, 0x760 ;
+Instr 116 @ 0x740 (1856) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 117 @ 0x750 (1872) - ENDCOLLECTIVE ;
+Instr 118 @ 0x760 (1888) - IMAD.MOV.U32 R8, RZ, RZ, 0x2 ;
+Instr 119 @ 0x770 (1904) - IMAD.MOV.U32 R4, RZ, RZ, R6 ;
+Instr 120 @ 0x780 (1920) - MOV R6, 0xffffffff ;
+Instr 121 @ 0x790 (1936) - FADD R4, R7, R4 ;
+Instr 122 @ 0x7a0 (1952) - MOV R5, R4 ;
+Instr 123 @ 0x7b0 (1968) - WARPSYNC.COLLECTIVE R6, 0x7e0 ;
+Instr 124 @ 0x7c0 (1984) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 125 @ 0x7d0 (2000) - ENDCOLLECTIVE ;
+Instr 126 @ 0x7e0 (2016) - IMAD.MOV.U32 R8, RZ, RZ, 0x1 ;
+Instr 127 @ 0x7f0 (2032) - IMAD.MOV.U32 R9, RZ, RZ, R6 ;
+Instr 128 @ 0x800 (2048) - MOV R6, 0xffffffff ;
+Instr 129 @ 0x810 (2064) - FADD R9, R4, R9 ;
+Instr 130 @ 0x820 (2080) - MOV R5, R9 ;
+Instr 131 @ 0x830 (2096) - WARPSYNC.COLLECTIVE R6, 0x860 ;
+Instr 132 @ 0x840 (2112) - SHFL.DOWN P0, R6, R5, R8, R11 ;
+Instr 133 @ 0x850 (2128) - ENDCOLLECTIVE ;
+Instr 134 @ 0x860 (2144) - BRA 0x520 ;
+Instr 135 @ 0x870 (2160) - BRA 0x870;
+Instr 136 @ 0x880 (2176) - NOP;
+Instr 137 @ 0x890 (2192) - NOP;
+Instr 138 @ 0x8a0 (2208) - NOP;
+Instr 139 @ 0x8b0 (2224) - NOP;
+Instr 140 @ 0x8c0 (2240) - NOP;
+Instr 141 @ 0x8d0 (2256) - NOP;
+Instr 142 @ 0x8e0 (2272) - NOP;
+Instr 143 @ 0x8f0 (2288) - NOP;
+kernel 4 - void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - #thread-blocks 1024,  kernel instructions 16193536, total instructions 82452480
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=0|LDC = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1008|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1024|FADD = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1040|STS = 8192
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1056|BAR.SYNC.DEFER_BLOCKING = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1072|ISETP.GT.U32.AND = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1088|BSSY = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1104|LDS = 8192
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1120|BRA = 229376
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=112|LDC = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1136|UMOV = 32768
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1152|BRA.DIV = 32768
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1168|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1184|FADD = 32768
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1200|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1216|FADD = 32768
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1232|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1248|FADD = 32768
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1264|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1280|FADD = 32768
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=128|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1296|SHFL.DOWN = 32768
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1312|FADD = 32768
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1328|BSYNC = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1344|ISETP.NE.AND = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1360|EXIT = 261120
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1376|ULDC.64 = 1024
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1392|ULEA = 1024
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1408|ULEA.HI.X = 1024
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1424|IMAD.U32 = 1024
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1440|MOV = 1024
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=144|ISETP.GE.U32.AND = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1456|STG.E = 1024
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1472|EXIT = 1024
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=160|ISETP.GE.U32.AND.EX = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=16|S2R = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=192|LDC.64 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=208|ULDC = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=224|MOV = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=240|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=256|UMOV = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=272|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=288|IADD3 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=304|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=320|SHF.R.U64 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=32|S2UR = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=336|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=352|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=368|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=384|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=400|LEA.HI = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=416|IMAD = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=432|IADD3 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=448|IMAD.X = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=464|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=480|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=48|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=496|IADD3 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=512|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=528|IMAD.X = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=544|ISETP.GE.U32.AND = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=560|ISETP.GE.U32.AND.EX = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=576|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=592|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=608|I2FP.F32.S32 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=624|FADD = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=64|ULDC.64 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=656|WARPSYNC.ALL = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=672|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=688|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=704|ISETP.GT.U32.AND = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=720|S2R = 8192
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=736|S2R = 8192
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=752|FADD = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=768|SHF.R.U32.HI = 8192
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=784|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=800|LOP3.LUT = 8192
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=80|ULDC.64 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=816|FADD = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=832|MOV = 8192
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=848|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=864|PRMT = 8192
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=880|IADD3 = 8192
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=896|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=912|FADD = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=928|MOV = 8192
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=944|SHFL.DOWN = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=960|PRMT = 8192
+  voPROFILE format=q4_K variant=codes_only_DIAGNOSTIC mode=checksum weights=262144 blocks=1024 threads=256
+id diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=96|IMAD.MOV.U32 = 262144
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=976|IMAD = 8192
+  void diagnostic_kernel<1, 3, 1>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=992|FADD = 262144
+inspecting void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - num instrs 176
+Instr 0 @ 0x0 (0) - LDC R1, c[0x0][0x28] ;
+Instr 1 @ 0x10 (16) - S2R R0, SR_TID.X ;
+Instr 2 @ 0x20 (32) - LDC R5, c[0x0][0x240] ;
+Instr 3 @ 0x30 (48) - ULDC.64 UR6, c[0x0][0x208] ;
+Instr 4 @ 0x40 (64) - ULDC UR5, c[0x0][0x240] ;
+Instr 5 @ 0x50 (80) - ULDC.64 UR10, c[0x0][0x218] ;
+Instr 6 @ 0x60 (96) - IMAD.MOV.U32 R13, RZ, RZ, RZ ;
+Instr 7 @ 0x70 (112) - S2UR UR8, SR_CTAID.X ;
+Instr 8 @ 0x80 (128) - ISETP.GE.AND P0, PT, R0, R5, PT ;
+Instr 9 @ 0x90 (144) - @P0 BRA 0x450 ;
+Instr 10 @ 0xa0 (160) - LDC.64 R2, c[0x0][0x210] ;
+Instr 11 @ 0xb0 (176) - SHF.R.S32.HI R6, RZ, 0x1f, R5 ;
+Instr 12 @ 0xc0 (192) - IMAD.WIDE.U32 R4, R5, UR8, RZ ;
+Instr 13 @ 0xd0 (208) - IMAD R7, R6, UR8, RZ ;
+Instr 14 @ 0xe0 (224) - IMAD.MOV.U32 R13, RZ, RZ, RZ ;
+Instr 15 @ 0xf0 (240) - IMAD.MOV.U32 R15, RZ, RZ, R0 ;
+Instr 16 @ 0x100 (256) - IADD3 R12, R5, R7, RZ ;
+Instr 17 @ 0x110 (272) - SHF.R.S32.HI R9, RZ, 0x1f, R15 ;
+Instr 18 @ 0x120 (288) - IADD3 R16, P0, R15, R4, RZ ;
+Instr 19 @ 0x130 (304) - LOP3.LUT R8, R16, 0xff, RZ, 0xc0, !PT ;
+Instr 20 @ 0x140 (320) - IMAD.X R7, R9, 0x1, R12, P0 ;
+Instr 21 @ 0x150 (336) - LEA.HI R11, R8, 0xfffffffc, RZ, 0x1b ;
+Instr 22 @ 0x160 (352) - SHF.R.U32.HI R6, RZ, 0x8, R7.reuse ;
+Instr 23 @ 0x170 (368) - SHF.R.U64 R7, R16, 0x8, R7 ;
+Instr 24 @ 0x180 (384) - ISETP.GE.U32.AND P0, PT, R8, 0x80, PT ;
+Instr 25 @ 0x190 (400) - IMAD R17, R6, 0x90, RZ ;
+Instr 26 @ 0x1a0 (416) - IMAD.WIDE.U32 R6, R7, 0x90, R2 ;
+Instr 27 @ 0x1b0 (432) - IMAD.IADD R7, R7, 0x1, R17 ;
+Instr 28 @ 0x1c0 (448) - IADD3 R10, P1, R11, R6, RZ ;
+Instr 29 @ 0x1d0 (464) - LEA.HI.X.SX32 R11, R11, R7, 0x1, P1 ;
+Instr 30 @ 0x1e0 (480) - LDG.E.U16 R19, desc[UR6][R6.64] ;
+Instr 31 @ 0x1f0 (496) - SHF.R.U32.HI R8, RZ, 0x6, R8 ;
+Instr 32 @ 0x200 (512) - @P0 LDG.E.U8 R14, desc[UR6][R10.64+0x4] ;
+Instr 33 @ 0x210 (528) - IMAD.SHL.U32 R23, R8, 0x20, RZ ;
+Instr 34 @ 0x220 (544) - LDG.E.U8 R17, desc[UR6][R10.64+0xc] ;
+Instr 35 @ 0x230 (560) - LDG.E.U8 R18, desc[UR6][R10.64+0x8] ;
+Instr 36 @ 0x240 (576) - LOP3.LUT R23, R23, 0xffffffe0, R16, 0xe2, !PT ;
+Instr 37 @ 0x250 (592) - LDG.E.U16 R21, desc[UR6][R6.64+0x2] ;
+Instr 38 @ 0x260 (608) - IADD3 R22, P1, R23, R6, RZ ;
+Instr 39 @ 0x270 (624) - IADD3.X R23, RZ, R7, RZ, P1, !PT ;
+Instr 40 @ 0x280 (640) - LDG.E.U8 R20, desc[UR6][R22.64+0x10] ;
+Instr 41 @ 0x290 (656) - LEA R8, P1, R15, UR10, 0x2 ;
+Instr 42 @ 0x2a0 (672) - LEA.HI.X R9, R15, UR11, R9, 0x2, P1 ;
+Instr 43 @ 0x2b0 (688) - LDG.E R8, desc[UR6][R8.64] ;
+Instr 44 @ 0x2c0 (704) - SHF.R.U32.HI R16, RZ, 0x3, R16 ;
+Instr 45 @ 0x2d0 (720) - ULDC UR4, c[0x0][0x0] ;
+Instr 46 @ 0x2e0 (736) - VIADD R15, R15, UR4 ;
+Instr 47 @ 0x2f0 (752) - LOP3.LUT R7, R16, 0x4, RZ, 0xc0, !PT ;
+Instr 48 @ 0x300 (768) - @P0 SHF.R.U32.HI R14, RZ, 0x2, R14 ;
+Instr 49 @ 0x310 (784) - @P0 LOP3.LUT R14, R14, 0x30, RZ, 0xc0, !PT ;
+Instr 50 @ 0x320 (800) - @P0 SHF.R.U32.HI R11, RZ, 0x4, R17 ;
+Instr 51 @ 0x330 (816) - @P0 LOP3.LUT R10, R14, 0xf, R17, 0xf8, !PT ;
+Instr 52 @ 0x340 (832) - @P0 SHF.R.U32.HI R14, RZ, 0x2, R18 ;
+Instr 53 @ 0x350 (848) - @!P0 LOP3.LUT R10, R18, 0x3f, RZ, 0xc0, !PT ;
+Instr 54 @ 0x360 (864) - @P0 LOP3.LUT R11, R11, 0x30, R14, 0xf8, !PT ;
+Instr 55 @ 0x370 (880) - @!P0 LOP3.LUT R11, R17, 0x3f, RZ, 0xc0, !PT ;
+Instr 56 @ 0x380 (896) - I2F.U16 R10, R10 ;
+Instr 57 @ 0x390 (912) - I2F.U16 R14, R11 ;
+Instr 58 @ 0x3a0 (928) - SHF.R.U32.HI R6, RZ, R7, R20 ;
+Instr 59 @ 0x3b0 (944) - ISETP.GE.AND P0, PT, R15, UR5, PT ;
+Instr 60 @ 0x3c0 (960) - HADD2.F32 R19, -RZ, R19.H0_H0 ;
+Instr 61 @ 0x3d0 (976) - LOP3.LUT R6, R6, 0xf, RZ, 0xc0, !PT ;
+Instr 62 @ 0x3e0 (992) - HADD2.F32 R21, -RZ, R21.H0_H0 ;
+Instr 63 @ 0x3f0 (1008) - I2FP.F32.S32 R6, R6 ;
+Instr 64 @ 0x400 (1024) - FMUL R19, R19, R10 ;
+Instr 65 @ 0x410 (1040) - FMUL R14, R21, R14 ;
+Instr 66 @ 0x420 (1056) - FFMA R6, R19, R6, -R14 ;
+Instr 67 @ 0x430 (1072) - FFMA R13, R6, R8, R13 ;
+Instr 68 @ 0x440 (1088) - @!P0 BRA 0x110 ;
+Instr 69 @ 0x450 (1104) - WARPSYNC.ALL ;
+Instr 70 @ 0x460 (1120) - SHFL.DOWN PT, R2, R13, 0x10, 0x1f ;
+Instr 71 @ 0x470 (1136) - LOP3.LUT P0, RZ, R0.reuse, 0x1f, RZ, 0xc0, !PT ;
+Instr 72 @ 0x480 (1152) - ISETP.GT.U32.AND P1, PT, R0, 0x7, PT ;
+Instr 73 @ 0x490 (1168) - @!P0 S2R R8, SR_CgaCtaId ;
+Instr 74 @ 0x4a0 (1184) - @!P0 MOV R7, 0x400 ;
+Instr 75 @ 0x4b0 (1200) - @!P1 S2R R10, SR_CgaCtaId ;
+Instr 76 @ 0x4c0 (1216) - FADD R2, R2, R13 ;
+Instr 77 @ 0x4d0 (1232) - SHFL.DOWN PT, R3, R2, 0x8, 0x1f ;
+Instr 78 @ 0x4e0 (1248) - @!P0 PRMT R7, R8, 0x654, R7 ;
+Instr 79 @ 0x4f0 (1264) - FADD R3, R2, R3 ;
+Instr 80 @ 0x500 (1280) - @!P0 SHF.R.U32.HI R2, RZ, 0x3, R0 ;
+Instr 81 @ 0x510 (1296) - SHFL.DOWN PT, R4, R3, 0x4, 0x1f ;
+Instr 82 @ 0x520 (1312) - @!P0 LOP3.LUT R2, R2, 0x1ffffffc, RZ, 0xc0, !PT ;
+Instr 83 @ 0x530 (1328) - @!P0 IMAD.IADD R2, R2, 0x1, R7 ;
+Instr 84 @ 0x540 (1344) - IMAD.MOV.U32 R7, RZ, RZ, RZ ;
+Instr 85 @ 0x550 (1360) - FADD R4, R3, R4 ;
+Instr 86 @ 0x560 (1376) - @!P1 MOV R3, 0x400 ;
+Instr 87 @ 0x570 (1392) - SHFL.DOWN PT, R5, R4, 0x2, 0x1f ;
+Instr 88 @ 0x580 (1408) - @!P1 PRMT R3, R10, 0x654, R3 ;
+Instr 89 @ 0x590 (1424) - @!P1 LEA R3, R0, R3, 0x2 ;
+Instr 90 @ 0x5a0 (1440) - FADD R5, R4, R5 ;
+Instr 91 @ 0x5b0 (1456) - SHFL.DOWN PT, R6, R5, 0x1, 0x1f ;
+Instr 92 @ 0x5c0 (1472) - FADD R9, R5, R6 ;
+Instr 93 @ 0x5d0 (1488) - @!P0 STS [R2], R9 ;
+Instr 94 @ 0x5e0 (1504) - BAR.SYNC.DEFER_BLOCKING 0x0 ;
+Instr 95 @ 0x5f0 (1520) - ISETP.GT.U32.AND P0, PT, R0, 0x1f, PT ;
+Instr 96 @ 0x600 (1536) - BSSY B0, 0x700 ;
+Instr 97 @ 0x610 (1552) - @!P1 LDS R7, [R3] ;
+Instr 98 @ 0x620 (1568) - @P0 BRA 0x6f0 ;
+Instr 99 @ 0x630 (1584) - UMOV UR4, 0xffffffff ;
+Instr 100 @ 0x640 (1600) - BRA.DIV UR4, 0x790 ;
+Instr 101 @ 0x650 (1616) - SHFL.DOWN PT, R2, R7, 0x10, 0x1f ;
+Instr 102 @ 0x660 (1632) - FADD R2, R7, R2 ;
+Instr 103 @ 0x670 (1648) - SHFL.DOWN PT, R3, R2, 0x8, 0x1f ;
+Instr 104 @ 0x680 (1664) - FADD R3, R2, R3 ;
+Instr 105 @ 0x690 (1680) - SHFL.DOWN PT, R4, R3, 0x4, 0x1f ;
+Instr 106 @ 0x6a0 (1696) - FADD R4, R3, R4 ;
+Instr 107 @ 0x6b0 (1712) - SHFL.DOWN PT, R5, R4, 0x2, 0x1f ;
+Instr 108 @ 0x6c0 (1728) - FADD R5, R4, R5 ;
+Instr 109 @ 0x6d0 (1744) - SHFL.DOWN PT, R6, R5, 0x1, 0x1f ;
+Instr 110 @ 0x6e0 (1760) - FADD R7, R5, R6 ;
+Instr 111 @ 0x6f0 (1776) - BSYNC B0 ;
+Instr 112 @ 0x700 (1792) - ISETP.NE.AND P0, PT, R0, RZ, PT ;
+Instr 113 @ 0x710 (1808) - @P0 EXIT ;
+Instr 114 @ 0x720 (1824) - ULDC.64 UR4, c[0x0][0x228] ;
+Instr 115 @ 0x730 (1840) - ULEA UR4, UP0, UR8, UR4, 0x2 ;
+Instr 116 @ 0x740 (1856) - ULEA.HI.X UR5, UR8, UR5, URZ, 0x2, UP0 ;
+Instr 117 @ 0x750 (1872) - MOV R2, UR4 ;
+Instr 118 @ 0x760 (1888) - IMAD.U32 R3, RZ, RZ, UR5 ;
+Instr 119 @ 0x770 (1904) - STG.E desc[UR6][R2.64], R7 ;
+Instr 120 @ 0x780 (1920) - EXIT ;
+Instr 121 @ 0x790 (1936) - HFMA2.MMA R9, -RZ, RZ, 0, 1.847743988037109375e-06 ;
+Instr 122 @ 0x7a0 (1952) - BSSY B1, 0x820 ;
+Instr 123 @ 0x7b0 (1968) - IMAD.MOV.U32 R3, RZ, RZ, R7 ;
+Instr 124 @ 0x7c0 (1984) - IMAD.MOV.U32 R8, RZ, RZ, 0x10 ;
+Instr 125 @ 0x7d0 (2000) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 126 @ 0x7e0 (2016) - WARPSYNC.COLLECTIVE R6, 0x810 ;
+Instr 127 @ 0x7f0 (2032) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 128 @ 0x800 (2048) - ENDCOLLECTIVE ;
+Instr 129 @ 0x810 (2064) - BSYNC B1 ;
+Instr 130 @ 0x820 (2080) - IMAD.MOV.U32 R2, RZ, RZ, R6 ;
+Instr 131 @ 0x830 (2096) - MOV R6, 0xffffffff ;
+Instr 132 @ 0x840 (2112) - IMAD.MOV.U32 R8, RZ, RZ, 0x8 ;
+Instr 133 @ 0x850 (2128) - FADD R2, R7, R2 ;
+Instr 134 @ 0x860 (2144) - IMAD.MOV.U32 R9, RZ, RZ, 0x1f ;
+Instr 135 @ 0x870 (2160) - MOV R3, R2 ;
+Instr 136 @ 0x880 (2176) - WARPSYNC.COLLECTIVE R6, 0x8b0 ;
+Instr 137 @ 0x890 (2192) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 138 @ 0x8a0 (2208) - ENDCOLLECTIVE ;
+Instr 139 @ 0x8b0 (2224) - IMAD.MOV.U32 R8, RZ, RZ, 0x4 ;
+Instr 140 @ 0x8c0 (2240) - IMAD.MOV.U32 R3, RZ, RZ, R6 ;
+Instr 141 @ 0x8d0 (2256) - MOV R6, 0xffffffff ;
+Instr 142 @ 0x8e0 (2272) - FADD R3, R2, R3 ;
+Instr 143 @ 0x8f0 (2288) - WARPSYNC.COLLECTIVE R6, 0x920 ;
+Instr 144 @ 0x900 (2304) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 145 @ 0x910 (2320) - ENDCOLLECTIVE ;
+Instr 146 @ 0x920 (2336) - HFMA2.MMA R8, -RZ, RZ, 0, 1.1920928955078125e-07 ;
+Instr 147 @ 0x930 (2352) - IMAD.MOV.U32 R4, RZ, RZ, R6 ;
+Instr 148 @ 0x940 (2368) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 149 @ 0x950 (2384) - FADD R4, R3, R4 ;
+Instr 150 @ 0x960 (2400) - IMAD.MOV.U32 R3, RZ, RZ, R4 ;
+Instr 151 @ 0x970 (2416) - WARPSYNC.COLLECTIVE R6, 0x9a0 ;
+Instr 152 @ 0x980 (2432) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 153 @ 0x990 (2448) - ENDCOLLECTIVE ;
+Instr 154 @ 0x9a0 (2464) - IMAD.MOV.U32 R8, RZ, RZ, 0x1 ;
+Instr 155 @ 0x9b0 (2480) - IMAD.MOV.U32 R5, RZ, RZ, R6 ;
+Instr 156 @ 0x9c0 (2496) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 157 @ 0x9d0 (2512) - FADD R5, R4, R5 ;
+Instr 158 @ 0x9e0 (2528) - MOV R3, R5 ;
+Instr 159 @ 0x9f0 (2544) - WARPSYNC.COLLECTIVE R6, 0xa20 ;
+Instr 160 @ 0xa00 (2560) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 161 @ 0xa10 (2576) - ENDCOLLECTIVE ;
+Instr 162 @ 0xa20 (2592) - BRA 0x6e0 ;
+Instr 163 @ 0xa30 (2608) - BRA 0xa30;
+Instr 164 @ 0xa40 (2624) - NOP;
+Instr 165 @ 0xa50 (2640) - NOP;
+Instr 166 @ 0xa60 (2656) - NOP;
+Instr 167 @ 0xa70 (2672) - NOP;
+Instr 168 @ 0xa80 (2688) - NOP;
+Instr 169 @ 0xa90 (2704) - NOP;
+Instr 170 @ 0xaa0 (2720) - NOP;
+Instr 171 @ 0xab0 (2736) - NOP;
+Instr 172 @ 0xac0 (2752) - NOP;
+Instr 173 @ 0xad0 (2768) - NOP;
+Instr 174 @ 0xae0 (2784) - NOP;
+Instr 175 @ 0xaf0 (2800) - NOP;
+kernel 5 - void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - #thread-blocks 256,  kernel instructions 14927360, total instructions 97379840
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=0|LDC = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1008|I2FP.F32.S32 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1024|FMUL = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1040|FMUL = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1056|FFMA = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1072|FFMA = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1088|BRA = 196608
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1104|WARPSYNC.ALL = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1120|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=112|S2UR = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1136|LOP3.LUT = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1152|ISETP.GT.U32.AND = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1168|S2R = 2048
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1184|MOV = 2048
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1200|S2R = 2048
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1216|FADD = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1232|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1248|PRMT = 2048
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1264|FADD = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1280|SHF.R.U32.HI = 2048
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=128|ISETP.GE.AND = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1296|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1312|LOP3.LUT = 2048
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1328|IMAD.IADD = 2048
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1344|IMAD.MOV.U32 = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1360|FADD = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1376|MOV = 2048
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1392|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1408|PRMT = 2048
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1424|LEA = 2048
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1440|FADD = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1456|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1472|FADD = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1488|STS = 2048
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1504|BAR.SYNC.DEFER_BLOCKING = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1520|ISETP.GT.U32.AND = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1536|BSSY = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1552|LDS = 2048
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1568|BRA = 57344
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1584|UMOV = 8192
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1600|BRA.DIV = 8192
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=160|LDC.64 = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1616|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1632|FADD = 8192
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1648|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1664|FADD = 8192
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1680|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1696|FADD = 8192
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=16|S2R = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1712|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1728|FADD = 8192
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1744|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1760|FADD = 8192
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=176|SHF.R.S32.HI = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1776|BSYNC = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1792|ISETP.NE.AND = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1808|EXIT = 65280
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1824|ULDC.64 = 256
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1840|ULEA = 256
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1856|ULEA.HI.X = 256
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1872|MOV = 256
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1888|IMAD.U32 = 256
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1904|STG.E = 256
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1920|EXIT = 256
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=192|IMAD.WIDE.U32 = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=208|IMAD = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=224|IMAD.MOV.U32 = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=240|IMAD.MOV.U32 = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=256|IADD3 = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=272|SHF.R.S32.HI = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=288|IADD3 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=304|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=320|IMAD.X = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=32|LDC = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=336|LEA.HI = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=352|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=368|SHF.R.U64 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=384|ISETP.GE.U32.AND = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=400|IMAD = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=416|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=432|IMAD.IADD = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=448|IADD3 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=464|LEA.HI.X.SX32 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=480|LDG.E.U16 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=48|ULDC.64 = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=496|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=512|LDG.E.U8 = 131072
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=528|IMAD.SHL.U32 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=544|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=560|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=576|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=592|LDG.E.U16 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=608|IADD3 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=624|IADD3.X = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=640|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=64|ULDC = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=656|LEA = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=672|LEA.HI.X = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=688|LDG.E = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float coPROFILE format=q4_K variant=full mode=matvec weights=262144 blocks=256 threads=256
+nst*, __half*, float*, unsigned long, unsigned long, int)|pc=704|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=720|ULDC = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=736|VIADD = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=752|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=768|SHF.R.U32.HI = 131072
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=784|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=800|SHF.R.U32.HI = 131072
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=80|ULDC.64 = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=816|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=832|SHF.R.U32.HI = 131072
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=848|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=864|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=880|LOP3.LUT = 131072
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=896|I2F.U16 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=912|I2F.U16 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=928|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=944|ISETP.GE.AND = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=960|HADD2.F32 = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=96|IMAD.MOV.U32 = 65536
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=976|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 0, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=992|HADD2.F32 = 262144
+inspecting void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - num instrs 144
+Instr 0 @ 0x0 (0) - LDC R1, c[0x0][0x28] ;
+Instr 1 @ 0x10 (16) - S2R R0, SR_TID.X ;
+Instr 2 @ 0x20 (32) - LDC R9, c[0x0][0x240] ;
+Instr 3 @ 0x30 (48) - ULDC.64 UR6, c[0x0][0x208] ;
+Instr 4 @ 0x40 (64) - IMAD.MOV.U32 R10, RZ, RZ, RZ ;
+Instr 5 @ 0x50 (80) - S2UR UR8, SR_CTAID.X ;
+Instr 6 @ 0x60 (96) - ISETP.GE.AND P0, PT, R0, R9, PT ;
+Instr 7 @ 0x70 (112) - @P0 BRA 0x280 ;
+Instr 8 @ 0x80 (128) - LDC R8, c[0x0][RZ] ;
+Instr 9 @ 0x90 (144) - SHF.R.S32.HI R10, RZ, 0x1f, R9 ;
+Instr 10 @ 0xa0 (160) - IMAD.WIDE.U32 R6, R9, UR8, RZ ;
+Instr 11 @ 0xb0 (176) - MOV R13, R0 ;
+Instr 12 @ 0xc0 (192) - IMAD R11, R10, UR8, RZ ;
+Instr 13 @ 0xd0 (208) - LDC.64 R2, c[0x0][0x210] ;
+Instr 14 @ 0xe0 (224) - IMAD.MOV.U32 R10, RZ, RZ, RZ ;
+Instr 15 @ 0xf0 (240) - IMAD.IADD R11, R7, 0x1, R11 ;
+Instr 16 @ 0x100 (256) - LDC.64 R4, c[0x0][0x218] ;
+Instr 17 @ 0x110 (272) - IADD3 R18, P0, R13, R6, RZ ;
+Instr 18 @ 0x120 (288) - LEA.HI.X.SX32 R19, R13, R11, 0x1, P0 ;
+Instr 19 @ 0x130 (304) - LOP3.LUT R12, R18.reuse, 0xc0, RZ, 0xc0, !PT ;
+Instr 20 @ 0x140 (320) - SHF.R.U64 R15, R18.reuse, 0x8, R19.reuse ;
+Instr 21 @ 0x150 (336) - LOP3.LUT R17, R18, 0x1f, RZ, 0xc0, !PT ;
+Instr 22 @ 0x160 (352) - SHF.R.U32.HI R16, RZ, 0x8, R19 ;
+Instr 23 @ 0x170 (368) - IMAD.WIDE.U32 R14, R15, 0x90, R2 ;
+Instr 24 @ 0x180 (384) - LEA.HI R17, R12, R17, RZ, 0x1f ;
+Instr 25 @ 0x190 (400) - IMAD R19, R16, 0x90, RZ ;
+Instr 26 @ 0x1a0 (416) - IADD3 R16, P0, R17, R14, RZ ;
+Instr 27 @ 0x1b0 (432) - IMAD.X R17, R15, 0x1, R19, P0 ;
+Instr 28 @ 0x1c0 (448) - LDG.E.U8 R16, desc[UR6][R16.64+0x10] ;
+Instr 29 @ 0x1d0 (464) - IMAD.WIDE R14, R13, 0x4, R4 ;
+Instr 30 @ 0x1e0 (480) - LDG.E R14, desc[UR6][R14.64] ;
+Instr 31 @ 0x1f0 (496) - SHF.R.U32.HI R12, RZ, 0x3, R18 ;
+Instr 32 @ 0x200 (512) - IADD3 R13, R8, R13, RZ ;
+Instr 33 @ 0x210 (528) - LOP3.LUT R19, R12, 0x4, RZ, 0xc0, !PT ;
+Instr 34 @ 0x220 (544) - ISETP.GE.AND P0, PT, R13, R9, PT ;
+Instr 35 @ 0x230 (560) - SHF.R.U32.HI R19, RZ, R19, R16 ;
+Instr 36 @ 0x240 (576) - LOP3.LUT R19, R19, 0xf, RZ, 0xc0, !PT ;
+Instr 37 @ 0x250 (592) - I2FP.F32.S32 R19, R19 ;
+Instr 38 @ 0x260 (608) - FFMA R10, R19, R14, R10 ;
+Instr 39 @ 0x270 (624) - @!P0 BRA 0x110 ;
+Instr 40 @ 0x280 (640) - WARPSYNC.ALL ;
+Instr 41 @ 0x290 (656) - SHFL.DOWN PT, R3, R10, 0x10, 0x1f ;
+Instr 42 @ 0x2a0 (672) - LOP3.LUT P0, RZ, R0.reuse, 0x1f, RZ, 0xc0, !PT ;
+Instr 43 @ 0x2b0 (688) - ISETP.GT.U32.AND P1, PT, R0, 0x7, PT ;
+Instr 44 @ 0x2c0 (704) - @!P0 S2R R9, SR_CgaCtaId ;
+Instr 45 @ 0x2d0 (720) - @!P0 MOV R6, 0x400 ;
+Instr 46 @ 0x2e0 (736) - @!P1 S2R R11, SR_CgaCtaId ;
+Instr 47 @ 0x2f0 (752) - FADD R3, R3, R10 ;
+Instr 48 @ 0x300 (768) - SHFL.DOWN PT, R2, R3, 0x8, 0x1f ;
+Instr 49 @ 0x310 (784) - @!P0 PRMT R6, R9, 0x654, R6 ;
+Instr 50 @ 0x320 (800) - FADD R2, R3, R2 ;
+Instr 51 @ 0x330 (816) - @!P0 SHF.R.U32.HI R3, RZ, 0x3, R0 ;
+Instr 52 @ 0x340 (832) - SHFL.DOWN PT, R5, R2, 0x4, 0x1f ;
+Instr 53 @ 0x350 (848) - @!P0 LOP3.LUT R3, R3, 0x1ffffffc, RZ, 0xc0, !PT ;
+Instr 54 @ 0x360 (864) - @!P0 IMAD.IADD R3, R3, 0x1, R6 ;
+Instr 55 @ 0x370 (880) - FADD R5, R2, R5 ;
+Instr 56 @ 0x380 (896) - @!P1 MOV R2, 0x400 ;
+Instr 57 @ 0x390 (912) - SHFL.DOWN PT, R4, R5, 0x2, 0x1f ;
+Instr 58 @ 0x3a0 (928) - @!P1 PRMT R11, R11, 0x654, R2 ;
+Instr 59 @ 0x3b0 (944) - @!P1 LEA R2, R0, R11, 0x2 ;
+Instr 60 @ 0x3c0 (960) - FADD R4, R5, R4 ;
+Instr 61 @ 0x3d0 (976) - IMAD.MOV.U32 R5, RZ, RZ, RZ ;
+Instr 62 @ 0x3e0 (992) - SHFL.DOWN PT, R7, R4, 0x1, 0x1f ;
+Instr 63 @ 0x3f0 (1008) - FADD R6, R4, R7 ;
+Instr 64 @ 0x400 (1024) - @!P0 STS [R3], R6 ;
+Instr 65 @ 0x410 (1040) - BAR.SYNC.DEFER_BLOCKING 0x0 ;
+Instr 66 @ 0x420 (1056) - ISETP.GT.U32.AND P0, PT, R0, 0x1f, PT ;
+Instr 67 @ 0x430 (1072) - BSSY B0, 0x530 ;
+Instr 68 @ 0x440 (1088) - @!P1 LDS R5, [R2] ;
+Instr 69 @ 0x450 (1104) - @P0 BRA 0x520 ;
+Instr 70 @ 0x460 (1120) - UMOV UR4, 0xffffffff ;
+Instr 71 @ 0x470 (1136) - BRA.DIV UR4, 0x5c0 ;
+Instr 72 @ 0x480 (1152) - SHFL.DOWN PT, R2, R5, 0x10, 0x1f ;
+Instr 73 @ 0x490 (1168) - FADD R2, R5, R2 ;
+Instr 74 @ 0x4a0 (1184) - SHFL.DOWN PT, R3, R2, 0x8, 0x1f ;
+Instr 75 @ 0x4b0 (1200) - FADD R3, R2, R3 ;
+Instr 76 @ 0x4c0 (1216) - SHFL.DOWN PT, R4, R3, 0x4, 0x1f ;
+Instr 77 @ 0x4d0 (1232) - FADD R4, R3, R4 ;
+Instr 78 @ 0x4e0 (1248) - SHFL.DOWN PT, R7, R4, 0x2, 0x1f ;
+Instr 79 @ 0x4f0 (1264) - FADD R7, R4, R7 ;
+Instr 80 @ 0x500 (1280) - SHFL.DOWN PT, R6, R7, 0x1, 0x1f ;
+Instr 81 @ 0x510 (1296) - FADD R5, R7, R6 ;
+Instr 82 @ 0x520 (1312) - BSYNC B0 ;
+Instr 83 @ 0x530 (1328) - ISETP.NE.AND P0, PT, R0, RZ, PT ;
+Instr 84 @ 0x540 (1344) - @P0 EXIT ;
+Instr 85 @ 0x550 (1360) - ULDC.64 UR4, c[0x0][0x228] ;
+Instr 86 @ 0x560 (1376) - ULEA UR4, UP0, UR8, UR4, 0x2 ;
+Instr 87 @ 0x570 (1392) - ULEA.HI.X UR5, UR8, UR5, URZ, 0x2, UP0 ;
+Instr 88 @ 0x580 (1408) - IMAD.U32 R2, RZ, RZ, UR4 ;
+Instr 89 @ 0x590 (1424) - MOV R3, UR5 ;
+Instr 90 @ 0x5a0 (1440) - STG.E desc[UR6][R2.64], R5 ;
+Instr 91 @ 0x5b0 (1456) - EXIT ;
+Instr 92 @ 0x5c0 (1472) - HFMA2.MMA R8, -RZ, RZ, 0, 9.5367431640625e-07 ;
+Instr 93 @ 0x5d0 (1488) - BSSY B1, 0x650 ;
+Instr 94 @ 0x5e0 (1504) - IMAD.MOV.U32 R3, RZ, RZ, R5 ;
+Instr 95 @ 0x5f0 (1520) - MOV R6, 0xffffffff ;
+Instr 96 @ 0x600 (1536) - IMAD.MOV.U32 R9, RZ, RZ, 0x1f ;
+Instr 97 @ 0x610 (1552) - WARPSYNC.COLLECTIVE R6, 0x640 ;
+Instr 98 @ 0x620 (1568) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 99 @ 0x630 (1584) - ENDCOLLECTIVE ;
+Instr 100 @ 0x640 (1600) - BSYNC B1 ;
+Instr 101 @ 0x650 (1616) - IMAD.MOV.U32 R2, RZ, RZ, R6 ;
+Instr 102 @ 0x660 (1632) - HFMA2.MMA R9, -RZ, RZ, 0, 1.847743988037109375e-06 ;
+Instr 103 @ 0x670 (1648) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 104 @ 0x680 (1664) - FADD R2, R5, R2 ;
+Instr 105 @ 0x690 (1680) - IMAD.MOV.U32 R8, RZ, RZ, 0x8 ;
+Instr 106 @ 0x6a0 (1696) - MOV R3, R2 ;
+Instr 107 @ 0x6b0 (1712) - WARPSYNC.COLLECTIVE R6, 0x6e0 ;
+Instr 108 @ 0x6c0 (1728) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 109 @ 0x6d0 (1744) - ENDCOLLECTIVE ;
+Instr 110 @ 0x6e0 (1760) - IMAD.MOV.U32 R8, RZ, RZ, 0x4 ;
+Instr 111 @ 0x6f0 (1776) - MOV R3, R6 ;
+Instr 112 @ 0x700 (1792) - MOV R6, 0xffffffff ;
+Instr 113 @ 0x710 (1808) - FADD R3, R2, R3 ;
+Instr 114 @ 0x720 (1824) - WARPSYNC.COLLECTIVE R6, 0x750 ;
+Instr 115 @ 0x730 (1840) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 116 @ 0x740 (1856) - ENDCOLLECTIVE ;
+Instr 117 @ 0x750 (1872) - IMAD.MOV.U32 R8, RZ, RZ, 0x2 ;
+Instr 118 @ 0x760 (1888) - IMAD.MOV.U32 R4, RZ, RZ, R6 ;
+Instr 119 @ 0x770 (1904) - MOV R6, 0xffffffff ;
+Instr 120 @ 0x780 (1920) - FADD R4, R3, R4 ;
+Instr 121 @ 0x790 (1936) - MOV R3, R4 ;
+Instr 122 @ 0x7a0 (1952) - WARPSYNC.COLLECTIVE R6, 0x7d0 ;
+Instr 123 @ 0x7b0 (1968) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 124 @ 0x7c0 (1984) - ENDCOLLECTIVE ;
+Instr 125 @ 0x7d0 (2000) - IMAD.MOV.U32 R8, RZ, RZ, 0x1 ;
+Instr 126 @ 0x7e0 (2016) - IMAD.MOV.U32 R7, RZ, RZ, R6 ;
+Instr 127 @ 0x7f0 (2032) - MOV R6, 0xffffffff ;
+Instr 128 @ 0x800 (2048) - FADD R7, R4, R7 ;
+Instr 129 @ 0x810 (2064) - MOV R3, R7 ;
+Instr 130 @ 0x820 (2080) - WARPSYNC.COLLECTIVE R6, 0x850 ;
+Instr 131 @ 0x830 (2096) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 132 @ 0x840 (2112) - ENDCOLLECTIVE ;
+Instr 133 @ 0x850 (2128) - BRA 0x510 ;
+Instr 134 @ 0x860 (2144) - BRA 0x860;
+Instr 135 @ 0x870 (2160) - NOP;
+Instr 136 @ 0x880 (2176) - NOP;
+Instr 137 @ 0x890 (2192) - NOP;
+Instr 138 @ 0x8a0 (2208) - NOP;
+Instr 139 @ 0x8b0 (2224) - NOP;
+Instr 140 @ 0x8c0 (2240) - NOP;
+Instr 141 @ 0x8d0 (2256) - NOP;
+Instr 142 @ 0x8e0 (2272) - NOP;
+Instr 143 @ 0x8f0 (2288) - NOP;
+kernel 6 - void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - #thread-blocks 256,  kernel instructions 8504832, total instructions 105884672
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=0|LDC = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1008|FADD = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1024|STS = 2048
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1040|BAR.SYNC.DEFER_BLOCKING = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1056|ISETP.GT.U32.AND = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1072|BSSY = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1088|LDS = 2048
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1104|BRA = 57344
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1120|UMOV = 8192
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1136|BRA.DIV = 8192
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1152|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1168|FADD = 8192
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1184|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1200|FADD = 8192
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1216|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1232|FADD = 8192
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1248|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1264|FADD = 8192
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1280|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=128|LDC = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1296|FADD = 8192
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1312|BSYNC = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1328|ISETP.NE.AND = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1344|EXIT = 65280
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1360|ULDC.64 = 256
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1376|ULEA = 256
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1392|ULEA.HI.X = 256
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1408|IMAD.U32 = 256
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1424|MOV = 256
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1440|STG.E = 256
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=144|SHF.R.S32.HI = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1456|EXIT = 256
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=160|IMAD.WIDE.U32 = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=16|S2R = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=176|MOV = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=192|IMAD = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=208|LDC.64 = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=224|IMAD.MOV.U32 = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=240|IMAD.IADD = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=256|LDC.64 = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=272|IADD3 = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=288|LEA.HI.X.SX32 = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=304|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=320|SHF.R.U64 = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=32|LDC = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=336|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=352|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=368|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=384|LEA.HI = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=400|IMAD = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=416|IADD3 = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=432|IMAD.X = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=448|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=464|IMAD.WIDE = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=480|LDG.E = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=48|ULDC.64 = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=496|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=512|IADD3 = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=528|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=544|ISETP.GE.AND = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=560|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=576|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=592|I2FP.F32.S32 = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=608|FFMA = 262144
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=624|BRA = 196608
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=640|WARPSYNC.ALL = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned PROFILE format=q4_K variant=no_metadata_DIAGNOSTIC mode=matvec weights=262144 blocks=256 threads=256
+long, unsigned long, int)|pc=64|IMAD.MOV.U32 = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=656|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=672|LOP3.LUT = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=688|ISETP.GT.U32.AND = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=704|S2R = 2048
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=720|MOV = 2048
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=736|S2R = 2048
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=752|FADD = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=768|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=784|PRMT = 2048
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=800|FADD = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=80|S2UR = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=816|SHF.R.U32.HI = 2048
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=832|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=848|LOP3.LUT = 2048
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=864|IMAD.IADD = 2048
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=880|FADD = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=896|MOV = 2048
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=912|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=928|PRMT = 2048
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=944|LEA = 2048
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=960|FADD = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=96|ISETP.GE.AND = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=976|IMAD.MOV.U32 = 65536
+  void diagnostic_kernel<1, 1, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=992|SHFL.DOWN = 65536
+inspecting void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - num instrs 144
+Instr 0 @ 0x0 (0) - LDC R1, c[0x0][0x28] ;
+Instr 1 @ 0x10 (16) - S2R R0, SR_TID.X ;
+Instr 2 @ 0x20 (32) - LDC R9, c[0x0][0x240] ;
+Instr 3 @ 0x30 (48) - ULDC.64 UR6, c[0x0][0x208] ;
+Instr 4 @ 0x40 (64) - IMAD.MOV.U32 R10, RZ, RZ, RZ ;
+Instr 5 @ 0x50 (80) - S2UR UR8, SR_CTAID.X ;
+Instr 6 @ 0x60 (96) - ISETP.GE.AND P0, PT, R0, R9, PT ;
+Instr 7 @ 0x70 (112) - @P0 BRA 0x280 ;
+Instr 8 @ 0x80 (128) - LDC R8, c[0x0][RZ] ;
+Instr 9 @ 0x90 (144) - SHF.R.S32.HI R10, RZ, 0x1f, R9 ;
+Instr 10 @ 0xa0 (160) - IMAD.WIDE.U32 R6, R9, UR8, RZ ;
+Instr 11 @ 0xb0 (176) - MOV R13, R0 ;
+Instr 12 @ 0xc0 (192) - IMAD R11, R10, UR8, RZ ;
+Instr 13 @ 0xd0 (208) - LDC.64 R2, c[0x0][0x210] ;
+Instr 14 @ 0xe0 (224) - IMAD.MOV.U32 R10, RZ, RZ, RZ ;
+Instr 15 @ 0xf0 (240) - IMAD.IADD R11, R7, 0x1, R11 ;
+Instr 16 @ 0x100 (256) - LDC.64 R4, c[0x0][0x218] ;
+Instr 17 @ 0x110 (272) - IADD3 R18, P0, R13, R6, RZ ;
+Instr 18 @ 0x120 (288) - LEA.HI.X.SX32 R19, R13, R11, 0x1, P0 ;
+Instr 19 @ 0x130 (304) - LOP3.LUT R12, R18.reuse, 0xc0, RZ, 0xc0, !PT ;
+Instr 20 @ 0x140 (320) - SHF.R.U64 R15, R18.reuse, 0x8, R19.reuse ;
+Instr 21 @ 0x150 (336) - LOP3.LUT R17, R18, 0x1f, RZ, 0xc0, !PT ;
+Instr 22 @ 0x160 (352) - SHF.R.U32.HI R16, RZ, 0x8, R19 ;
+Instr 23 @ 0x170 (368) - IMAD.WIDE.U32 R14, R15, 0x90, R2 ;
+Instr 24 @ 0x180 (384) - LEA.HI R17, R12, R17, RZ, 0x1f ;
+Instr 25 @ 0x190 (400) - IMAD R19, R16, 0x90, RZ ;
+Instr 26 @ 0x1a0 (416) - IADD3 R16, P0, R17, R14, RZ ;
+Instr 27 @ 0x1b0 (432) - IMAD.X R17, R15, 0x1, R19, P0 ;
+Instr 28 @ 0x1c0 (448) - LDG.E.U8 R16, desc[UR6][R16.64+0x10] ;
+Instr 29 @ 0x1d0 (464) - IMAD.WIDE R14, R13, 0x4, R4 ;
+Instr 30 @ 0x1e0 (480) - LDG.E R14, desc[UR6][R14.64] ;
+Instr 31 @ 0x1f0 (496) - SHF.R.U32.HI R12, RZ, 0x3, R18 ;
+Instr 32 @ 0x200 (512) - IADD3 R13, R8, R13, RZ ;
+Instr 33 @ 0x210 (528) - LOP3.LUT R19, R12, 0x4, RZ, 0xc0, !PT ;
+Instr 34 @ 0x220 (544) - ISETP.GE.AND P0, PT, R13, R9, PT ;
+Instr 35 @ 0x230 (560) - SHF.R.U32.HI R19, RZ, R19, R16 ;
+Instr 36 @ 0x240 (576) - LOP3.LUT R19, R19, 0xf, RZ, 0xc0, !PT ;
+Instr 37 @ 0x250 (592) - I2FP.F32.S32 R19, R19 ;
+Instr 38 @ 0x260 (608) - FFMA R10, R19, R14, R10 ;
+Instr 39 @ 0x270 (624) - @!P0 BRA 0x110 ;
+Instr 40 @ 0x280 (640) - WARPSYNC.ALL ;
+Instr 41 @ 0x290 (656) - SHFL.DOWN PT, R3, R10, 0x10, 0x1f ;
+Instr 42 @ 0x2a0 (672) - LOP3.LUT P0, RZ, R0.reuse, 0x1f, RZ, 0xc0, !PT ;
+Instr 43 @ 0x2b0 (688) - ISETP.GT.U32.AND P1, PT, R0, 0x7, PT ;
+Instr 44 @ 0x2c0 (704) - @!P0 S2R R9, SR_CgaCtaId ;
+Instr 45 @ 0x2d0 (720) - @!P0 MOV R6, 0x400 ;
+Instr 46 @ 0x2e0 (736) - @!P1 S2R R11, SR_CgaCtaId ;
+Instr 47 @ 0x2f0 (752) - FADD R3, R3, R10 ;
+Instr 48 @ 0x300 (768) - SHFL.DOWN PT, R2, R3, 0x8, 0x1f ;
+Instr 49 @ 0x310 (784) - @!P0 PRMT R6, R9, 0x654, R6 ;
+Instr 50 @ 0x320 (800) - FADD R2, R3, R2 ;
+Instr 51 @ 0x330 (816) - @!P0 SHF.R.U32.HI R3, RZ, 0x3, R0 ;
+Instr 52 @ 0x340 (832) - SHFL.DOWN PT, R5, R2, 0x4, 0x1f ;
+Instr 53 @ 0x350 (848) - @!P0 LOP3.LUT R3, R3, 0x1ffffffc, RZ, 0xc0, !PT ;
+Instr 54 @ 0x360 (864) - @!P0 IMAD.IADD R3, R3, 0x1, R6 ;
+Instr 55 @ 0x370 (880) - FADD R5, R2, R5 ;
+Instr 56 @ 0x380 (896) - @!P1 MOV R2, 0x400 ;
+Instr 57 @ 0x390 (912) - SHFL.DOWN PT, R4, R5, 0x2, 0x1f ;
+Instr 58 @ 0x3a0 (928) - @!P1 PRMT R11, R11, 0x654, R2 ;
+Instr 59 @ 0x3b0 (944) - @!P1 LEA R2, R0, R11, 0x2 ;
+Instr 60 @ 0x3c0 (960) - FADD R4, R5, R4 ;
+Instr 61 @ 0x3d0 (976) - IMAD.MOV.U32 R5, RZ, RZ, RZ ;
+Instr 62 @ 0x3e0 (992) - SHFL.DOWN PT, R7, R4, 0x1, 0x1f ;
+Instr 63 @ 0x3f0 (1008) - FADD R6, R4, R7 ;
+Instr 64 @ 0x400 (1024) - @!P0 STS [R3], R6 ;
+Instr 65 @ 0x410 (1040) - BAR.SYNC.DEFER_BLOCKING 0x0 ;
+Instr 66 @ 0x420 (1056) - ISETP.GT.U32.AND P0, PT, R0, 0x1f, PT ;
+Instr 67 @ 0x430 (1072) - BSSY B0, 0x530 ;
+Instr 68 @ 0x440 (1088) - @!P1 LDS R5, [R2] ;
+Instr 69 @ 0x450 (1104) - @P0 BRA 0x520 ;
+Instr 70 @ 0x460 (1120) - UMOV UR4, 0xffffffff ;
+Instr 71 @ 0x470 (1136) - BRA.DIV UR4, 0x5c0 ;
+Instr 72 @ 0x480 (1152) - SHFL.DOWN PT, R2, R5, 0x10, 0x1f ;
+Instr 73 @ 0x490 (1168) - FADD R2, R5, R2 ;
+Instr 74 @ 0x4a0 (1184) - SHFL.DOWN PT, R3, R2, 0x8, 0x1f ;
+Instr 75 @ 0x4b0 (1200) - FADD R3, R2, R3 ;
+Instr 76 @ 0x4c0 (1216) - SHFL.DOWN PT, R4, R3, 0x4, 0x1f ;
+Instr 77 @ 0x4d0 (1232) - FADD R4, R3, R4 ;
+Instr 78 @ 0x4e0 (1248) - SHFL.DOWN PT, R7, R4, 0x2, 0x1f ;
+Instr 79 @ 0x4f0 (1264) - FADD R7, R4, R7 ;
+Instr 80 @ 0x500 (1280) - SHFL.DOWN PT, R6, R7, 0x1, 0x1f ;
+Instr 81 @ 0x510 (1296) - FADD R5, R7, R6 ;
+Instr 82 @ 0x520 (1312) - BSYNC B0 ;
+Instr 83 @ 0x530 (1328) - ISETP.NE.AND P0, PT, R0, RZ, PT ;
+Instr 84 @ 0x540 (1344) - @P0 EXIT ;
+Instr 85 @ 0x550 (1360) - ULDC.64 UR4, c[0x0][0x228] ;
+Instr 86 @ 0x560 (1376) - ULEA UR4, UP0, UR8, UR4, 0x2 ;
+Instr 87 @ 0x570 (1392) - ULEA.HI.X UR5, UR8, UR5, URZ, 0x2, UP0 ;
+Instr 88 @ 0x580 (1408) - IMAD.U32 R2, RZ, RZ, UR4 ;
+Instr 89 @ 0x590 (1424) - MOV R3, UR5 ;
+Instr 90 @ 0x5a0 (1440) - STG.E desc[UR6][R2.64], R5 ;
+Instr 91 @ 0x5b0 (1456) - EXIT ;
+Instr 92 @ 0x5c0 (1472) - HFMA2.MMA R8, -RZ, RZ, 0, 9.5367431640625e-07 ;
+Instr 93 @ 0x5d0 (1488) - BSSY B1, 0x650 ;
+Instr 94 @ 0x5e0 (1504) - IMAD.MOV.U32 R3, RZ, RZ, R5 ;
+Instr 95 @ 0x5f0 (1520) - MOV R6, 0xffffffff ;
+Instr 96 @ 0x600 (1536) - IMAD.MOV.U32 R9, RZ, RZ, 0x1f ;
+Instr 97 @ 0x610 (1552) - WARPSYNC.COLLECTIVE R6, 0x640 ;
+Instr 98 @ 0x620 (1568) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 99 @ 0x630 (1584) - ENDCOLLECTIVE ;
+Instr 100 @ 0x640 (1600) - BSYNC B1 ;
+Instr 101 @ 0x650 (1616) - IMAD.MOV.U32 R2, RZ, RZ, R6 ;
+Instr 102 @ 0x660 (1632) - HFMA2.MMA R9, -RZ, RZ, 0, 1.847743988037109375e-06 ;
+Instr 103 @ 0x670 (1648) - IMAD.MOV.U32 R6, RZ, RZ, -0x1 ;
+Instr 104 @ 0x680 (1664) - FADD R2, R5, R2 ;
+Instr 105 @ 0x690 (1680) - IMAD.MOV.U32 R8, RZ, RZ, 0x8 ;
+Instr 106 @ 0x6a0 (1696) - MOV R3, R2 ;
+Instr 107 @ 0x6b0 (1712) - WARPSYNC.COLLECTIVE R6, 0x6e0 ;
+Instr 108 @ 0x6c0 (1728) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 109 @ 0x6d0 (1744) - ENDCOLLECTIVE ;
+Instr 110 @ 0x6e0 (1760) - IMAD.MOV.U32 R8, RZ, RZ, 0x4 ;
+Instr 111 @ 0x6f0 (1776) - MOV R3, R6 ;
+Instr 112 @ 0x700 (1792) - MOV R6, 0xffffffff ;
+Instr 113 @ 0x710 (1808) - FADD R3, R2, R3 ;
+Instr 114 @ 0x720 (1824) - WARPSYNC.COLLECTIVE R6, 0x750 ;
+Instr 115 @ 0x730 (1840) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 116 @ 0x740 (1856) - ENDCOLLECTIVE ;
+Instr 117 @ 0x750 (1872) - IMAD.MOV.U32 R8, RZ, RZ, 0x2 ;
+Instr 118 @ 0x760 (1888) - IMAD.MOV.U32 R4, RZ, RZ, R6 ;
+Instr 119 @ 0x770 (1904) - MOV R6, 0xffffffff ;
+Instr 120 @ 0x780 (1920) - FADD R4, R3, R4 ;
+Instr 121 @ 0x790 (1936) - MOV R3, R4 ;
+Instr 122 @ 0x7a0 (1952) - WARPSYNC.COLLECTIVE R6, 0x7d0 ;
+Instr 123 @ 0x7b0 (1968) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 124 @ 0x7c0 (1984) - ENDCOLLECTIVE ;
+Instr 125 @ 0x7d0 (2000) - IMAD.MOV.U32 R8, RZ, RZ, 0x1 ;
+Instr 126 @ 0x7e0 (2016) - IMAD.MOV.U32 R7, RZ, RZ, R6 ;
+Instr 127 @ 0x7f0 (2032) - MOV R6, 0xffffffff ;
+Instr 128 @ 0x800 (2048) - FADD R7, R4, R7 ;
+Instr 129 @ 0x810 (2064) - MOV R3, R7 ;
+Instr 130 @ 0x820 (2080) - WARPSYNC.COLLECTIVE R6, 0x850 ;
+Instr 131 @ 0x830 (2096) - SHFL.DOWN P0, R6, R3, R8, R9 ;
+Instr 132 @ 0x840 (2112) - ENDCOLLECTIVE ;
+Instr 133 @ 0x850 (2128) - BRA 0x510 ;
+Instr 134 @ 0x860 (2144) - BRA 0x860;
+Instr 135 @ 0x870 (2160) - NOP;
+Instr 136 @ 0x880 (2176) - NOP;
+Instr 137 @ 0x890 (2192) - NOP;
+Instr 138 @ 0x8a0 (2208) - NOP;
+Instr 139 @ 0x8b0 (2224) - NOP;
+Instr 140 @ 0x8c0 (2240) - NOP;
+Instr 141 @ 0x8d0 (2256) - NOP;
+Instr 142 @ 0x8e0 (2272) - NOP;
+Instr 143 @ 0x8f0 (2288) - NOP;
+kernel 7 - void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int) - #thread-blocks 256,  kernel instructions 8504832, total instructions 114389504
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=0|LDC = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1008|FADD = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1024|STS = 2048
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1040|BAR.SYNC.DEFER_BLOCKING = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1056|ISETP.GT.U32.AND = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1072|BSSY = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1088|LDS = 2048
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1104|BRA = 57344
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1120|UMOV = 8192
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1136|BRA.DIV = 8192
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1152|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1168|FADD = 8192
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1184|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1200|FADD = 8192
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1216|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1232|FADD = 8192
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1248|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1264|FADD = 8192
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1280|SHFL.DOWN = 8192
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=128|LDC = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1296|FADD = 8192
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1312|BSYNC = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1328|ISETP.NE.AND = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1344|EXIT = 65280
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1360|ULDC.64 = 256
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1376|ULEA = 256
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1392|ULEA.HI.X = 256
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1408|IMAD.U32 = 256
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1424|MOV = 256
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1440|STG.E = 256
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=144|SHF.R.S32.HI = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=1456|EXIT = 256
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=160|IMAD.WIDE.U32 = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=16|S2R = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=176|MOV = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=192|IMAD = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=208|LDC.64 = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=224|IMAD.MOV.U32 = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=240|IMAD.IADD = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=256|LDC.64 = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=272|IADD3 = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=288|LEA.HI.X.SX32 = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=304|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=320|SHF.R.U64 = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=32|LDC = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=336|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=352|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=368|IMAD.WIDE.U32 = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=384|LEA.HI = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=400|IMAD = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=416|IADD3 = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=432|IMAD.X = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=448|LDG.E.U8 = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=464|IMAD.WIDE = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=480|LDG.E = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=48|ULDC.64 = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=496|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=512|IADD3 = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=528|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=544|ISETP.GE.AND = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=560|SHF.R.U32.HI = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=576|LOP3.LUT = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=592|I2FP.F32.S32 = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char consPROFILE format=q4_K variant=codes_only_DIAGNOSTIC mode=matvec weights=262144 blocks=256 threads=256
+t*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=608|FFMA = 262144
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=624|BRA = 196608
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=640|WARPSYNC.ALL = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=64|IMAD.MOV.U32 = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=656|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=672|LOP3.LUT = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=688|ISETP.GT.U32.AND = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=704|S2R = 2048
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=720|MOV = 2048
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=736|S2R = 2048
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=752|FADD = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=768|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=784|PRMT = 2048
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=800|FADD = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=80|S2UR = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=816|SHF.R.U32.HI = 2048
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=832|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=848|LOP3.LUT = 2048
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=864|IMAD.IADD = 2048
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=880|FADD = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=896|MOV = 2048
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=912|SHFL.DOWN = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=928|PRMT = 2048
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=944|LEA = 2048
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=960|FADD = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=96|ISETP.GE.AND = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=976|IMAD.MOV.U32 = 65536
+  void diagnostic_kernel<1, 3, 2>(unsigned char const*, float const*, __half*, float*, unsigned long, unsigned long, int)|pc=992|SHFL.DOWN = 65536
