@@ -1,0 +1,2 @@
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 95350 MiB):
+  Device 0: NVIDIA H100, compute capability 9.0, VMM: yes, VRAM: 95350 MiB
