@@ -126,9 +126,7 @@ weight, which turns the format into a simpler one with a single scale per block 
 instead first multiply and add up the weights of a sub-block as small integers, and then multiply the result by the
 inner scale once. This needs one multiplication per sub-block instead of one per weight, and keeps the arithmetic
 narrow. Avant-Garde also only supports scales that are powers of two, whereas GGUF uses arbitrary scales, offsets
-and lookup tables. Finally, a GPU uses a lot of power even
-when idle, so a format that is processed more slowly also wastes idle energy, and we therefore report both the total
-energy and the energy above idle.
+and lookup tables.
 
 \subsection{New related work}
 Avant-Garde~\cite{ag} adds hardware support for multi-level formats with power-of-two scales to a simulated GPU,
