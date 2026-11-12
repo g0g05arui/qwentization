@@ -85,10 +85,10 @@ The problem we study has changed since the proposal. The proposal asked whether 
 formats, as in the Avant-Garde design~\cite{ag}, makes LLMs run faster. Our measurements show that speed is the
 wrong goal for local inference. To generate each token, the GPU must read every weight of the model from memory once
 (15.5\,GB for our model), so the speed is limited by how fast memory can deliver data, not by how fast the GPU can
-compute~\cite{splitwise}. Faster arithmetic would not help.
+compute~\cite{splitwise,flute}. Faster arithmetic would not help.
 
 We therefore look at energy instead. Compressing the weights reduces the amount of data read from memory, and
-moving data is the main source of energy use in computer chips~\cite{horowitz}. However, no GPU can read these
+reading data from memory costs far more energy than computing on it~\cite{horowitz}. However, no GPU can read these
 formats directly, so the GPU has to decompress every weight in software before using it, and this costs energy too.
 We found that this cost is large: the most common format makes the weights 3.6 times smaller than uncompressed
 16-bit weights, but reduces energy by only 2.2 times. Our new question is how much energy is spent on this software
@@ -131,7 +131,8 @@ and lookup tables.
 \subsection{New related work}
 Avant-Garde~\cite{ag} adds hardware support for multi-level formats with power-of-two scales to a simulated GPU,
 but does not cover the other features of GGUF formats or the single-user setting. Other recent work designs hardware for similar block
-formats~\cite{mxnpu} or for formats based on lookup tables~\cite{lut,flute}, and we will build on these.
+formats~\cite{mxnpu} or for formats based on lookup tables~\cite{lut}, or speeds up lookup-table formats in
+software on existing GPUs~\cite{flute}, and we will build on these.
 
 \section{Questions, Hypotheses and Tests}
 
@@ -308,7 +309,7 @@ energy it saves per generated token and how much chip area and power it costs.
 \bibitem{ag} M.~Gil et al., ``Avant-Garde: Empowering GPUs with Scaled Numeric Formats,'' ISCA, 2025.
 \bibitem{splitwise} P.~Patel et al., ``Splitwise: Efficient Generative LLM Inference Using Phase Splitting,'' ISCA, 2024.
 \bibitem{horowitz} M.~Horowitz, ``Computing's Energy Problem (and What We Can Do About It),'' ISSCC, 2014.
-\bibitem{mxnpu} Z.~Zhao et al., ``MX-Like Tensor Core for LLM Inference with NPU Integration,'' arXiv:2610.26083, 2026.
+\bibitem{mxnpu} Z.~Zhao et al., ``MX-Like Tensor Core for LLM Inference with NPU Integration via Hardware-Software Co-Design Exploration,'' arXiv:2610.26083, 2026.
 \bibitem{lut} Z.~Mo et al., ``LUT Tensor Core: A Software-Hardware Co-Design for LUT-Based Low-Bit LLM Inference,'' ISCA, 2025.
 \bibitem{flute} H.~Guo et al., ``Fast Matrix Multiplications for Lookup Table-Quantized LLMs,'' Findings of EMNLP, 2024.
 \end{thebibliography}}
