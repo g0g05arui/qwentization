@@ -104,30 +104,35 @@ choices made by Avant-Garde~\cite{ag} with ours.
 \centering\small
 \caption{New design dimensions, comparing Avant-Garde with our approach.}
 \label{tab:design}
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.27\columnwidth}>{\raggedright\arraybackslash}p{0.29\columnwidth}>{\raggedright\arraybackslash}p{0.36\columnwidth}@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.26\columnwidth}>{\raggedright\arraybackslash}p{0.30\columnwidth}>{\raggedright\arraybackslash}p{0.36\columnwidth}@{}}
 \toprule
 Dimension & Avant-Garde & This project\\
 \midrule
-Part of the GPU & Matrix units & General-purpose cores\\\addlinespace[3pt]
+Part of the GPU & Tensor cores & General-purpose cores\\\addlinespace[3pt]
 Where weights are decompressed & Expanded in memory & Compressed until just before use\\\addlinespace[3pt]
-How scales are applied & To every weight & Once per block\\\addlinespace[3pt]
-Formats & Simple scales & Two-level scales, offsets, lookup tables\\\addlinespace[3pt]
+Where the inner scale is applied & Folded into every weight & Once to each sub-block's sum\\\addlinespace[3pt]
+Formats & Multi-level power-of-two scales & Also non-power-of-two scales, offsets, lookup tables\\\addlinespace[3pt]
 Metric & Speed & Energy, total and above idle\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 These choices follow from our setting. When generating text for a single user, the GPU uses its general-purpose
-cores rather than the matrix units that Avant-Garde extends. Storing weights in expanded form roughly doubles the
+cores rather than the tensor cores, the specialized matrix units that Avant-Garde extends. Storing weights in expanded form roughly doubles the
 data read from memory, which is exactly the cost we want to avoid, so we keep them compressed until the last
-moment. Applying the scale once to the sum of each block, instead of to every weight, saves most of the
-multiplications. GGUF needs more kinds of formats than Avant-Garde supports. Finally, a GPU uses a lot of power even
+moment. Both Avant-Garde and GGUF use multi-level formats, in which a large block has one scale and each smaller
+sub-block inside it has a second, inner scale. Avant-Garde handles this by folding the inner scale into every
+weight, which turns the format into a simpler one with a single scale per block but makes every weight wider. We
+instead first multiply and add up the weights of a sub-block as small integers, and then multiply the result by the
+inner scale once. This needs one multiplication per sub-block instead of one per weight, and keeps the arithmetic
+narrow. Avant-Garde also only supports scales that are powers of two, whereas GGUF uses arbitrary scales, offsets
+and lookup tables. Finally, a GPU uses a lot of power even
 when idle, so a format that is processed more slowly also wastes idle energy, and we therefore report both the total
 energy and the energy above idle.
 
 \subsection{New related work}
-Avant-Garde~\cite{ag} adds hardware support for simple compressed formats to a simulated GPU, but does not cover
-the formats used by GGUF or the single-user setting. Other recent work designs hardware for similar block
+Avant-Garde~\cite{ag} adds hardware support for multi-level formats with power-of-two scales to a simulated GPU,
+but does not cover the other features of GGUF formats or the single-user setting. Other recent work designs hardware for similar block
 formats~\cite{mxnpu} or for formats based on lookup tables~\cite{lut,flute}, and we will build on these.
 
 \section{Questions, Hypotheses and Tests}
