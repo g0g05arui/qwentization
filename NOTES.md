@@ -97,6 +97,11 @@ exceeds the 50 MB L2 and the run streams from DRAM.
 
 **Formats:** F16, Q8_0, Q4_0, Q4_1, Q4_K, Q5_K, Q6_K, IQ4_XS, IQ4_NL.
 
+> **Implemented** as a standalone benchmark in [`bench/`](bench/README.md) (`matvec_energy`):
+> no llama.cpp patch is needed, NVML energy is read in-process, and the idle baseline,
+> repetitions and results table are produced by the tool. Steps 1–6 below are kept
+> as the original manual procedure.
+
 ### Step 1: Add the benchmark cases to llama.cpp
 
 In `tests/test-backend-ops.cpp`, at the top of `make_test_cases_perf()` add:

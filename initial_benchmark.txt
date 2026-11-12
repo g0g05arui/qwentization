@@ -1,11 +1,11 @@
-[mindreia@kuma2 ~]$ salloc --account=cs471 --partition=h100 --nodes=1 --ntasks=1 --cpus-per-task=16 --gres=gpu:1 --time=01:00:00
+[user@kuma2 ~]$ salloc --account=cs471 --partition=h100 --nodes=1 --ntasks=1 --cpus-per-task=16 --gres=gpu:1 --time=01:00:00
 salloc: [ESTIMATION] The estimated cost of this job is CHF 0.00
 salloc: ╭──────────────────────────────┬─────────────┬─────────────┬─────────────╮
 salloc: │ [in CHF]                     │ Capping     │ Consumed    │ Queued ¹⁾ ²⁾│
 salloc: ├──────────────────────────────┼─────────────┼─────────────┼─────────────┤
 salloc: │ account : cs471              │ 0           │ 0.0         │ 0.0         │
 salloc: ├──────────────────────────────┼─────────────┼─────────────┼─────────────┤
-salloc: │ username : mindreia          │ 0           │ 0.0         │ 0.0         │
+salloc: │ username : user              │ 0           │ 0.0         │ 0.0         │
 salloc: ╰──────────────────────────────┴─────────────┴─────────────┴─────────────╯
 salloc: ¹⁾ Estimated cost of the queued jobs and this job
 salloc: ²⁾ Queued jobs costs are based on its walltime (option --time)
@@ -15,14 +15,14 @@ salloc: job 4871098 has been allocated resources
 salloc: Granted job allocation 4871098
 salloc: Waiting for resource configuration
 salloc: Nodes kh060 are ready for job
-[mindreia@kuma2 ~]$ srun --pty bash
+[user@kuma2 ~]$ srun --pty bash
 module load gcc cmake cuda
-cd /scratch/mindreia/qwen-bench/llama.cpp
+cd /scratch/$USER/qwen-bench/llama.cpp
 ./build/bin/llama-bench --list-devices
-[mindreia@kh060 ~]$ ls -lh /scratch/mindreia/qwen-bench/models/
-ls: cannot access '/scratch/mindreia/qwen-bench/models/': No such file or directory
-[mindreia@kh060 ~]$ module load gcc cmake cuda
-cd /scratch/mindreia/qwen-bench
+[user@kh060 ~]$ ls -lh /scratch/$USER/qwen-bench/models/
+ls: cannot access '/scratch/$USER/qwen-bench/models/': No such file or directory
+[user@kh060 ~]$ module load gcc cmake cuda
+cd /scratch/$USER/qwen-bench
 
 ./llama.cpp/build/bin/llama-bench --list-devices
 
@@ -39,7 +39,7 @@ Available devices:
                                  Dload  Upload   Total   Spent    Left  Speed
 100  1060  100  1060    0     0   6928      0 --:--:-- --:--:-- --:--:--  6928
 100 14.9G  100 14.9G    0     0  94.4M      0  0:02:42  0:02:42 --:--:-- 70.3M
-[mindreia@kh060 qwen-bench]$ ./llama.cpp/build/bin/llama-bench \
+[user@kh060 qwen-bench]$ ./llama.cpp/build/bin/llama-bench \
   -m models/Qwen3.8-27B-Q4_0.gguf \
   -ngl 999 \
   -t 16 \
@@ -56,9 +56,9 @@ Available devices:
 | qwen35 27B Q4_0                |  14.94 GiB |    27.32 B | CUDA       | 999 |      16 |     512 |   1 |           tg128 |         84.43 ± 0.05 |
 
 build: a4d4f2fd4 (12230)
-[mindreia@kh060 qwen-bench]$ command -v nsys
+[user@kh060 qwen-bench]$ command -v nsys
 /ssoft/spack/pinot-noir/kuma-h100/v2/spack/opt/spack/linux-rhel9-zen4/gcc-13.2.0/cuda-12.4.1-4h4wdshlayz4fomm4m5z2euvtjuhyoyy/bin/nsys
-[mindreia@kh060 qwen-bench]$ nsys profile \
+[user@kh060 qwen-bench]$ nsys profile \
   --trace=cuda,nvtx \
   --sample=none \
   --cpuctxsw=none \
@@ -80,8 +80,8 @@ build: a4d4f2fd4 (12230)
 Generating '/tmp/4871098/nsys-report-7344.qdstrm'
 [1/1] [========================100%] prefill.nsys-rep
 Generated:
-    /scratch/mindreia/qwen-bench/results/prefill.nsys-rep
-[mindreia@kh060 qwen-bench]$ nsys stats \
+    /scratch/$USER/qwen-bench/results/prefill.nsys-rep
+[user@kh060 qwen-bench]$ nsys stats \
   --report cuda_gpu_kern_sum \
   results/prefill.nsys-rep \
   | tee results/prefill-kernels.txt
@@ -126,7 +126,7 @@ Processing [results/prefill.sqlite] with [/ssoft/spack/pinot-noir/kuma-h100/v2/s
       0.0          152,935        192      796.5      767.0       638     1,824        128.6  void unary_op_kernel<&op_sigmoid, float>(const T2 *, T2 *, int)                                     
       0.0           13,301         12    1,108.4      735.0       543     3,904        983.1  quantize_q8_1(const float *, void *, long, long, long, long, long, unsigned int, uint3)             
 
-[mindreia@kh060 qwen-bench]$ nsys profile \
+[user@kh060 qwen-bench]$ nsys profile \
   --trace=cuda,nvtx \
   --sample=none \
   --cpuctxsw=none \
@@ -148,8 +148,8 @@ build: a4d4f2fd4 (12230)
 Generating '/tmp/4871098/nsys-report-db5e.qdstrm'
 [1/1] [========================100%] decode.nsys-rep
 Generated:
-    /scratch/mindreia/qwen-bench/results/decode.nsys-rep
-[mindreia@kh060 qwen-bench]$ nsys stats \
+    /scratch/$USER/qwen-bench/results/decode.nsys-rep
+[user@kh060 qwen-bench]$ nsys stats \
   --report cuda_gpu_kern_sum \
   results/decode.nsys-rep \
   | tee results/decode-kernels.txt
@@ -189,5 +189,5 @@ Processing [results/decode.sqlite] with [/ssoft/spack/pinot-noir/kuma-h100/v2/sp
       0.1        4,165,807      6,160      676.3      640.0       575     1,920         90.6  void unary_gated_op_kernel<&op_sigmoid, float>(const T2 *, const T2 *, T2 *, long, long, long, long)
       0.0        1,425,923        384    3,713.3    3,903.5       639     6,591      2,498.7  void scale_f32<float>(const T1 *, T1 *, float, float, unsigned int, uint3, uint3, uint3, unsigned i…
 
-[mindreia@kh060 qwen-bench]$ 
+[user@kh060 qwen-bench]$ 
 
